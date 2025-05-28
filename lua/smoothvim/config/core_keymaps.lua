@@ -3,7 +3,7 @@
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = "\\"
 
-local keymap = vim.keymaplocal
+local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
 keymap.set("i", "jk", "<ESC>", opts, { desc = "Exit insert mode with jk" })

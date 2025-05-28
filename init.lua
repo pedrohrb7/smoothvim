@@ -1,2 +1,2 @@
-require("smoothvim.lazy")
 require("smoothvim.config")
+require("smoothvim.lazy")
