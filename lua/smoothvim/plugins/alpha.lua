@@ -98,7 +98,7 @@ return {
     }
 
     dashboard.leader = "\\"
-    dashboard.section.header.val = smoothvim2
+    dashboard.section.header.val = smoothvim
     dashboard.section.header.opts = opts
     dashboard.section.opts = opts
     alpha.setup(dashboard.opts)
