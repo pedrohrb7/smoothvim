@@ -1,3 +1,3 @@
-require("smoothvim.config.core_config")
-require("smoothvim.config.core_keymaps")
-require("smoothvim.config.plugins_keymaps")
+require("smoothvim.config.core")
+require("smoothvim.config.keymaps.core")
+require("smoothvim.config.keymaps.plugins")
