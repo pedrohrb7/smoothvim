@@ -45,3 +45,88 @@ end, { desc = "Conform Format file or range" })
 -- Noice Plugin
 -- This will help when a lot of notifications appears
 keymap.set("n", "<leader>nd", ":NoiceDismiss<CR>", opts, { desc = "Noice Dismiss notification" })
+
+-- custom buffer navigation
+keymap.set("n", "<S-l>", "<cmd>BufferNext<CR>", opts, { desc = "better way to navigate to next buffer" })
+keymap.set("n", "<S-h>", "<cmd>BufferPrevious<CR>", opts, { desc = "better way to navigate to previous buffer" })
+keymap.set("n", "<C-w>", "<cmd>BufferClose<CR>", opts, { desc = "Close current tab" }) -- close current tab
+
+-- Substitute plugin
+keymap.set("n", "s", function()
+  local subs = require("substitute")
+  subs.operator()
+end, { desc = "Substitute with motion" })
+
+keymap.set("n", "ss", "require('substitute').line", { desc = "Substitute line" })
+keymap.set("n", "S", "require('substitute').eol", { desc = "Substitute to end of line" })
+keymap.set("v", "s", "require('substitute').visual", { desc = "Substitute in visual mode" })
+
+-- LSP
+keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Show LSP definitions" }) -- show lsp definitions
+
+keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", { desc = "Show LSP references" }) -- show definition, references
+
+keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Smart rename" }) -- smart rename
+
+keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "See available code actions" }) -- see available code actions, in visual mode will apply to selection
+
+keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" }) -- go to declaration
+
+keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", { desc = "Show LSP implementations" }) -- show lsp implementations
+
+keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", { desc = "Show LSP type definitions" }) -- show lsp type definitions
+
+keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Show buffer diagnostics" }) -- show  diagnostics for file
+
+keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" }) -- show diagnostics for line
+
+keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" }) -- jump to previous diagnostic in buffer
+
+keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" }) -- jump to next diagnostic in buffer
+
+keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show documentation for what is under cursor" }) -- show documentation for what is under cursor
+
+-- opts.desc = 'Show Signature Help for what is under cursor'
+-- keymap.set('n', '<C-K>', vim.lsp.buf.signature_help, opts)
+
+opts.desc = "Restart LSP"
+keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+
+-- End LSP
+
+-- LSP Signature Help Plugin
+keymap.set("n", "<leader>k", function()
+  vim.lsp.buf.signature_help()
+end, opts, { desc = "toggle signature" })
+
+-- GitSigns Plugin
+keymap.set("n", "]h", ":Gitsigns next_hunk<CR>", opts, { desc = "GitSigns Next Hunk" })
+keymap.set("n", "[h", ":Gitsigns prev_hunk<CR>", opts, { desc = "GitSigns Prev Hunk" })
+
+keymap.set("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts, { desc = "GitSigns Stage hunk in NORMAL mode" })
+keymap.set("v", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts, { desc = "GitSigns Stage hunk in VISUAL mode" })
+
+keymap.set("n", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts, { desc = "GitSigns reset hunk in NORMAL mode" })
+keymap.set("v", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts, { desc = "GitSigns reset hunk in VISUAL mode" })
+
+keymap.set("n", "<leader>hS", "<cmd>Gitsigns stage_buffer<CR>", opts, { desc = "GitSigns Stage Buffer" })
+keymap.set("n", "<leader>hR", "<cmd>Gitsigns reset_buffer<CR>", opts, { desc = "GitSigns RESET Buffer" })
+
+keymap.set("n", "<leader>hd", '<cmd>lua require"gitsigns".diffthis("~")<CR>', opts, { desc = "GitSigns VDiffThis " })
+keymap.set("n", "<leader>hu", "<cmd>Gitsigns undo_stage_hunk<CR>", opts, { desc = "GitSigns Undo Stage Hunk" })
+keymap.set(
+  "n",
+  "<leader>hb",
+  '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
+  opts,
+  { desc = "GitSigns Blame Full" }
+)
+keymap.set("n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>", opts, { desc = "GitSigns Show Hunk Preview" })
+keymap.set("n", "<leader>td", "<cmd>Gitsigns toggle_deleted<CR>", opts, { desc = "GitSigns Toggle Deleted" })
+-- End GitSigns Plugin
+
+-- LazyGit Plugin
+keymap.set("n", "<leader>lg", ":LazyGitCurrentFile<CR>", opts, { desc = "LazyGit Current File" })
+
+-- LazyDocker Plugin
+keymap.set("n", "<leader>ld", ":Lazydocker<CR>", opts, { desc = "LazyGit Current File" })
