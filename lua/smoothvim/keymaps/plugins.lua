@@ -51,16 +51,6 @@ keymap.set("n", "<S-l>", "<cmd>BufferNext<CR>", opts, { desc = "better way to na
 keymap.set("n", "<S-h>", "<cmd>BufferPrevious<CR>", opts, { desc = "better way to navigate to previous buffer" })
 keymap.set("n", "<C-w>", "<cmd>BufferClose<CR>", opts, { desc = "Close current tab" }) -- close current tab
 
--- Substitute plugin
-keymap.set("n", "s", function()
-  local subs = require("substitute")
-  subs.operator()
-end, { desc = "Substitute with motion" })
-
-keymap.set("n", "ss", "require('substitute').line", { desc = "Substitute line" })
-keymap.set("n", "S", "require('substitute').eol", { desc = "Substitute to end of line" })
-keymap.set("v", "s", "require('substitute').visual", { desc = "Substitute in visual mode" })
-
 -- LSP
 keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Show LSP definitions" }) -- show lsp definitions
 
@@ -130,3 +120,34 @@ keymap.set("n", "<leader>lg", ":LazyGitCurrentFile<CR>", opts, { desc = "LazyGit
 
 -- LazyDocker Plugin
 keymap.set("n", "<leader>ld", ":Lazydocker<CR>", opts, { desc = "LazyGit Current File" })
+
+-- Ufo - Fold/Unfold
+vim.o.foldcolumn = "1" -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
+keymap.set("n", "zR", function()
+  require("ufo").openAllFolds()
+end, { desc = "UFO Open all folds" })
+
+keymap.set("n", "zM", function()
+  require("ufo").closeAllFolds()
+end, { desc = "UFO Close all folds" })
+
+keymap.set("n", "zK", function()
+  local winid = require("ufo").peekFoldedLinesUnderCursor()
+  if not winid then
+    vim.lsp.buf.hover()
+  end
+end, { desc = "Peek Fold" })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "nvcheatsheet", "neo-tree" },
+  callback = function()
+    require("ufo").detach()
+    vim.opt_local.foldenable = false
+  end,
+})
+
+-- end Ufo
