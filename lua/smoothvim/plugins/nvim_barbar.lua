@@ -7,7 +7,7 @@ return {
       insert_at_end = true,
       no_name_title = "Empty",
       icons = {
-        separator = { left = "▎", right = "▎" },
+        -- separator = { left = "▎", right = "▎" },
         -- preset = "",
         -- alternate = { filetype = { enabled = true } },
       },
