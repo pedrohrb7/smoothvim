@@ -31,6 +31,7 @@ return {
         "eslint",
         "ts_ls",
         "emmet_ls",
+        "jdtls",
       },
 
       automatic_installation = true,

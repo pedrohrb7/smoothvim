@@ -115,12 +115,6 @@ keymap.set("n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>", opts, { desc = "
 keymap.set("n", "<leader>td", "<cmd>Gitsigns toggle_deleted<CR>", opts, { desc = "GitSigns Toggle Deleted" })
 -- End GitSigns Plugin
 
--- LazyGit Plugin
-keymap.set("n", "<leader>lg", ":LazyGitCurrentFile<CR>", opts, { desc = "LazyGit Current File" })
-
--- LazyDocker Plugin
-keymap.set("n", "<leader>ld", ":Lazydocker<CR>", opts, { desc = "LazyGit Current File" })
-
 -- Ufo - Fold/Unfold
 vim.o.foldcolumn = "1" -- '0' is not bad
 vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -151,3 +145,31 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- end Ufo
+
+-- ToggleTerm Plugin
+keymap.set("n", "<C-t>", ":ToggleTerm<CR>", opts, { desc = "ToggleTerm on float mode" })
+
+-- LazyGit Plugin
+keymap.set("n", "<leader>lg", ":LazyGitCurrentFile<CR>", opts, { desc = "LazyGit Current File" })
+
+-- LazyDocker Plugin
+keymap.set("n", "<leader>ld", ":Lazydocker<CR>", opts, { desc = "LazyGit Current File" })
+
+-- JDTLS
+keymap.set("n", "<leader>co", "<Cmd>lua require'jdtls'.organize_imports()<CR>", { desc = "Organize Imports" })
+keymap.set("n", "<leader>crv", "<Cmd>lua require('jdtls').extract_variable()<CR>", { desc = "Extract Variable" })
+keymap.set(
+  "v",
+  "<leader>crv",
+  "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>",
+  { desc = "Extract Variable" }
+)
+keymap.set("n", "<leader>crc", "<Cmd>lua require('jdtls').extract_constant()<CR>", { desc = "Extract Constant" })
+keymap.set(
+  "v",
+  "<leader>crc",
+  "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>",
+  { desc = "Extract Constant" }
+)
+keymap.set("v", "<leader>crm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", { desc = "Extract Method" })
+-- End Java Keymaps
