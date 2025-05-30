@@ -1,4 +1,18 @@
 return {
+  -- Darkrose
+  {
+    "water-sucks/darkrose.nvim",
+    lazy = false,
+    priority = 1000,
+  },
+  -- Kanagawa
+  {
+    "rebelot/kanagawa.nvim",
+    config = function()
+      require("kanagawa").setup({})
+    end,
+  },
+
   -- ZitchDog theme
   {
     "theamallalgi/zitchdog",

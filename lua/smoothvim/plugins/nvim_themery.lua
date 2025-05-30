@@ -18,6 +18,9 @@ return {
         "zitchdog-grape",
         "nord",
         "tokyonight",
+        "kanagawa-wave",
+        "kanagawa-dragon",
+        "darkrose",
       },
     })
   end,
