@@ -1,8 +1,3 @@
--- local config = {
---   cmd = { vim.fn.expand '~/.local/share/jnvim/mason/bin/jdtls' },
---   root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
--- }
--- require('jdtls').start_or_attach(config)
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 
@@ -48,7 +43,6 @@ local config = {
   },
 
   root_dir = vim.fs.root(0, { ".git", "mvnw", "gradlew" }),
-  -- root_dir = require('jdtls.setup').find_root { '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' },
 
   settings = {
     java = {

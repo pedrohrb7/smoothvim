@@ -17,7 +17,6 @@ return {
         yaml = { "prettier" },
         markdown = { "prettier" },
         lua = { "stylua" },
-        -- html = { "htmlbeautifier" },
         -- java = { 'clang-format' },
         -- graphql = { 'prettier' },
         -- kotlin = { 'ktlint' },

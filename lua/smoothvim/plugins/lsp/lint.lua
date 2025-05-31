@@ -32,10 +32,5 @@ return {
         lint.try_lint()
       end,
     })
-
-    -- TODO: need to know how to put this keymap at keymap.lua
-    -- vim.keymap.set("n", "<leader>ll", function()
-    --   lint.try_lint()
-    -- end, { desc = "Trigger linting in current buffer" })
   end,
 }
