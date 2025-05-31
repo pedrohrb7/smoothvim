@@ -6,9 +6,13 @@ return {
 
   config = function()
     local alpha = require("alpha")
-    local dashboard = require("alpha.themes.startify")
+    local dashboard = require("alpha.themes.dashboard")
 
     local smoothvim = {
+      [[                                                                                                                                                              ]],
+      [[                                                                                                                                                              ]],
+      [[                                                                                                                                                              ]],
+      [[                                                                                                                                                              ]],
       [[                                                                                                                                                              ]],
       [[                                                                                                                                                              ]],
       [[                                                                                                                                                              ]],
@@ -28,6 +32,11 @@ return {
       [[       \|____|_____|   \|____|      |____|/    \|____||____|/   \|____||____|/  |____|          |____| |____|  \|___||___|/  |____| \|____|      |____|/      ]],
       [[          \(    )/        \(          )/          \(    )/         \(    )/       \(              \(     )/      \(    )/      \(      \(          )/         ]],
       [[           '    '          '          '            '    '           '    '         '               '     '        '    '        '       '          '          ]],
+      [[                                                                                                                                                              ]],
+      [[                                                                                                                                                              ]],
+      [[                                                                                                                                                              ]],
+      [[                                                                                                                                                              ]],
+      [[                                                                                                                                                              ]],
       [[                                                                                                                                                              ]],
       [[                                                                                                                                                              ]],
       [[                                                                                                                                                              ]],
@@ -95,6 +104,12 @@ return {
     local opts = {
       position = "center",
       hl = "Type",
+    }
+
+    dashboard.section.buttons.val = {
+      dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
+      dashboard.button("t", "  Find text", ":Telescope live_grep <CR>"),
+      dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
     }
 
     dashboard.leader = "\\"
