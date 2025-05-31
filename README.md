@@ -57,6 +57,12 @@ $ NVIM_APPNAME=smoothvim nvim
              ├── Restante dos plugins
 ```
 
+### Inspirações
+
+- [LunarVim](https://github.com/LunarVim/LunarVim)
+- [SpaceVim](https://github.com/wsdjeg/SpaceVim)
+- [TerminalRoot](https://www.youtube.com/TerminalRootTV)
+
 ## Inline code
 
 This web site is using `markedjs/marked`.
