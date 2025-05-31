@@ -29,11 +29,11 @@ return {
     config = function()
       local tkn = require("tokyonight")
       tkn.setup({
-        style = "storm",
-        transparent = true,
+        -- set to "false" to see colors better
+        transparent = false,
         styles = {
           -- Background styles. Can be "dark", "transparent" or "normal"
-          sidebars = "transparent", -- style for sidebars, see below
+          -- sidebars = "transparent", -- style for sidebars, see below
           -- floats = 'transparent', -- style for floating windows
           comments = { italic = true, bold = true },
           functions = { italic = true },
@@ -61,10 +61,5 @@ return {
         },
       })
     end,
-  },
-
-  -- Black metal theme
-  {
-    "metalelf0/base16-black-metal-scheme",
   },
 }
