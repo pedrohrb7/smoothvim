@@ -62,7 +62,3 @@ $ NVIM_APPNAME=smoothvim nvim
 - [LunarVim](https://github.com/LunarVim/LunarVim)
 - [SpaceVim](https://github.com/wsdjeg/SpaceVim)
 - [TerminalRoot](https://www.youtube.com/TerminalRootTV)
-
-## Inline code
-
-This web site is using `markedjs/marked`.

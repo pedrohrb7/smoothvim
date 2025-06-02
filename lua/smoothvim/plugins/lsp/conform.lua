@@ -35,6 +35,7 @@ return {
           command = util.from_node_modules("eslint_d"),
           args = { "--fix-to-stdout", "--stdin", "--stdin-filename", "$FILENAME" },
           cwd = util.root_file({
+            "eslint.config.mjs",
             "package.json",
             "eslintrc.json",
             "eslintrc.js",
