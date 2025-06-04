@@ -36,6 +36,7 @@ return {
           args = { "--fix-to-stdout", "--stdin", "--stdin-filename", "$FILENAME" },
           cwd = util.root_file({
             "eslint.config.mjs",
+            "eslint.config.js",
             "package.json",
             "eslintrc.json",
             "eslintrc.js",

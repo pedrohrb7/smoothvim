@@ -30,7 +30,7 @@ return {
       local tkn = require("tokyonight")
       tkn.setup({
         -- set to "false" to see colors better
-        transparent = false,
+        -- transparent = false,
         styles = {
           -- Background styles. Can be "dark", "transparent" or "normal"
           -- sidebars = "transparent", -- style for sidebars, see below
