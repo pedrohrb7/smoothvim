@@ -42,10 +42,6 @@ keymap.set("n", "<leader>mp", function()
   })
 end, { desc = "Conform Format file or range" })
 
--- Noice Plugin
--- This will help when a lot of notifications appears
-keymap.set("n", "<leader>nd", ":NoiceDismiss<CR>", opts, { desc = "Noice Dismiss notification" })
-
 -- custom buffer navigation
 keymap.set("n", "<S-l>", "<cmd>BufferNext<CR>", opts, { desc = "better way to navigate to next buffer" })
 keymap.set("n", "<S-h>", "<cmd>BufferPrevious<CR>", opts, { desc = "better way to navigate to previous buffer" })
