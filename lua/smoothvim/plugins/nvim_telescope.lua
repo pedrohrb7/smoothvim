@@ -49,27 +49,11 @@ return {
           colorscheme = {
             enable_preview = true,
           },
-          theme = "dropdown",
+          theme = "ivy",
           hidden = true,
         },
       },
       extensions = {
-        aerial = {
-          -- Set the width of the first two columns (the second
-          -- is relevant only when show_columns is set to 'both')
-          col1_width = 4,
-          col2_width = 30,
-          -- How to format the symbols
-          format_symbol = function(symbol_path, filetype)
-            if filetype == "json" or filetype == "yaml" then
-              return table.concat(symbol_path, ".")
-            else
-              return symbol_path[#symbol_path]
-            end
-          end,
-          -- Available modes: symbols, lines, both
-          show_columns = "both",
-        },
         media_files = {
           -- filetypes whitelist
           -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
@@ -77,15 +61,13 @@ return {
           -- find command (defaults to `fd`)
           find_cmd = "rg",
         },
-        ["ui-select"] = {
-          require("telescope.themes").get_dropdown({}),
-        },
       },
     })
 
     telescope.load_extension("fzf")
     telescope.load_extension("ui-select")
-    telescope.load_extension("noice")
+    telescope.load_extension("notify")
     telescope.load_extension("media_files")
+    -- telescope.load_extension("noice") -- need to install folke/noice to use
   end,
 }
