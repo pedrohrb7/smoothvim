@@ -2,6 +2,9 @@
 -- This config does not relates to any plugin config
 vim.cmd("let g:netrw_liststyle = 3")
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 local opt = vim.opt
 
 opt.relativenumber = true
@@ -37,13 +40,6 @@ opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 -- split windows
 opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
-
--- Cursor config
-opt.guicursor = ""
-  .. "n-v-c-sm:ver25-lCursor/lCursor," -- Normal
-  .. "i-ci-ve:ver25-lCursor/lCursor," -- Insert
-  .. "r-cr-o:hor20-vCursor/vCursor," -- Replace
-  .. "a:blinkon100-blinkoff100" -- Blink
 
 -- turn off swapfile
 opt.swapfile = false
