@@ -4,6 +4,18 @@ return {
 
   config = function()
     local luaLine = require("lualine")
+    local trouble = require("trouble")
+
+    local symbols = trouble.statusline({
+      mode = "lsp_document_symbols",
+      groups = {},
+      title = false,
+      filter = { range = true },
+      format = "{kind_icon}{symbol.name:Normal}",
+      -- The following line is needed to fix the background color
+      -- Set it to the lualine section you want to use
+      hl_group = "lualine_c_normal",
+    })
 
     -- Config
     local config = {
@@ -18,8 +30,8 @@ return {
       sections = {
         lualine_a = { { "mode", icon = "", separator = { left = "" }, right_padding = 2 } },
         lualine_b = { "filename", "branch", "diff" },
-        lualine_c = {},
-        lualine_x = { "aerial" },
+        lualine_c = { symbols.get },
+        lualine_x = {},
         lualine_y = { "diagnostics", "filetype", "progress" },
         lualine_z = {
           { "location", separator = { right = "" }, left_padding = 2 },
