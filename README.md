@@ -8,7 +8,7 @@
 
 ### O que _não_ é Smoothvim ?
 
-Uma IDE avançada que vai resolver todos o seus problemas.
+Uma IDE avançada que vai resolver todos os seus problemas.
 
 ### Motivações
 
@@ -25,7 +25,7 @@ $ NVIM_APPNAME=smoothvim nvim
 
 ## Requisitos
 
-- um terminal
+- um terminal (recomendo Kitty para que as font ligatures funcionem)
 - neovim
 - xclip
 - ripgrep
@@ -56,6 +56,14 @@ $ NVIM_APPNAME=smoothvim nvim
              │    └── configurações do mason (https://github.com/mason-org/mason.nvim)
              ├── Restante dos plugins
 ```
+
+### Qual usar ?
+
+As configs ficam divididas em branchs:
+
+- **main**: Uma config estável e funcional.
+- **develop**: Uma config onde testo novos plugins, pode quebrar em algum momento.
+- **smooth-vanilla**: Uma config focada em ser o mais clean possível, mantendo apenas plugins como: Mason, LSPs, Treesitter e etc.
 
 ### Inspirações
 
