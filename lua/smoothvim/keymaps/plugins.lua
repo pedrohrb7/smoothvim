@@ -29,9 +29,6 @@ keymap.set(
   { desc = "Buffer Diagnostics (Trouble)" }
 )
 
--- Theme manager plugin
-keymap.set("n", "<leader>tt", "<cmd>Themery<CR>", opts, { desc = "Themery choose theme" })
-
 -- Conform Plugin (formatting.lua)
 keymap.set("n", "<leader>mp", function()
   local conform = require("conform")
@@ -144,12 +141,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- ToggleTerm Plugin
 keymap.set("n", "<C-t>", ":ToggleTerm<CR>", opts, { desc = "ToggleTerm on float mode" })
-
--- LazyGit Plugin
-keymap.set("n", "<leader>lg", ":LazyGitCurrentFile<CR>", opts, { desc = "LazyGit Current File" })
-
--- LazyDocker Plugin
-keymap.set("n", "<leader>ld", ":Lazydocker<CR>", opts, { desc = "LazyGit Current File" })
 
 -- JDTLS
 keymap.set("n", "<leader>co", "<Cmd>lua require'jdtls'.organize_imports()<CR>", { desc = "Organize Imports" })
