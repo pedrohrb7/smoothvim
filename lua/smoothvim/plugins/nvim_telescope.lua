@@ -59,7 +59,7 @@ return {
           -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
           filetypes = { "png", "webp", "jpg", "jpeg", "pdf" },
           -- find command (defaults to `fd`)
-          find_cmd = "rg",
+          find_cmd = "fd",
         },
       },
     })
