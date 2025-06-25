@@ -98,17 +98,11 @@ keymap.set("v", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts, { desc = "GitSig
 keymap.set("n", "<leader>hS", "<cmd>Gitsigns stage_buffer<CR>", opts, { desc = "GitSigns Stage Buffer" })
 keymap.set("n", "<leader>hR", "<cmd>Gitsigns reset_buffer<CR>", opts, { desc = "GitSigns RESET Buffer" })
 
-keymap.set("n", "<leader>hd", '<cmd>lua require"gitsigns".diffthis("~")<CR>', opts, { desc = "GitSigns VDiffThis " })
-keymap.set("n", "<leader>hu", "<cmd>Gitsigns undo_stage_hunk<CR>", opts, { desc = "GitSigns Undo Stage Hunk" })
-keymap.set(
-  "n",
-  "<leader>hb",
-  '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
-  opts,
-  { desc = "GitSigns Blame Full" }
-)
-keymap.set("n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>", opts, { desc = "GitSigns Show Hunk Preview" })
-keymap.set("n", "<leader>td", "<cmd>Gitsigns toggle_deleted<CR>", opts, { desc = "GitSigns Toggle Deleted" })
+keymap.set("n", "<leader>hd", ":Gitsigns diffthis ~<CR>", opts, { desc = "GitSigns VDiffThis " })
+keymap.set("n", "<leader>hu", ":Gitsigns undo_stage_hunk<CR>", opts, { desc = "GitSigns Undo Stage Hunk" })
+keymap.set("n", "<leader>hb", ":Gitsigns blame<CR>", opts, { desc = "GitSigns Side Blame Full" })
+keymap.set("n", "<leader>hp", ":Gitsigns preview_hunk<CR>", opts, { desc = "GitSigns Show Hunk Preview" })
+keymap.set("n", "<leader>ht", ":Gitsigns toggle_deleted<CR>", opts, { desc = "GitSigns Toggle Deleted" })
 -- End GitSigns Plugin
 
 -- Ufo - Fold/Unfold
