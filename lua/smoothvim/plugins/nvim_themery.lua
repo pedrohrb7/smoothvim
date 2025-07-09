@@ -13,6 +13,11 @@ return {
         "kanagawa-wave",
         "kanagawa-dragon",
         "darkrose",
+        "onedark",
+        "onelight",
+        "onedark_vivid",
+        "onedark_dark",
+        "vaporwave",
       },
     })
   end,
