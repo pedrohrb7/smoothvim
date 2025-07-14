@@ -5,6 +5,8 @@ return {
     require("themery").setup({
       themes = {
         "zitchdog-grape",
+        "zitchdog-pine",
+        "zitchdog-night",
         "nord",
         "tokyonight-night",
         "tokyonight-storm",
