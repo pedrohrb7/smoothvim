@@ -67,4 +67,8 @@ return {
       })
     end,
   },
+
+  {
+    "vague2k/vague.nvim",
+  },
 }

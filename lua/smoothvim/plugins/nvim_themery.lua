@@ -14,6 +14,7 @@ return {
         "tokyonight-moon",
         "kanagawa-wave",
         "kanagawa-dragon",
+        "vague",
         "darkrose",
       },
     })

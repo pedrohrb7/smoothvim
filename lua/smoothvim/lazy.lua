@@ -21,6 +21,7 @@ require("lazy").setup({
     { import = "smoothvim.plugins.mason" },
     { import = "smoothvim.plugins.git" },
     { import = "smoothvim.custom" },
+    { import = "smoothvim.keymaps.which_key" },
   },
   defaults = {
     lazy = false,
