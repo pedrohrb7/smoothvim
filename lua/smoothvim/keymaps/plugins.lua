@@ -4,8 +4,8 @@ local keymap = vim.keymap -- for conciseness
 local opts = { noremap = true, silent = true }
 
 --Neo-tree plugin
-keymap.set("n", "<leader>ee", ":Neotree toggle<CR>", opts, { desc = "Toggle file explorer" }) -- toggle file explorer
-keymap.set("n", "<leader>bf", ":Neotree buffers reveal float<CR>", opts, { desc = "Reveal buffers in modal" })
+keymap.set("n", "<leader>ne", ":Neotree toggle<CR>", opts, { desc = "Toggle file explorer" }) -- toggle file explorer
+keymap.set("n", "<leader>nb", ":Neotree buffers reveal float<CR>", opts, { desc = "Reveal buffers in modal" })
 keymap.set("n", "--", ":Neotree reveal<CR>", opts, { desc = "Reveal file under cursos" })
 
 -- Lint
@@ -14,10 +14,9 @@ keymap.set("n", "<leader>ll", function()
 end, { desc = "Trigger linting in current buffer" })
 
 -- Telescope plugin
-keymap.set("n", "<leader>ff", "<cmd>Telescop find_files<CR>", opts, { desc = "Telescope Find file" })
-keymap.set("n", "<leader>fg", "<cmd>Telescop live_grep<CR>", { desc = "Telescope Search by word" })
-keymap.set("n", "<leader>fb", "<cmd>Telescop buffers<CR>", { desc = "Search in open buffers" })
-keymap.set("n", "<leader>fs", "<cmd>Telescop aerial<CR>", { desc = "Search symbols in current buffer" })
+keymap.set("n", "<leader>tf", "<cmd>Telescop find_files<CR>", opts, { desc = "Telescope Find file" })
+keymap.set("n", "<leader>tg", "<cmd>Telescop live_grep<CR>", { desc = "Telescope Search by word" })
+keymap.set("n", "<leader>tb", "<cmd>Telescop buffers<CR>", { desc = "Search in open buffers" })
 
 -- Trouble plugin
 keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", opts, { desc = "Diagnostics (Trouble)" })
@@ -107,37 +106,6 @@ keymap.set(
 keymap.set("n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>", opts, { desc = "GitSigns Show Hunk Preview" })
 keymap.set("n", "<leader>td", "<cmd>Gitsigns toggle_deleted<CR>", opts, { desc = "GitSigns Toggle Deleted" })
 -- End GitSigns Plugin
-
--- Ufo - Fold/Unfold
-vim.o.foldcolumn = "1" -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
-
-keymap.set("n", "zR", function()
-  require("ufo").openAllFolds()
-end, { desc = "UFO Open all folds" })
-
-keymap.set("n", "zM", function()
-  require("ufo").closeAllFolds()
-end, { desc = "UFO Close all folds" })
-
-keymap.set("n", "zK", function()
-  local winid = require("ufo").peekFoldedLinesUnderCursor()
-  if not winid then
-    vim.lsp.buf.hover()
-  end
-end, { desc = "Peek Fold" })
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "nvcheatsheet", "neo-tree" },
-  callback = function()
-    require("ufo").detach()
-    vim.opt_local.foldenable = false
-  end,
-})
-
--- end Ufo
 
 -- ToggleTerm Plugin
 keymap.set("n", "<C-t>", ":ToggleTerm<CR>", opts, { desc = "ToggleTerm on float mode" })
