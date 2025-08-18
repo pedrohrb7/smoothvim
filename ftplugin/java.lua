@@ -33,9 +33,7 @@ local config = {
     "java.base/java.lang=ALL-UNNAMED",
     "-javaagent:" .. lombokPath,
     "-jar",
-    vim.fn.expand(
-      "~/.local/share/smoothvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.7.0.v20250331-1702.jar"
-    ),
+    vim.fn.expand("~/.local/share/smoothvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
     "-configuration",
     vim.fn.expand("~/.local/share/smoothvim/mason/packages/jdtls/config_linux"),
     "-data",
@@ -85,15 +83,15 @@ local config = {
           "java.util.Objects.requireNonNullElse",
           "org.mockito.Mockito.*",
         },
+        importOrder = {
+          "java",
+          "javax",
+          "com",
+          "org",
+        },
       },
       contentProvider = {
         preferred = "fernflower",
-      },
-      sources = {
-        organizeImports = {
-          starThreshold = 9999,
-          staticStarThreshold = 9999,
-        },
       },
     },
     sources = {
@@ -102,6 +100,19 @@ local config = {
         staticStarThreshold = 9999,
       },
     },
+    codeGeneration = {
+      toString = {
+        template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+      },
+      useBlocks = true,
+    },
+  },
+
+  flags = {
+    allow_incremental_sync = true,
+  },
+  init_options = {
+    bundles = {},
   },
 
   -- Language server `initializationOptions`

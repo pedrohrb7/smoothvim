@@ -3,34 +3,10 @@
 local keymap = vim.keymap -- for conciseness
 local opts = { noremap = true, silent = true }
 
---Neo-tree plugin
-keymap.set("n", "<leader>ee", ":Neotree toggle<CR>", opts, { desc = "Toggle file explorer" }) -- toggle file explorer
-keymap.set("n", "<leader>bf", ":Neotree buffers reveal float<CR>", opts, { desc = "Reveal buffers in modal" })
-keymap.set("n", "--", ":Neotree reveal<CR>", opts, { desc = "Reveal file under cursos" })
-
 -- Lint
 keymap.set("n", "<leader>ll", function()
   require("lint").try_lint()
 end, { desc = "Trigger linting in current buffer" })
-
--- Telescope plugin
-keymap.set("n", "<leader>ff", "<cmd>Telescop find_files<CR>", opts, { desc = "Telescope Find file" })
-keymap.set("n", "<leader>fg", "<cmd>Telescop live_grep<CR>", { desc = "Telescope Search by word" })
-keymap.set("n", "<leader>fb", "<cmd>Telescop buffers<CR>", { desc = "Search in open buffers" })
-keymap.set("n", "<leader>fs", "<cmd>Telescop aerial<CR>", { desc = "Search symbols in current buffer" })
-
--- Trouble plugin
-keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", opts, { desc = "Diagnostics (Trouble)" })
-keymap.set(
-  "n",
-  "<leader>xX",
-  "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-  opts,
-  { desc = "Buffer Diagnostics (Trouble)" }
-)
-
--- Theme manager plugin
-keymap.set("n", "<leader>tt", "<cmd>Themery<CR>", opts, { desc = "Themery choose theme" })
 
 -- Conform Plugin (formatting.lua)
 keymap.set("n", "<leader>mp", function()
@@ -49,27 +25,16 @@ keymap.set("n", "<C-w>", "<cmd>BufferClose<CR>", opts, { desc = "Close current t
 
 -- LSP
 keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Show LSP definitions" }) -- show lsp definitions
-
-keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", { desc = "Show LSP references" }) -- show definition, references
-
-keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Smart rename" }) -- smart rename
-
-keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "See available code actions" }) -- see available code actions, in visual mode will apply to selection
-
-keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" }) -- go to declaration
-
-keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", { desc = "Show LSP implementations" }) -- show lsp implementations
-
 keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", { desc = "Show LSP type definitions" }) -- show lsp type definitions
-
+keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", { desc = "Show LSP references" }) -- show definition, references
+keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", { desc = "Show LSP implementations" }) -- show lsp implementations
 keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Show buffer diagnostics" }) -- show  diagnostics for file
 
+keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Smart rename" }) -- smart rename
+keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "See available code actions" }) -- see available code actions, in visual mode will apply to selection
 keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" }) -- show diagnostics for line
-
 keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" }) -- jump to previous diagnostic in buffer
-
 keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" }) -- jump to next diagnostic in buffer
-
 keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show documentation for what is under cursor" }) -- show documentation for what is under cursor
 
 -- opts.desc = 'Show Signature Help for what is under cursor'
@@ -98,17 +63,11 @@ keymap.set("v", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts, { desc = "GitSig
 keymap.set("n", "<leader>hS", "<cmd>Gitsigns stage_buffer<CR>", opts, { desc = "GitSigns Stage Buffer" })
 keymap.set("n", "<leader>hR", "<cmd>Gitsigns reset_buffer<CR>", opts, { desc = "GitSigns RESET Buffer" })
 
-keymap.set("n", "<leader>hd", '<cmd>lua require"gitsigns".diffthis("~")<CR>', opts, { desc = "GitSigns VDiffThis " })
-keymap.set("n", "<leader>hu", "<cmd>Gitsigns undo_stage_hunk<CR>", opts, { desc = "GitSigns Undo Stage Hunk" })
-keymap.set(
-  "n",
-  "<leader>hb",
-  '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
-  opts,
-  { desc = "GitSigns Blame Full" }
-)
-keymap.set("n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>", opts, { desc = "GitSigns Show Hunk Preview" })
-keymap.set("n", "<leader>td", "<cmd>Gitsigns toggle_deleted<CR>", opts, { desc = "GitSigns Toggle Deleted" })
+keymap.set("n", "<leader>hd", ":Gitsigns diffthis ~<CR>", opts, { desc = "GitSigns VDiffThis " })
+keymap.set("n", "<leader>hu", ":Gitsigns undo_stage_hunk<CR>", opts, { desc = "GitSigns Undo Stage Hunk" })
+keymap.set("n", "<leader>hb", ":Gitsigns blame<CR>", opts, { desc = "GitSigns Side Blame Full" })
+keymap.set("n", "<leader>hp", ":Gitsigns preview_hunk<CR>", opts, { desc = "GitSigns Show Hunk Preview" })
+keymap.set("n", "<leader>ht", ":Gitsigns toggle_deleted<CR>", opts, { desc = "GitSigns Toggle Deleted" })
 -- End GitSigns Plugin
 
 -- Ufo - Fold/Unfold
@@ -141,15 +100,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- end Ufo
-
--- ToggleTerm Plugin
-keymap.set("n", "<C-t>", ":ToggleTerm<CR>", opts, { desc = "ToggleTerm on float mode" })
-
--- LazyGit Plugin
-keymap.set("n", "<leader>lg", ":LazyGitCurrentFile<CR>", opts, { desc = "LazyGit Current File" })
-
--- LazyDocker Plugin
-keymap.set("n", "<leader>ld", ":Lazydocker<CR>", opts, { desc = "LazyGit Current File" })
 
 -- JDTLS
 keymap.set("n", "<leader>co", "<Cmd>lua require'jdtls'.organize_imports()<CR>", { desc = "Organize Imports" })
