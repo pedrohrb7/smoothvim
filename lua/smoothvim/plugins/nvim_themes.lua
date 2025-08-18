@@ -1,10 +1,4 @@
 return {
-  -- Darkrose
-  {
-    "water-sucks/darkrose.nvim",
-    lazy = false,
-    priority = 1000,
-  },
   -- Kanagawa
   {
     "rebelot/kanagawa.nvim",
@@ -13,11 +7,8 @@ return {
     end,
   },
 
-  -- ZitchDog theme
   {
-    "theamallalgi/zitchdog",
-    lazy = false,
-    priority = 1000,
+    "RRethy/nvim-base16",
   },
 
   -- Tokyonight theme
