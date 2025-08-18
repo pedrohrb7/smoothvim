@@ -19,13 +19,14 @@ return {
 
     -- or create your custom action
     local custom_actions = transform_mod({
-      open_trouble_qflist = function(prompt_bufnr)
+      open_trouble_qflist = function()
         trouble.toggle("quickfix")
       end,
     })
 
     telescope.setup({
       defaults = {
+        layout_config = { horizontal = { preview_cutoff = 0 } },
         path_display = { "smart" },
         file_ignore_patterns = {
           "node_modules",
@@ -45,10 +46,10 @@ return {
         },
       },
       pickers = {
+        colorscheme = {
+          enable_preview = true,
+        },
         find_files = {
-          colorscheme = {
-            enable_preview = true,
-          },
           theme = "ivy",
           hidden = true,
         },

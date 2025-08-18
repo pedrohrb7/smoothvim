@@ -48,4 +48,4 @@ require("lazy").setup({
   },
 })
 
-vim.cmd("colorscheme habamax")
+vim.cmd("colorscheme base16-atlas")
