@@ -40,8 +40,8 @@ keymap.set("v", "<", "<gv", opts, { desc = "Indent mode on back" })
 keymap.set("v", ">", ">gv", opts, { desc = "Indent mode on indenting" })
 
 -- insert new line
-keymap.set("n", "<leader>o", "o", opts, { desc = "insert new line below" })
-keymap.set("n", "<leader>O", "O", opts, { desc = "insert new line above" })
+keymap.set("n", "<leader>o", "o<ESC>", opts, { desc = "insert new line below" })
+keymap.set("n", "<leader>O", "O<ESC>", opts, { desc = "insert new line above" })
 
 -- Keep last yanked when pasting
 keymap.set("v", "p", '"_dP', opts)
