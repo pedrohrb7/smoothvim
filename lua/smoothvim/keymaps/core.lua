@@ -42,6 +42,10 @@ keymap.set("v", ">", ">gv", opts, { desc = "Indent mode on indenting" })
 -- Keep last yanked when pasting
 keymap.set("v", "p", '"_dP', opts)
 
+-- insert new line
+keymap.set("n", "<leader>o", "o<ESC>", opts, { desc = "insert new line below" })
+keymap.set("n", "<leader>O", "O<ESC>", opts, { desc = "insert new line above" })
+
 -- Autocommands
 vim.api.nvim_create_augroup("custom_buffer", { clear = true })
 

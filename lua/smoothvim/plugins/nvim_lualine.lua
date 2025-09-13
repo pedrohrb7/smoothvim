@@ -5,6 +5,7 @@ return {
   config = function()
     local luaLine = require("lualine")
     local trouble = require("trouble")
+    local sixbase = require("smoothvim.plugins.lualine_themes.16base")
 
     local symbols = trouble.statusline({
       mode = "lsp_document_symbols",
@@ -20,6 +21,7 @@ return {
     -- Config
     local config = {
       options = {
+        theme = sixbase,
         icons_enabled = true,
         disabled_filetypes = {
           statusline = { "neo-tree", "alpha" },

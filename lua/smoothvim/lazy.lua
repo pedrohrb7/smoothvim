@@ -47,4 +47,8 @@ require("lazy").setup({
   },
 })
 
-vim.cmd("colorscheme habamax")
+-- zaibatsu
+-- elflord
+-- murphy
+-- wildcharm
+vim.cmd("colorscheme wildcharm")

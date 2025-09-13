@@ -45,10 +45,10 @@ return {
         },
       },
       pickers = {
+        colorscheme = {
+          enable_preview = true,
+        },
         find_files = {
-          colorscheme = {
-            enable_preview = true,
-          },
           theme = "ivy",
           hidden = true,
         },

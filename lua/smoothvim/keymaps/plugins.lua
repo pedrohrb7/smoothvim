@@ -71,9 +71,6 @@ keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show documentation for what is
 -- opts.desc = 'Show Signature Help for what is under cursor'
 -- keymap.set('n', '<C-K>', vim.lsp.buf.signature_help, opts)
 
-opts.desc = "Restart LSP"
-keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
-
 -- End LSP
 
 -- LSP Signature Help Plugin
@@ -106,9 +103,6 @@ keymap.set(
 keymap.set("n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>", opts, { desc = "GitSigns Show Hunk Preview" })
 keymap.set("n", "<leader>td", "<cmd>Gitsigns toggle_deleted<CR>", opts, { desc = "GitSigns Toggle Deleted" })
 -- End GitSigns Plugin
-
--- ToggleTerm Plugin
-keymap.set("n", "<C-t>", ":ToggleTerm<CR>", opts, { desc = "ToggleTerm on float mode" })
 
 -- JDTLS
 keymap.set("n", "<leader>co", "<Cmd>lua require'jdtls'.organize_imports()<CR>", { desc = "Organize Imports" })
