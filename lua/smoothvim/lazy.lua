@@ -20,7 +20,6 @@ require("lazy").setup({
     { import = "smoothvim.plugins.lsp" },
     { import = "smoothvim.plugins.mason" },
     { import = "smoothvim.plugins.git" },
-    { import = "smoothvim.custom" },
   },
   defaults = {
     lazy = false,
