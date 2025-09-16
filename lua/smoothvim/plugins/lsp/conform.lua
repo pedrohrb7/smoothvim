@@ -7,22 +7,19 @@ return {
 
     conform.setup({
       formatters_by_ft = {
-        javascript = { "prettier" },
-        typescript = { "prettier" },
-        javascriptreact = { "prettier" },
-        typescriptreact = { "prettier" },
+        javascript = { "prettier", stop_after_first = true },
+        typescript = { "prettier", stop_after_first = true },
+        javascriptreact = { "prettier", stop_after_first = true },
+        typescriptreact = { "prettier", stop_after_first = true },
         css = { "prettier" },
         scss = { "prettier" },
         json = { "prettier" },
         yaml = { "prettier" },
         markdown = { "prettier" },
         lua = { "stylua" },
-        -- java = { 'clang-format' },
-        -- graphql = { 'prettier' },
-        -- kotlin = { 'ktlint' },
       },
       format_on_save = {
-        lsp_fallback = true,
+        lsp_format = "fallback",
         async = false,
         timeout_ms = 500,
       },
@@ -41,6 +38,25 @@ return {
             "eslintrc.json",
             "eslintrc.js",
             "eslintrc",
+          }),
+        },
+        prettier = {
+          -- cwd means "config working directory"
+          require_cwd = true,
+
+          cwd = util.root_file({
+            ".prettierrc",
+            ".prettierrc.json",
+            ".prettierrc.yml",
+            ".prettierrc.yaml",
+            ".prettierrc.json5",
+            ".prettierrc.js",
+            ".prettierrc.cjs",
+            ".prettierrc.mjs",
+            ".prettierrc.toml",
+            "prettier.config.js",
+            "prettier.config.cjs",
+            "prettier.config.mjs",
           }),
         },
       },
