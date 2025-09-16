@@ -16,6 +16,10 @@ keymap.set("n", "<leader>-", "<C-x>", opts, { desc = "Decrement number" }) -- de
 keymap.set("n", "<C-s>", "<cmd>:update<CR>", opts, { desc = "Update file changes" })
 keymap.set("n", "<C-q>", "<cmd>:q<CR>", opts, { desc = "Quit nvim" })
 
+--  buffer navigation
+keymap.set("n", "<S-l>", ":bnext<CR>", opts, { desc = "better way to navigate to next buffer" })
+keymap.set("n", "<S-h>", ":bprev<CR>", opts, { desc = "better way to navigate to previous buffer" })
+
 -- Visual Block --
 -- Move text up and down
 keymap.set("n", "<A-j>", ":m .+1<CR>==", opts, { desc = "move line up (normal mode)" }) -- move line up(n)

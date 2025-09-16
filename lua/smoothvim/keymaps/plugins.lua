@@ -38,11 +38,6 @@ keymap.set("n", "<leader>mp", function()
   })
 end, { desc = "Conform Format file or range" })
 
--- custom buffer navigation
-keymap.set("n", "<S-l>", "<cmd>BufferNext<CR>", opts, { desc = "better way to navigate to next buffer" })
-keymap.set("n", "<S-h>", "<cmd>BufferPrevious<CR>", opts, { desc = "better way to navigate to previous buffer" })
-keymap.set("n", "<C-w>", "<cmd>BufferClose<CR>", opts, { desc = "Close current tab" }) -- close current tab
-
 -- LSP
 keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Show LSP definitions" }) -- show lsp definitions
 
