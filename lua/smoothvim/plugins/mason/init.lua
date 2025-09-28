@@ -32,6 +32,7 @@ return {
         "ts_ls",
         "emmet_ls",
         "jdtls",
+        "kotlin_language_server",
       },
 
       automatic_installation = true,
@@ -42,6 +43,7 @@ return {
         "prettier", -- prettier formatter
         "stylua", -- lua formatter
         "cssls",
+        "kotlin_language_server",
         "lua-language-server",
         "editorconfig-checker",
         { "eslint_d", version = "13.1.2" },
