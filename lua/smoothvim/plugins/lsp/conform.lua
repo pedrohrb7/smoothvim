@@ -17,6 +17,9 @@ return {
         yaml = { "prettier" },
         markdown = { "prettier" },
         lua = { "stylua" },
+        kotlin = { "ktlint" },
+        cpp = { "clang-format" },
+        c = { "clang-format" },
       },
       format_on_save = {
         lsp_format = "fallback",
@@ -24,6 +27,12 @@ return {
         timeout_ms = 500,
       },
       formatters = {
+        clang_format = {
+          command = "clang-format",
+          args = { "--assume-filename", "$FILENAME" },
+          stdin = true,
+        },
+        klint = {},
         eslint_d = {
           meta = {
             url = "https://github.com/mantoni/eslint_d.js/",
