@@ -54,4 +54,4 @@ require("lazy").setup({
 -- elflord
 -- murphy
 -- wildcharm
-vim.cmd("colorscheme wildcharm")
+vim.cmd("colorscheme base16-ayu-dark")
