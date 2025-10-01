@@ -13,7 +13,6 @@ return {
       "luadoc",
       "vim",
       "vimdoc",
-      "jsonc",
       "printf",
       "tsx",
       "typescript",
