@@ -63,8 +63,7 @@ keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic"
 
 keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show documentation for what is under cursor" }) -- show documentation for what is under cursor
 
--- opts.desc = 'Show Signature Help for what is under cursor'
--- keymap.set('n', '<C-K>', vim.lsp.buf.signature_help, opts)
+keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help for what is under cursor" })
 
 -- End LSP
 
@@ -117,3 +116,6 @@ keymap.set(
 )
 keymap.set("v", "<leader>crm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", { desc = "Extract Method" })
 -- End Java Keymaps
+
+-- ToggleTerm plugin
+keymap.set("n", "<leader>tt", ":ToggleTerm<CR>", { desc = "ToggleTerm on float mode" })
