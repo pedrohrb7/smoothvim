@@ -21,7 +21,7 @@ return {
     -- Config
     local config = {
       options = {
-        theme = solirized_dark,
+        -- theme = solirized_dark,
         icons_enabled = true,
         disabled_filetypes = {
           statusline = { "neo-tree", "alpha" },

@@ -39,9 +39,9 @@ keymap.set("n", "<leader>mp", function()
 end, { desc = "Conform Format file or range" })
 
 -- LSP
-keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Show LSP definitions" }) -- show lsp definitions
+keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Show LSP definitions" }) -- show lsp definitions
 
-keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", { desc = "Show LSP references" }) -- show definition, references
+keymap.set("n", "gR", vim.lsp.buf.references, { desc = "Show LSP references" }) -- show definition, references
 
 keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Smart rename" }) -- smart rename
 
@@ -49,7 +49,7 @@ keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "See av
 
 keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" }) -- go to declaration
 
-keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", { desc = "Show LSP implementations" }) -- show lsp implementations
+keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Show LSP implementations" }) -- show lsp implementations
 
 keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", { desc = "Show LSP type definitions" }) -- show lsp type definitions
 
@@ -63,8 +63,7 @@ keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic"
 
 keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show documentation for what is under cursor" }) -- show documentation for what is under cursor
 
--- opts.desc = 'Show Signature Help for what is under cursor'
--- keymap.set('n', '<C-K>', vim.lsp.buf.signature_help, opts)
+keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help for what is under cursor" })
 
 -- End LSP
 
@@ -117,3 +116,6 @@ keymap.set(
 )
 keymap.set("v", "<leader>crm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", { desc = "Extract Method" })
 -- End Java Keymaps
+
+-- ToggleTerm plugin
+keymap.set("n", "<leader>tt", ":ToggleTerm<CR>", { desc = "ToggleTerm on float mode" })
