@@ -33,9 +33,7 @@ local config = {
     "java.base/java.lang=ALL-UNNAMED",
     "-javaagent:" .. lombokPath,
     "-jar",
-    vim.fn.expand(
-      "~/.local/share/smoothvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.7.0.v20250519-0528.jar"
-    ),
+    vim.fn.expand("~/.local/share/smoothvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
     "-configuration",
     vim.fn.expand("~/.local/share/smoothvim/mason/packages/jdtls/config_linux"),
     "-data",
