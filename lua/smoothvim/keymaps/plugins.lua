@@ -63,7 +63,7 @@ keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic"
 
 keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show documentation for what is under cursor" }) -- show documentation for what is under cursor
 
-keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help for what is under cursor" })
+-- keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help for what is under cursor" })
 
 -- End LSP
 
