@@ -20,6 +20,7 @@ return {
       "dockerfile",
       "java",
       "yaml",
+      "xml",
     }
     configs.setup({
       ensure_installed = ensure_installed,

@@ -50,7 +50,6 @@ require("lazy").setup({
   },
 })
 
-
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 -- used to enable autocompletion (assign to every lsp server config)
 local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -141,4 +140,4 @@ end
 -- elflord
 -- murphy
 -- wildcharm
-vim.cmd("colorscheme base16-ayu-dark")
+vim.cmd("colorscheme base16-catppuccin-frappe")
