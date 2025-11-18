@@ -7,6 +7,8 @@ local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
 keymap.set("i", "hl", "<ESC>", opts, { desc = "Exit insert mode with hl" })
+-- Exit Vim's terminal mode
+keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 keymap.set("n", "<leader>nh", ":nohl<CR>", opts, { desc = "Clear search highlights" })
 
 -- increment/decrement numbers

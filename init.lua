@@ -140,4 +140,4 @@ end
 -- elflord
 -- murphy
 -- wildcharm
-vim.cmd("colorscheme base16-catppuccin-frappe")
+vim.cmd("colorscheme base16-tokyo-night-terminal-storm")
