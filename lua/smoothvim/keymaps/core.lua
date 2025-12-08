@@ -22,6 +22,10 @@ keymap.set("n", "<C-q>", "<cmd>:q<CR>", opts, { desc = "Quit nvim" })
 keymap.set("n", "<S-l>", ":bnext<CR>", opts, { desc = "better way to navigate to next buffer" })
 keymap.set("n", "<S-h>", ":bprev<CR>", opts, { desc = "better way to navigate to previous buffer" })
 
+-- Easily split windows
+vim.keymap.set("n", "<leader>wv", ":vsplit<cr>", { desc = "[W]indow Split [V]ertical" })
+vim.keymap.set("n", "<leader>wh", ":split<cr>", { desc = "[W]indow Split [H]orizontal" })
+
 -- Visual Block --
 -- Move text up and down
 keymap.set("n", "<A-j>", ":m .+1<CR>==", opts, { desc = "move line up (normal mode)" }) -- move line up(n)

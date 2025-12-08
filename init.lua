@@ -105,12 +105,12 @@ local lsps = {
     --   capabilities = capabilities,
     -- },
   },
-  {
-    "jsonls",
-    {
-      -- capabilities = capabilities,
-    },
-  },
+  -- {
+  --   "jsonls",
+  --   {
+  -- capabilities = capabilities,
+  --   },
+  -- },
   {
     "cssls",
     {
