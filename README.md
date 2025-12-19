@@ -34,27 +34,35 @@ $ NVIM_APPNAME=smoothvim nvim
 ### Estrutura
 
 ```
-├── ftplugin
-│   └── java.lua - Configuração para executar em projetos Java. Remova se precisar.
 ├── init.lua
-└── lua
-    └── smoothvim
-        ├── config
-        │   └── core.lua    - Configs nativas do vim
-        ├── custom
-        │   └── init.lua    - Arquivo/Diretório para instalar novos plugins, caso queira manter separado
-        ├── keymaps
-        │   ├── core.lua    - Keymaps que não são de plugins
-        │   └── plugins.lua - Todas as keymaps dos plugins apenas
-        ├── lazy.lua        - https://github.com/LazyVim/LazyVim
-        └── plugins
-             ├── git
-             │   └── plugins de git
-             ├── lsp
-             │   └── configurações de LSP (https://github.com/neovim/nvim-lspconfig)
-             └── mason
-             │    └── configurações do mason (https://github.com/mason-org/mason.nvim)
-             ├── Restante dos plugins
+├── lua
+│   └── smoothvim
+│       ├── config
+│       │   ├── autocmd.lua
+│       │   ├── core.lua
+│       │   └── jdtls.lua
+│       ├── keymaps // keymaps config
+│       │   ├── core.lua
+│       │   └── plugins.lua
+│       └── plugins
+│           ├── copilot.lua
+│           ├── git // git related plugins config
+│           │   ├── git_diffview.lua
+│           │   └── git_signs.lua
+│           ├── lsp // lsp related plugins config
+│           │   ├── cmp.lua
+│           │   ├── conform.lua
+│           │   ├── lint.lua
+│           │   ├── lsp_config.lua
+│           │   └── lsp_signature.lua
+│           ├── lualine_themes
+│           │   ├── 16base.lua
+│           │   ├── palenight.lua
+│           │   └── solirized_dark.lua
+│           ├── mason
+│           │   └── init.lua // mason config
+│           ├── nvim_autopairs.lua
+            ├── // ...plugins
 ```
 
 ### Inspirações
