@@ -10,9 +10,7 @@ return {
       local filtered_themes = {}
       for _, theme in ipairs(colorschemes) do
         -- Check for common light theme name patterns
-        if not string.match(theme, "light") or not string.match(theme, "day") then
-          table.insert(filtered_themes, theme)
-        end
+        table.insert(filtered_themes, theme)
       end
 
       require("themery").setup({
