@@ -60,7 +60,7 @@ local lsps = {
     "ts_ls",
     {
       filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
-      -- capabilities = capabilities,
+      capabilities = capabilities,
       -- root_dir = lspconfig.util.root_pattern("package.json"),
       single_file_support = false,
       settings = {
@@ -85,7 +85,7 @@ local lsps = {
   {
     "lua_ls",
     {
-      -- capabilities = capabilities,
+      capabilities = capabilities,
       settings = {
         Lua = {
           -- make the language server recognize "vim" global
@@ -101,9 +101,9 @@ local lsps = {
   },
   {
     "dockerls",
-    -- {
-    --   capabilities = capabilities,
-    -- },
+    {
+      capabilities = capabilities,
+    },
   },
   -- {
   --   "jsonls",
@@ -114,13 +114,13 @@ local lsps = {
   {
     "cssls",
     {
-      -- capabilities = capabilities,
+      capabilities = capabilities,
     },
   },
   {
     "emmet_ls",
     {
-      -- capabilities = capabilities,
+      capabilities = capabilities,
       filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
     },
   },

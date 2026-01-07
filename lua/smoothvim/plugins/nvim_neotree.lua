@@ -10,8 +10,20 @@ return {
   config = function()
     local neoTree = require("neo-tree")
     neoTree.setup({
+      close_if_last_window = true,
       window = {
         position = "right",
+        mappings = {
+          ["h"] = "close_node",
+          ["l"] = "toggle_node",
+          ["A"] = "add_directory",
+          ["Y"] = function(state)
+            local node = state.tree:get_node()
+            local filepath = node:get_id()
+            vim.fn.setreg('"', filepath) -- set to the default register
+            vim.notify("Copied: " .. filepath)
+          end,
+        },
       },
       filesystem = {
         filtered_items = {
