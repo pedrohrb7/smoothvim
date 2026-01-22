@@ -1,6 +1,5 @@
 require("smoothvim.config.core")
-require("smoothvim.keymaps.core")
-require("smoothvim.keymaps.plugins")
+require("smoothvim.config.keymaps")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -135,9 +134,3 @@ for _, lsp in pairs(lsps) do
     vim.lsp.config(name, config)
   end
 end
-
--- zaibatsu
--- elflord
--- murphy
--- wildcharm
--- vim.cmd("colorscheme base16-tokyo-night-terminal-storm")
