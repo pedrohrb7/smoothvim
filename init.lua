@@ -20,9 +20,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     { import = "smoothvim.plugins" },
-    { import = "smoothvim.plugins.lsp" },
-    { import = "smoothvim.plugins.mason" },
-    { import = "smoothvim.plugins.git" },
   },
   defaults = {
     lazy = false,
