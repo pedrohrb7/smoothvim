@@ -104,12 +104,13 @@ local lsps = {
       capabilities = capabilities,
     },
   },
-  -- {
-  --   "jsonls",
-  --   {
-  -- capabilities = capabilities,
-  --   },
-  -- },
+  {
+    "jsonls",
+    {
+      capabilities = capabilities,
+      filetypes = { "json", "jsonc" },
+    },
+  },
   {
     "cssls",
     {
