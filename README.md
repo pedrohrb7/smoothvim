@@ -1,29 +1,26 @@
 # Smoothvim
 
-![Smoothvim screenshot](https://github.com/pedrohrb7/smoothvim/blob/develop/smoothvim.png?raw=true)
+![Smoothvim screenshot](https://github.com/pedrohrb7/smoothvim/blob/smooth-vanilla/w2.png?raw=true)
 
-### O que é Smoothvim ?
+### What is Smoothvim ?
 
-É um compilado de plugins usando LazyVim que buscar ser simples, fácil de usar e fácil de customizar. Uma config simples e objetiva.
+It's a neovim setup focused on simplicity and ease of use.
 
-### O que _não_ é Smoothvim ?
-
-Uma IDE avançada que vai resolver todos o seus problemas.
-
-### Motivações
+### Why I created Smoothvim ?
 
 Quando comecei a utilizar neovim e aprender a criar minhas próprias configurações,
-muitas vezes tinha dificuldades de encontrar uma config que fizesse sentido ou sempre com muitas informações variadas e aleatórias.
-Então decidi deixar esse repo com foco em ajudar quem gostaria de começar a utilizar e ter um norte para criar sua própria config.
+When I started to use neovim and learn to create my own configurations,
+many times I had difficulties finding a config that made sense or always with a lot of varied and random information.
+So I decided to leave this repo focused on helping those who would like to start using and have a guide to create their own config in a simple way.
 
-## Como começar
+## How to use
 
 ```
 $ git clone https://github.com/pedrohrb7/smoothvim.git ~/.config/smoothvim
 $ NVIM_APPNAME=smoothvim nvim
 ```
 
-## Requisitos
+## Requirements
 
 - um terminal
 - neovim
@@ -31,7 +28,7 @@ $ NVIM_APPNAME=smoothvim nvim
 - ripgrep
 - Nerd Font
 
-### Estrutura
+### Structure
 
 ```
 ├── init.lua
@@ -40,32 +37,13 @@ $ NVIM_APPNAME=smoothvim nvim
 │       ├── config
 │       │   ├── autocmd.lua
 │       │   ├── core.lua
-│       │   └── jdtls.lua
-│       ├── keymaps // keymaps config
+│       │   ├── jdtls.lua
 │       │   ├── core.lua
-│       │   └── plugins.lua
-│       └── plugins
-│           ├── copilot.lua
-│           ├── git // git related plugins config
-│           │   ├── git_diffview.lua
-│           │   └── git_signs.lua
-│           ├── lsp // lsp related plugins config
-│           │   ├── cmp.lua
-│           │   ├── conform.lua
-│           │   ├── lint.lua
-│           │   ├── lsp_config.lua
-│           │   └── lsp_signature.lua
-│           ├── lualine_themes
-│           │   ├── 16base.lua
-│           │   ├── palenight.lua
-│           │   └── solirized_dark.lua
-│           ├── mason
-│           │   └── init.lua // mason config
-│           ├── nvim_autopairs.lua
-            ├── // ...plugins
+│       │   └── jdtls.lua
+│       └── plugins 
 ```
 
-### Inspirações
+### Related projects and inspirations
 
 - [LunarVim](https://github.com/LunarVim/LunarVim)
 - [SpaceVim](https://github.com/wsdjeg/SpaceVim)
