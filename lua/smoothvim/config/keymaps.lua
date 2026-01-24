@@ -10,6 +10,7 @@ local opts = { noremap = true, silent = true }
 
 --Neo-tree plugin
 keymap.set("n", "<leader>ne", ":Neotree toggle<CR>", opts, { desc = "Toggle file explorer" }) -- toggle file explorer
+keymap.set("n", "<C-t>", ":Neotree toggle<CR>", opts, { desc = "Alternative map to toggle file explorer" }) -- toggle file explorer
 keymap.set("n", "<leader>nb", ":Neotree buffers reveal float<CR>", opts, { desc = "Reveal buffers in modal" })
 keymap.set("n", "--", ":Neotree reveal<CR>", opts, { desc = "Reveal file under cursos" })
 
