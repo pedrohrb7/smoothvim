@@ -17,6 +17,25 @@ return {
       hl_group = "lualine_c_normal",
     })
 
+    local colors = {
+      black = "#000000",
+      maroon = "#800000",
+      green = "#008000",
+      olive = "#808000",
+      navy = "#000080",
+      purple = "#800080",
+      teal = "#008080",
+      silver = "#c0c0c0",
+      gray = "#808080",
+      red = "#ff0000",
+      lime = "#00ff00",
+      yellow = "#ffff00",
+      blue = "#0000ff",
+      fuchsia = "#ff00ff",
+      aqua = "#00ffff",
+      white = "#ffffff",
+    }
+
     -- Config
     local config = {
       options = {
@@ -24,17 +43,35 @@ return {
         disabled_filetypes = {
           statusline = { "neo-tree", "alpha" },
         },
+        theme = {
+          normal = {
+            a = { fg = colors.white, bg = colors.black, gui = "bold" },
+            b = { fg = colors.white, bg = colors.black },
+            c = { fg = colors.white, bg = colors.black },
+          },
+          insert = { a = { fg = colors.white, bg = colors.agua, gui = "bold" } },
+          visual = { a = { fg = colors.white, bg = colors.purple, gui = "bold" } },
+          replace = { a = { fg = colors.white, bg = colors.red, gui = "bold" } },
+          inactive = {
+            a = { fg = colors.silver, bg = colors.gray, gui = "bold" },
+            b = { fg = colors.gray, bg = colors.black },
+            c = { fg = colors.silver, bg = colors.black },
+          },
+        },
+        -- section_separators = { left = "", right = "" },
         component_separators = "",
-        section_separators = { left = "", right = "" },
+        section_separators = "",
       },
       sections = {
-        lualine_a = { { "mode", icon = "", separator = { left = "" }, right_padding = 2 } },
+        -- lualine_a = { { "mode", icon = "  ", separator = { left = "" }, right_padding = 2 } },
+        lualine_a = { { "mode", icon = "  ", separator = { left = "" }, right_padding = 2 } },
         lualine_b = { "filename", "branch", "diff" },
         lualine_c = { symbols.get },
         lualine_x = {},
         lualine_y = { "diagnostics", "filetype", "progress" },
         lualine_z = {
-          { "location", separator = { right = "" }, left_padding = 2 },
+          -- { "location", separator = { right = "" }, left_padding = 2 },
+          { "location", separator = { right = "" }, left_padding = 2 },
         },
       },
       inactive_sections = {
