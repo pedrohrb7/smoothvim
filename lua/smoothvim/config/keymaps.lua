@@ -125,6 +125,8 @@ keymap.set("v", "<leader>crm", "<Esc><Cmd>lua require('jdtls').extract_method(tr
 
 -- ToggleTerm plugin
 keymap.set("n", "<leader>tt", ":ToggleTerm<CR>", { desc = "ToggleTerm on float mode" })
+keymap.set("n", "<leader>lg", ":TermExec cmd='lgit'<CR>", { desc = "ToggleTerm on lazygit" })
+keymap.set("n", "<leader>ld", ":TermExec cmd='ldocker'<CR>", { desc = "ToggleTerm on lazydocker" })
 
 -- #######################################
 -- Core keymaps

@@ -16,6 +16,7 @@ local colors = {
   magenta = "#cba6f7",
   fuchsia = "#ff00ff",
   accent = "#d300c4",
+  disabled = "#888888",
 }
 
 -- Basic UI groups
@@ -66,9 +67,12 @@ vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = colors.green }) -- Git added
 vim.api.nvim_set_hl(0, "GitSignsChange", { fg = colors.yellow }) -- Git modified
 vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = colors.red }) -- Git deleted
 
--- Popup/Menu groups
--- vim.api.nvim_set_hl(0, "Pmenu", { bg = "#2e3440", fg = "#88c0d0" }) -- Popup menu
--- vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#4c566a", fg = "#eceff4" }) -- Popup menu selection
+vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = colors.green })
+vim.api.nvim_set_hl(0, "NeoTreeGitConflict", { fg = colors.red })
+vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = colors.yellow })
+vim.api.nvim_set_hl(0, "NeoTreeGitDeleted", { fg = colors.red, italic = true })
+vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { fg = colors.fg })
+vim.api.nvim_set_hl(0, "NeoTreeGitIgnored", { fg = colors.disabled, italic = true })
 
 -- Underline styles
 vim.api.nvim_set_hl(0, "Underlined", { underline = true, fg = colors.blue })
@@ -79,3 +83,22 @@ vim.api.nvim_set_hl(0, "Italic", { italic = true })
 vim.api.nvim_set_hl(0, "TSFunction", { fg = colors.red, bold = true })
 vim.api.nvim_set_hl(0, "TSKeyword", { fg = colors.red, italic = true })
 vim.api.nvim_set_hl(0, "TSVariable", { fg = colors.red })
+
+-- Set Neo-tree highlights
+vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = colors.bg, fg = colors.fg })
+vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = colors.bg, fg = colors.fg }) -- Inactive Neo-tree
+vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = colors.magenta, fg = colors.bg, bold = true })
+vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { bg = colors.blue, fg = "#000000", bold = true })
+vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = colors.green, bold = true })
+vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = colors.blue, bold = true })
+vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = colors.yellow })
+vim.api.nvim_set_hl(0, "NeoTreeFileName", { fg = colors.white })
+vim.api.nvim_set_hl(0, "NeoTreeFileNameOpened", { fg = colors.green, italic = true })
+vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { fg = colors.bg }) -- Indentation visual
+vim.api.nvim_set_hl(0, "NeoTreeSymbolicLinkTarget", { fg = colors.purple, underline = true })
+
+-- Diagnostics highlights
+vim.api.nvim_set_hl(0, "NeoTreeDiagnosticError", { fg = colors.red, bold = true })
+vim.api.nvim_set_hl(0, "NeoTreeDiagnosticWarn", { fg = colors.yellow, bold = true })
+vim.api.nvim_set_hl(0, "NeoTreeDiagnosticInfo", { fg = colors.blue })
+vim.api.nvim_set_hl(0, "NeoTreeDiagnosticHint", { fg = colors.green })
