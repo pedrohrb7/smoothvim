@@ -26,7 +26,7 @@ vim.api.nvim_set_hl(0, "Comment", { fg = colors.green, italic = true })
 vim.api.nvim_set_hl(0, "Visual", { bg = colors.magenta, fg = colors.bg }) -- Text selection
 vim.api.nvim_set_hl(0, "Search", { fg = colors.yellow, bg = colors.bg })
 vim.api.nvim_set_hl(0, "LineNr", { fg = colors.fg, bg = colors.bg }) -- Line numbers
-vim.api.nvim_set_hl(0, "CursorLineNr", { fg = colors.yellow, bold = true })
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = colors.accent, bold = true })
 
 -- Telescope specific groups
 vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = colors.magenta, fg = colors.bg, bold = true })
