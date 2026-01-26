@@ -31,9 +31,13 @@ return {
       lime = "#00ff00",
       yellow = "#ffff00",
       blue = "#0000ff",
+      light_blue = "#91d7fb",
       fuchsia = "#ff00ff",
       aqua = "#00ffff",
       white = "#ffffff",
+      color1 = "#000b1e",
+      color2 = "#0abdc6",
+      color3 = "#d300c4",
     }
 
     -- Config
@@ -45,17 +49,17 @@ return {
         },
         theme = {
           normal = {
-            a = { fg = colors.white, bg = colors.black, gui = "bold" },
-            b = { fg = colors.white, bg = colors.black },
-            c = { fg = colors.white, bg = colors.black },
+            a = { fg = colors.color3, bg = colors.color1, gui = "bold" },
+            b = { fg = colors.white, bg = colors.color1 },
+            c = { fg = colors.purple, bg = colors.color1 },
           },
           insert = { a = { fg = colors.white, bg = colors.agua, gui = "bold" } },
           visual = { a = { fg = colors.white, bg = colors.purple, gui = "bold" } },
           replace = { a = { fg = colors.white, bg = colors.red, gui = "bold" } },
           inactive = {
-            a = { fg = colors.silver, bg = colors.gray, gui = "bold" },
-            b = { fg = colors.gray, bg = colors.black },
-            c = { fg = colors.silver, bg = colors.black },
+            a = { fg = colors.silver, bg = colors.color1, gui = "bold" },
+            b = { fg = colors.gray, bg = colors.color1 },
+            c = { fg = colors.silver, bg = colors.color1 },
           },
         },
         -- section_separators = { left = "", right = "" },
