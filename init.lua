@@ -1,135 +1,93 @@
-require("smoothvim.config.core")
+require("smoothvim.config.autocmds")
 require("smoothvim.config.keymaps")
-require("smoothvim.config.theme")
+require("smoothvim.config.lsp")
+require("smoothvim.plugins")
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
+vim.g.mapleader = "\\"
+vim.g.maplocalleader = "\\"
 
-require("lazy").setup({
-  spec = {
-    { import = "smoothvim.plugins" },
+local opt = vim.opt
+
+opt.relativenumber = true
+opt.number = true
+
+-- tabs & indentation
+opt.tabstop = 2 -- 2 spaces for tabs (prettier default)
+opt.shiftwidth = 2 -- 2 spaces for indent width
+opt.expandtab = true -- expand tab to spaces
+opt.autoindent = true -- copy indent from current line when starting new one
+
+opt.wrap = false
+
+-- search settings
+opt.ignorecase = true -- ignore case when searching
+opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
+opt.smartindent = true
+
+opt.cursorline = true
+opt.cursorcolumn = true
+opt.fileencoding = "utf-8"
+
+opt.termguicolors = true
+opt.signcolumn = "yes"
+
+-- backspace
+opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
+
+-- clipboard
+opt.clipboard:append("unnamedplus") -- use system clipboard as default register
+
+-- split windows
+opt.splitright = true -- split vertical window to the right
+opt.splitbelow = true -- split horizontal window to the bottom
+
+vim.g.markdown_recommended_style = 0
+
+vim.filetype.add({
+  extension = {
+    env = "dotenv",
   },
-  defaults = {
-    lazy = false,
-    version = false,
+  filename = {
+    [".env"] = "dotenv",
+    ["env"] = "dotenv",
   },
-  install = { colorscheme = { "tokyonight", "habamax" } },
-  checker = {
-    enabled = true,
-    notify = false,
-  },
-  performance = {
-    rtp = {
-      disabled_plugins = {
-        "gzip",
-        -- "matchit",
-        -- "matchparen",
-        -- "netrwPlugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
-      },
-    },
+  pattern = {
+    ["[jt]sconfig.*.json"] = "jsonc",
+    ["%.env%.[%w_.-]+"] = "dotenv",
   },
 })
 
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
--- used to enable autocompletion (assign to every lsp server config)
-local capabilities = cmp_nvim_lsp.default_capabilities()
+vim.g.autoformat = true
+vim.g.trouble_lualine = true
 
--- LSP settings
-local lsps = {
-  {
-    "ts_ls",
-    {
-      filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
-      capabilities = capabilities,
-      -- root_dir = lspconfig.util.root_pattern("package.json"),
-      single_file_support = false,
-      settings = {
-        typescript = {
-          tsserver = {
-            useSyntaxServer = false,
-          },
-          inlayHints = {
-            includeInlayParameterNameHints = "all",
-            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-            includeInlayFunctionParameterTypeHints = true,
-            includeInlayVariableTypeHints = true,
-            includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-            includeInlayPropertyDeclarationTypeHints = true,
-            includeInlayFunctionLikeReturnTypeHints = true,
-            includeInlayEnumMemberValueHints = true,
-          },
-        },
-      },
-    },
-  },
-  {
+vim.pack.add({
+  -- theme packages
+  { src = "https://github.com/rose-pine/neovim" },
+  { src = "https://github.com/folke/tokyonight.nvim" },
+
+  { src = "https://github.com/neovim/nvim-lspconfig" },
+  { src = "https://github.com/mason-org/mason.nvim" },
+  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+  { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+  { src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
+  { src = "https://github.com/antosha417/nvim-lsp-file-operations" },
+})
+
+require("mason").setup()
+require("mason-lspconfig").setup()
+require("mason-tool-installer").setup({
+  ensure_installed = {
     "lua_ls",
-    {
-      capabilities = capabilities,
-      settings = {
-        Lua = {
-          -- make the language server recognize "vim" global
-          diagnostics = {
-            globals = { "vim" },
-          },
-          completion = {
-            callSnippet = "Replace",
-          },
-        },
-      },
-    },
+    "ts_ls",
+    "eslint_d",
   },
-  {
-    "dockerls",
-    {
-      capabilities = capabilities,
-    },
-  },
-  {
-    "jsonls",
-    {
-      capabilities = capabilities,
-      filetypes = { "json", "jsonc" },
-    },
-  },
-  {
-    "cssls",
-    {
-      capabilities = capabilities,
-    },
-  },
-  {
-    "emmet_ls",
-    {
-      capabilities = capabilities,
-      filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
-    },
-  },
-}
+})
 
-for _, lsp in pairs(lsps) do
-  local name, config = lsp[1], lsp[2]
+-- require("tokyonight").setup()
+-- require("rose-pine").setup({
+-- 	styles = {
+-- 		transparency = true,
+-- 	},
+-- })
 
-  vim.lsp.enable(name)
-
-  if config then
-    vim.lsp.config(name, config)
-  end
-end
+vim.cmd("colorscheme tokyonight-night")
