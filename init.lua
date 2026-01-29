@@ -83,7 +83,16 @@ require("mason-tool-installer").setup({
   },
 })
 
--- require("tokyonight").setup()
+require("tokyonight").setup({
+  transparent = true,
+  styles = {
+    -- Background styles. Can be "dark", "transparent" or "normal"
+    sidebars = "transparent",
+    floats = "dark",
+  },
+  lualine_bold = true,
+})
+
 -- require("rose-pine").setup({
 -- 	styles = {
 -- 		transparency = true,
