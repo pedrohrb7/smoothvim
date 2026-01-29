@@ -6,6 +6,9 @@ local opts = { noremap = true, silent = true }
 keymap.set("i", "jl", "<ESC>", opts)
 keymap.set("n", "<leader>nh", ":nohl<CR>", opts)
 
+-- Exit Vim's terminal mode
+keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
 -- increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", opts) -- increment
 keymap.set("n", "<leader>-", "<C-x>", opts) -- decrement
@@ -92,10 +95,10 @@ keymap.set("n", "<leader>td", "<cmd>Gitsigns toggle_deleted<CR>", opts) -- "GitS
 
 -- Format with conform
 keymap.set("n", "<leader>mp", function()
-	local conform = require("conform")
-	conform.format({
-		lsp_fallback = true,
-		async = false,
-		timeout_ms = 500,
-	})
+  local conform = require("conform")
+  conform.format({
+    lsp_fallback = true,
+    async = false,
+    timeout_ms = 500,
+  })
 end, opts) -- "Conform Format file or range" })
