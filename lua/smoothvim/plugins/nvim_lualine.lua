@@ -17,50 +17,12 @@ return {
       hl_group = "lualine_c_normal",
     })
 
-    local colors = {
-      black = "#000000",
-      maroon = "#800000",
-      green = "#008000",
-      olive = "#808000",
-      navy = "#000080",
-      purple = "#800080",
-      teal = "#008080",
-      silver = "#c0c0c0",
-      gray = "#808080",
-      red = "#ff0000",
-      lime = "#00ff00",
-      yellow = "#ffff00",
-      blue = "#0000ff",
-      light_blue = "#91d7fb",
-      fuchsia = "#ff00ff",
-      aqua = "#00ffff",
-      white = "#ffffff",
-      color1 = "#000b1e",
-      color2 = "#0abdc6",
-      color3 = "#d300c4",
-    }
-
     -- Config
     local config = {
       options = {
         icons_enabled = true,
         disabled_filetypes = {
           statusline = { "neo-tree", "alpha" },
-        },
-        theme = {
-          normal = {
-            a = { fg = colors.color3, bg = colors.color1, gui = "bold" },
-            b = { fg = colors.white, bg = colors.color1 },
-            c = { fg = colors.purple, bg = colors.color1 },
-          },
-          insert = { a = { fg = colors.white, bg = colors.agua, gui = "bold" } },
-          visual = { a = { fg = colors.white, bg = colors.purple, gui = "bold" } },
-          replace = { a = { fg = colors.white, bg = colors.red, gui = "bold" } },
-          inactive = {
-            a = { fg = colors.silver, bg = colors.color1, gui = "bold" },
-            b = { fg = colors.gray, bg = colors.color1 },
-            c = { fg = colors.silver, bg = colors.color1 },
-          },
         },
         -- section_separators = { left = "", right = "" },
         component_separators = "",

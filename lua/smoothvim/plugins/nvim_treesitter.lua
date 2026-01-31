@@ -3,7 +3,7 @@ return {
   build = ":TSUpdate",
 
   config = function()
-    local configs = require("nvim-treesitter.configs")
+    local configs = require("nvim-treesitter")
     local ensure_installed = {
       "html",
       "c",
