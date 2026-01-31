@@ -1,3 +1,4 @@
+require("smoothvim.plugins.mason")
 require("smoothvim.plugins.git")
 require("smoothvim.plugins.colors")
 require("smoothvim.plugins.neotree")
