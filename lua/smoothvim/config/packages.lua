@@ -57,4 +57,6 @@ vim.pack.add({
   { src = "https://github.com/antoinemadec/FixCursorHold.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/folke/trouble.nvim" },
+
+	{ src = "https://github.com/Saghen/blink.cmp" },
 })
