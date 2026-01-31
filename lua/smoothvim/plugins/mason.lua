@@ -7,5 +7,8 @@ require("mason-tool-installer").setup({
     "eslint_d",
     "tailwindcss-language-server",
     "prettierd",
+    "editorconfig-checker",
+    "vim-language-server",
+    "stylua",
   },
 })
