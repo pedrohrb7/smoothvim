@@ -1,9 +1,13 @@
 -- Here is the core config, nvim/vim config
 -- This config does not relates to any plugin config
 vim.cmd("let g:netrw_liststyle = 3")
+vim.cmd("set completeopt+=noselect")
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.g.markdown_recommended_style = 0
+vim.g.autoformat = true
+vim.g.trouble_lualine = true
 
 local opt = vim.opt
 
@@ -44,3 +48,17 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swapfile
 opt.swapfile = false
+
+vim.filetype.add({
+  extension = {
+    env = "dotenv",
+  },
+  filename = {
+    [".env"] = "dotenv",
+    ["env"] = "dotenv",
+  },
+  pattern = {
+    ["[jt]sconfig.*.json"] = "jsonc",
+    ["%.env%.[%w_.-]+"] = "dotenv",
+  },
+})

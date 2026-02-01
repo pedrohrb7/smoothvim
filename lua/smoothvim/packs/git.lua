@@ -1,6 +1,7 @@
 vim.pack.add({
- { src = "https://github.com/sindrets/diffview.nvim" },
+  { src = "https://github.com/sindrets/diffview.nvim" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
+  { src = "https://github.com/tpope/vim-fugitive" },
 })
 
 require("gitsigns").setup({
@@ -28,11 +29,8 @@ local opts = { noremap = true, silent = true }
 keymap.set("n", "]h", ":Gitsigns next_hunk<CR>", opts) -- "GitSigns Next Hunk" })
 keymap.set("n", "[h", ":Gitsigns prev_hunk<CR>", opts) -- "GitSigns Prev Hunk" })
 
-keymap.set("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts) -- "GitSigns Stage hunk in NORMAL mode" })
-keymap.set("v", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts) -- "GitSigns Stage hunk in VISUAL mode" })
-
-keymap.set("n", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts) -- "GitSigns reset hunk in NORMAL mode" })
-keymap.set("v", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts) -- "GitSigns reset hunk in VISUAL mode" })
+keymap.set({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", opts) -- "GitSigns Stage hunk in NORMAL/VISUAL mode" })
+keymap.set({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", opts) -- "GitSigns reset hunk in NORMAL/VISUAL mode" })
 
 keymap.set("n", "<leader>hS", "<cmd>Gitsigns stage_buffer<CR>", opts) -- "GitSigns Stage Buffer" })
 keymap.set("n", "<leader>hR", "<cmd>Gitsigns reset_buffer<CR>", opts) -- "GitSigns RESET Buffer" })
