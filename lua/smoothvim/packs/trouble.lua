@@ -23,3 +23,9 @@ require("trouble").setup({
     },
   },
 })
+
+local keymap = vim.keymap
+local opts = { noremap = true, silent = true }
+
+keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", opts) -- "Diagnostics (Trouble)" })
+keymap.set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", opts) -- "Buffer Diagnostics (Trouble)" }
