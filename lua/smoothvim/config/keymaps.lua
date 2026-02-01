@@ -1,6 +1,7 @@
 local keymap = vim.keymap -- for conciseness
 
-keymap.set("i", "hl", "<ESC>", { desc = "Exit insert mode with hl" })
+keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with hl" })
+
 -- Exit Vim's terminal mode
 keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
@@ -49,4 +50,3 @@ keymap.set("v", "p", '"_dP', { noremap = true, silent = true })
 -- insert new line
 keymap.set("n", "<leader>o", "o<ESC>", { desc = "insert new line below" })
 keymap.set("n", "<leader>O", "O<ESC>", { desc = "insert new line above" })
-
