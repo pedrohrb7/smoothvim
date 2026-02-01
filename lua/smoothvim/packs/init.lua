@@ -1,3 +1,6 @@
 require('smoothvim.packs.mason')
 require('smoothvim.packs.neotree')
+require('smoothvim.packs.trouble')
 require('smoothvim.packs.lualine')
+require('smoothvim.packs.treesitter')
+require('smoothvim.packs.fidget')

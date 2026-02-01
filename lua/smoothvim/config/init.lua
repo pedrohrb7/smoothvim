@@ -1,5 +1,6 @@
 require("smoothvim.config.dependencies")
 require("smoothvim.config.core")
+require("smoothvim.config.lsp")
 require("smoothvim.config.keymaps")
 require("smoothvim.config.theme")
 require("smoothvim.config.autocmds")

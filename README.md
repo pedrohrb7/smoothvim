@@ -17,11 +17,17 @@ So I decided to leave this repo focused on helping those who would like to start
 ```
 $ git clone https://github.com/pedrohrb7/smoothvim.git ~/.config/smoothvim
 $ NVIM_APPNAME=smoothvim nvim
+
+# or if you don't want to override your config
+
+$ git clone https://github.com/pedrohrb7/smoothvim.git ~/.config/nvim
+$ nvim
+
 ```
 
 ## Requirements
 
-- um terminal
+- Terminal
 - neovim
 - xclip
 - ripgrep
@@ -34,12 +40,12 @@ $ NVIM_APPNAME=smoothvim nvim
 ├── lua
 │   └── smoothvim
 │       ├── config
-│       │   ├── autocmd.lua
+│       │   ├── autocmds.lua
 │       │   ├── core.lua
 │       │   ├── jdtls.lua
 │       │   ├── core.lua
-│       │   └── jdtls.lua
-│       └── plugins 
+│       │   └── keymaps.lua
+│       └── plugins/packs
 ```
 
 ### Related projects and inspirations
