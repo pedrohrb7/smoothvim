@@ -8,7 +8,6 @@ It's a neovim setup focused on simplicity and ease of use.
 
 ### Why I created Smoothvim ?
 
-Quando comecei a utilizar neovim e aprender a criar minhas próprias configurações,
 When I started to use neovim and learn to create my own configurations,
 many times I had difficulties finding a config that made sense or always with a lot of varied and random information.
 So I decided to leave this repo focused on helping those who would like to start using and have a guide to create their own config in a simple way.

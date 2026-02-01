@@ -1,13 +1,12 @@
 vim.pack.add({
-  { src = "" },
-
-  -- dependencies
-  { src = "" },
-  { src = "" },
+  { src = "https://github.com/williamboman/mason.nvim" },
+  { src = "https://github.com/williamboman/mason-lspconfig.nvim" },
+  { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
 })
 
 require("mason").setup()
 require("mason-lspconfig").setup()
+
 require("mason-tool-installer").setup({
   ensure_installed = {
     "lua_ls",

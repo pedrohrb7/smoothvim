@@ -1,14 +1,11 @@
-return {
-  "nvim-neo-tree/neo-tree.nvim",
-  branch = "v3.x",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-    "MunifTanjim/nui.nvim",
-  },
+vim.pack.add({
+  { src = "https://github.com/nvim-neo-tree/neo-tree.nvim"},
 
-  config = function()
-    local neoTree = require("neo-tree")
+  -- dependencies
+  { src = "https://github.com/MunifTanjim/nui.nvim"},
+})
+
+local neoTree = require("neo-tree")
     neoTree.setup({
       close_if_last_window = true,
       window = {
@@ -40,5 +37,3 @@ return {
         },
       },
     })
-  end,
-}

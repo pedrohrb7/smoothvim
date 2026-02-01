@@ -1,1 +1,0 @@
-require("smoothvim.pack.mason")
