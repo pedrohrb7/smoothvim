@@ -1,23 +1,113 @@
 vim.pack.add({
   { src = "https://github.com/ray-x/lsp_signature.nvim" },
   { src = "https://github.com/antosha417/nvim-lsp-file-operations" },
+  { src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
 })
+
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
+-- used to enable autocompletion (assign to every lsp server config)
+local capabilities = cmp_nvim_lsp.default_capabilities()
 
 -- Enable LSP servers for Neovim 0.11+
-vim.lsp.enable({
-  "ts_ls",
-  "eslint",
-  "lua_ls",
-  "cssls",
-  "html",
-  "jsonls",
-  "yamlls",
-})
-
--- Load Lsp on-demand, e.g: eslint is disable by default
--- e.g: We could enable eslint by set vim.g.lsp_on_demands = {"eslint"}
-if vim.g.lsp_on_demands then
-  vim.lsp.enable(vim.g.lsp_on_demands)
+local lsps = {
+  {
+    "ts_ls",
+    {
+      filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
+      capabilities = capabilities,
+      single_file_support = false,
+      settings = {
+        typescript = {
+          tsserver = {
+            useSyntaxServer = false,
+          },
+          inlayHints = {
+            includeInlayParameterNameHints = "all",
+            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+          },
+        },
+      },
+    },
+  },
+  {
+    "lua_ls",
+    {
+      capabilities = capabilities,
+      filetypes = { "lua" },
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { "vim" },
+          },
+          completion = {
+            callSnippet = "Replace",
+          },
+          -- Using stylua for formatting.
+          format = { enable = false },
+          hint = {
+            enable = true,
+            arrayIndex = "Disable",
+          },
+          runtime = {
+            version = "LuaJIT",
+          },
+          telemetry = {
+            enable = false,
+          },
+          workspace = {
+            checkThirdParty = false,
+            library = {
+              vim.env.VIMRUNTIME,
+              "${3rd}/luv/library",
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    "dockerls",
+    {
+      capabilities = capabilities,
+    },
+  },
+  {
+    "jsonls",
+    {
+      capabilities = capabilities,
+      filetypes = { "json", "jsonc" },
+    },
+  },
+  {
+    "cssls",
+    {
+      capabilities = capabilities,
+    },
+  },
+  {
+    "emmet_ls",
+    {
+      capabilities = capabilities,
+      filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
+    },
+  },
+}
+for idx, lsp in pairs(lsps) do
+  if type(lsp) == "table" then
+    local name, config = lsp[1], lsp[2] or {}
+    vim.lsp.enable(name)
+    vim.lsp.config(name, config)
+  elseif type(lsp) == "string" then
+    vim.lsp.enable(lsp)
+  else
+    print("Error with #" .. idx .. " LSP")
+  end
 end
 
 -- lsp signature config
@@ -26,56 +116,4 @@ require("lsp_signature").setup({
   handler_opts = {
     border = "rounded",
   },
-})
-
-local function augroup(name)
-  return vim.api.nvim_create_augroup("user_" .. name, { clear = true })
-end
-
-local default_keymaps = {
-  { keys = "<leader>ca", func = vim.lsp.buf.code_action, desc = "Code Actions" },
-  { keys = "<leader>cr", func = vim.lsp.buf.rename, desc = "Code Rename" },
-  { keys = "<leader>k", func = vim.lsp.buf.hover, desc = "Hover Documentation", has = "hoverProvider" },
-  { keys = "K", func = vim.lsp.buf.hover, desc = "Hover (alt)", has = "hoverProvider" },
-  { keys = "gd", func = vim.lsp.buf.definition, desc = "Goto Definition", has = "definitionProvider" },
-  { keys = "<leader>d", func = vim.diagnostic.open_float, desc = "Show line diagnostics" },
-  { keys = "<leader>rn", func = vim.lsp.buf.rename, desc = "Smart rename" },
-}
-
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = augroup("lsp_attach"),
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    local buf = args.buf
-
-    if client then
-      -- Built-in completion
-      if client:supports_method("textDocument/completion") then
-        vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-      end
-
-      -- Inlay hints
-      if client:supports_method("textDocument/inlayHint") then
-        vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-      end
-
-      if client:supports_method("textDocument/documentColor") then
-        vim.lsp.document_color.enable(true, args.buf, {
-          style = "background", -- 'background', 'foreground', or 'virtual'
-        })
-      end
-
-      for _, km in ipairs(default_keymaps) do
-        -- Only bind if there's no `has` requirement, or the server supports it
-        if not km.has or client.server_capabilities[km.has] then
-          vim.keymap.set(
-            km.mode or "n",
-            km.keys,
-            km.func,
-            { buffer = buf, desc = "LSP: " .. km.desc, nowait = km.nowait }
-          )
-        end
-      end
-    end
-  end,
 })
