@@ -3,7 +3,6 @@ return {
   build = ":TSUpdate",
 
   config = function()
-    local configs = require("nvim-treesitter.configs")
     local ensure_installed = {
       "html",
       "c",
@@ -22,7 +21,7 @@ return {
       "yaml",
       "xml",
     }
-    configs.setup({
+    require("nvim-treesitter").setup({
       ensure_installed = ensure_installed,
       auto_install = true,
       sync_install = true,
