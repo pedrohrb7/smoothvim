@@ -1,5 +1,6 @@
 vim.pack.add({
-{ src = "https://github.com/ray-x/lsp_signature.nvim" },
+  { src = "https://github.com/ray-x/lsp_signature.nvim" },
+  { src = "https://github.com/antosha417/nvim-lsp-file-operations" },
 })
 
 -- Enable LSP servers for Neovim 0.11+

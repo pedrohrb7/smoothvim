@@ -16,6 +16,10 @@
       "rev": "4dd53aab60982f1f75848aec5e6214986263325e",
       "src": "https://github.com/SergioRibera/cmp-dotenv"
     },
+    "cmp-nvim-lsp": {
+      "rev": "cbc7b02bb99fae35cb42f514762b89b5126651ef",
+      "src": "https://github.com/hrsh7th/cmp-nvim-lsp"
+    },
     "cmp-nvim-lsp-signature-help": {
       "rev": "fd3e882e56956675c620898bf1ffcf4fcbe7ec84",
       "src": "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help"
@@ -99,6 +103,10 @@
     "nvim-lint": {
       "rev": "bcd1a44edbea8cd473af7e7582d3f7ffc60d8e81",
       "src": "https://github.com/mfussenegger/nvim-lint"
+    },
+    "nvim-lsp-file-operations": {
+      "rev": "b9c795d3973e8eec22706af14959bc60c579e771",
+      "src": "https://github.com/antosha417/nvim-lsp-file-operations"
     },
     "nvim-lspconfig": {
       "rev": "3f58aeca0c6ece8a9fb8782ea3fcb6024f285be3",
