@@ -35,13 +35,12 @@ cmp.setup({
   },
 
   mapping = cmp.mapping.preset.insert({
+    ["<C-j>"] = cmp.mapping.scroll_docs(2),
+    ["<C-k>"] = cmp.mapping.scroll_docs(-2),
     ["<C-n>"] = cmp.mapping.select_next_item(),
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-d>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-b>"] = cmp.mapping.select_prev_item(),
     ["<C-e>"] = cmp.mapping.abort(),
-    ["<CR>"] = cmp.mapping.confirm({ select = false }),
+    ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
 
   sources = cmp.config.sources({
