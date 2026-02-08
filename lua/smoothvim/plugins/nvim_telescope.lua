@@ -1,16 +1,15 @@
 return {
   "nvim-telescope/telescope.nvim",
-  branch = "0.1.x",
+  version = "*",
   dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    "BurntSushi/ripgrep",
     "nvim-tree/nvim-web-devicons",
   },
   config = function()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
-
-    local trouble_telescope = require("trouble.sources.telescope")
 
     telescope.setup({
       defaults = {
@@ -27,7 +26,6 @@ return {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
             ["<C-j>"] = actions.move_selection_next, -- move to next result
-            ["<C-t>"] = trouble_telescope.smart_open_with_trouble,
           },
         },
       },
@@ -36,7 +34,7 @@ return {
           enable_preview = true,
         },
         find_files = {
-          theme = "ivy",
+          -- theme = "ivy",
           hidden = true,
         },
       },

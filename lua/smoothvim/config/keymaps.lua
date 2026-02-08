@@ -1,10 +1,3 @@
--- Same as core_config but keymaps
--- Keymaps that does not exec any plugin
-vim.g.mapleader = "\\"
-vim.g.maplocalleader = "\\"
-
--- Keymaps that exec plugins
-
 local keymap = vim.keymap -- for conciseness
 local opts = { noremap = true, silent = true }
 
@@ -70,11 +63,6 @@ keymap.set("n", "--", ":Neotree reveal<CR>", opts, { desc = "Reveal file under c
 keymap.set("n", "<leader>ll", function()
   require("lint").try_lint()
 end, { desc = "Trigger linting in current buffer" })
-
--- Telescope plugin
-keymap.set("n", "<leader>tf", "<cmd>Telescop find_files<CR>", opts, { desc = "Telescope Find file" })
-keymap.set("n", "<leader>tg", "<cmd>Telescop live_grep<CR>", { desc = "Telescope Search by word" })
-keymap.set("n", "<leader>tb", "<cmd>Telescop buffers<CR>", { desc = "Search in open buffers" })
 
 -- Trouble plugin
 keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", opts, { desc = "Diagnostics (Trouble)" })

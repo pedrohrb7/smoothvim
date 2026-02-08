@@ -1,3 +1,6 @@
+vim.g.mapleader = "\\"
+vim.g.maplocalleader = "\\"
+
 require("smoothvim.config.core")
 require("smoothvim.config.keymaps")
 require("smoothvim.config.autocmd")
@@ -47,5 +50,6 @@ require("lazy").setup({
   },
 })
 
-vim.cmd.colorscheme("tokyonight")
+-- vim.cmd.colorscheme("tokyonight")
+vim.cmd.colorscheme("rose-pine")
 require("smoothvim.config.lsp")
