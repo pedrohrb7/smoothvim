@@ -1,6 +1,6 @@
--- Here is the core config, nvim/vim config
+-- Here is the core config
 -- This config does not relates to any plugin config
-vim.cmd("let g:netrw_liststyle = 3")
+vim.g.netrw_liststyle = 3
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

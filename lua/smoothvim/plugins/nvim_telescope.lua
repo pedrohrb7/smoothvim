@@ -1,28 +1,15 @@
 return {
   "nvim-telescope/telescope.nvim",
-  branch = "0.1.x",
+  version = "*",
   dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    "BurntSushi/ripgrep",
     "nvim-tree/nvim-web-devicons",
-    "folke/todo-comments.nvim",
-    "nvim-telescope/telescope-ui-select.nvim",
-    "nvim-telescope/telescope-media-files.nvim",
   },
   config = function()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
-    local transform_mod = require("telescope.actions.mt").transform_mod
-
-    local trouble = require("trouble")
-    local trouble_telescope = require("trouble.sources.telescope")
-
-    -- or create your custom action
-    local custom_actions = transform_mod({
-      open_trouble_qflist = function(prompt_bufnr)
-        trouble.toggle("quickfix")
-      end,
-    })
 
     telescope.setup({
       defaults = {
@@ -39,8 +26,6 @@ return {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
             ["<C-j>"] = actions.move_selection_next, -- move to next result
-            ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
-            ["<C-t>"] = trouble_telescope.smart_open_with_trouble,
           },
         },
       },
@@ -49,23 +34,20 @@ return {
           enable_preview = true,
         },
         find_files = {
-          theme = "ivy",
+          -- theme = "ivy",
           hidden = true,
         },
       },
-      extensions = {
-        media_files = {
-          -- filetypes whitelist
-          -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-          filetypes = { "png", "webp", "jpg", "jpeg", "pdf" },
-          -- find command (defaults to `fd`)
-          find_cmd = "fd",
-        },
-      },
+      extensions = {},
     })
 
     telescope.load_extension("fzf")
-    telescope.load_extension("ui-select")
-    telescope.load_extension("media_files")
+
+    local keymap = vim.keymap
+    local opts = { noremap = true, silent = true }
+
+    keymap.set("n", "<leader>ff", "<cmd>Telescop find_files<CR>", opts) -- "Telescope Find file" })
+    keymap.set("n", "<leader>fw", "<cmd>Telescop live_grep<CR>", opts) -- "Telescope Search by word" })
+    keymap.set("n", "<leader>fb", "<cmd>Telescop buffers<CR>", opts) -- "Search in open buffers" })
   end,
 }
