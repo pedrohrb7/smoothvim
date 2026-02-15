@@ -9,11 +9,11 @@ return {
         require("gitsigns").setup({
           signs = {
             add = { text = "+" },
-            change = { text = "§" },
+            change = { text = "&" },
             delete = { text = "_" },
             topdelete = { text = "‾" },
             changedelete = { text = "~" },
-            untracked = { text = "┆" },
+            untracked = { text = "#" },
           },
           watch_gitdir = {
             follow_files = true,
