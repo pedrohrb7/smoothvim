@@ -1,5 +1,5 @@
 vim.pack.add({
-    -- theme packages
+  -- theme packages
   { src = "https://github.com/rose-pine/neovim" },
   { src = "https://github.com/folke/tokyonight.nvim" },
 })
@@ -14,10 +14,10 @@ require("tokyonight").setup({
   lualine_bold = true,
 })
 
--- require("rose-pine").setup({
--- 	styles = {
--- 		transparency = true,
--- 	},
--- })
+require("rose-pine").setup({
+  styles = {
+    transparency = true,
+  },
+})
 
 vim.cmd("colorscheme tokyonight-night")

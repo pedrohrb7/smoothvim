@@ -76,7 +76,7 @@ conform.setup({
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
-keymap.set("n", "<leader>mp", function()
+keymap.set("n", "<leader>ft", function()
   conform.format({
     lsp_fallback = true,
     async = false,
