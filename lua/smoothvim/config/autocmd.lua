@@ -49,6 +49,21 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
   end,
 })
 
+-- show cursorline only in active window enable
+vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+  group = vim.api.nvim_create_augroup("active_cursorcolumn", { clear = true }),
+  callback = function()
+    vim.opt_local.cursorcolumn = true
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
+  group = "active_cursorcolumn",
+  callback = function()
+    vim.opt_local.cursorcolumn = false
+  end,
+})
+
 -- highlight references when the cursor is idle (stops/holds)
 vim.api.nvim_create_autocmd("CursorHold", {
   group = vim.api.nvim_create_augroup("LspReferenceHighlight", { clear = true }),
