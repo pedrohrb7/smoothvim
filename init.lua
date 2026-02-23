@@ -50,6 +50,6 @@ require("lazy").setup({
   },
 })
 
--- vim.cmd.colorscheme("tokyonight")
-vim.cmd.colorscheme("rose-pine")
+-- vim.cmd.colorscheme("rose-pine")
+vim.cmd.colorscheme("tokyonight")
 require("smoothvim.config.lsp")
