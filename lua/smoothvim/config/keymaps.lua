@@ -56,7 +56,7 @@ keymap.set("n", "<leader>O", "O<ESC>", { desc = "insert new line above" })
 --Neo-tree plugin
 keymap.set("n", "<leader>ne", ":Neotree toggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
 keymap.set("n", "<C-t>", ":Neotree toggle<CR>", { desc = "Alternative map to toggle file explorer" }) -- toggle file explorer
-keymap.set("n", "<leader>nb", ":Neotree buffers reveal float<CR>", { desc = "Reveal buffers in modal" })
+keymap.set("n", "<leader>qw", ":Neotree buffers reveal float<CR>", { desc = "Reveal buffers in modal" })
 keymap.set("n", "--", ":Neotree reveal<CR>", { desc = "Reveal file under cursos" })
 
 -- Lint
