@@ -9,12 +9,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
-vim.cmd([[
-    augroup jdtls_lsp
-        autocmd!
-        autocmd FileType java lua require'smoothvim.config.jdtls'.setup_jdtls()
-    augroup end
-]])
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+  group = vim.api.nvim_create_augroup("jdtls_lsp", { clear = true }),
+  pattern = "java",
+  callback = function()
+    require("smoothvim.config.jdtls").setup_jdtls()
+  end,
+})
 
 -- no auto continue comments on new line
 vim.api.nvim_create_autocmd("FileType", {
@@ -49,7 +50,7 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
   end,
 })
 
--- show cursorline only in active window enable
+-- show cursorcolumn only in active window enable
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
   group = vim.api.nvim_create_augroup("active_cursorcolumn", { clear = true }),
   callback = function()
