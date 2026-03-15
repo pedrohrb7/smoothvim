@@ -230,7 +230,33 @@ return {
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
         group = lint_augroup,
         callback = function()
-          lint.try_lint()
+          -- Get the full path of the current buffer
+          local file_path = vim.api.nvim_buf_get_name(0)
+          if not file_path or file_path == "" then
+            return
+          end
+
+          -- Find 'package.json' by searching upwards from the current file's directory
+          -- vim.fs.find returns a table (list) of paths
+          local package_json_paths = vim.fs.find("package.json", {
+            upward = true,
+            path = vim.fn.fnamemodify(file_path, ":h"),
+            type = "file",
+            limit = 1,
+          })
+
+          -- Check if the search returned any results
+          if #package_json_paths > 0 then
+            -- Get the first result from the table
+            local package_json_path = package_json_paths[1]
+
+            -- Get the directory containing package.json
+            local project_dir = vim.fn.fnamemodify(package_json_path, ":h")
+
+            if project_dir then
+              lint.try_lint()
+            end
+          end
         end,
       })
     end,

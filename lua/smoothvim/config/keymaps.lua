@@ -121,8 +121,7 @@ end, { desc = "toggle signature" })
 keymap.set("n", "]h", ":Gitsigns next_hunk<CR>", { desc = "GitSigns Next Hunk" })
 keymap.set("n", "[h", ":Gitsigns prev_hunk<CR>", { desc = "GitSigns Prev Hunk" })
 
-keymap.set("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", { desc = "GitSigns Stage hunk in NORMAL mode" })
-keymap.set("v", "<leader>hs", ":Gitsigns stage_hunk<CR>", { desc = "GitSigns Stage hunk in VISUAL mode" })
+keymap.set({ "v", "n" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", { desc = "GitSigns Stage hunk VISUAL/NORMAL mode" })
 
 keymap.set("n", "<leader>hr", ":Gitsigns reset_hunk<CR>", { desc = "GitSigns reset hunk in NORMAL mode" })
 keymap.set("v", "<leader>hr", ":Gitsigns reset_hunk<CR>", { desc = "GitSigns reset hunk in VISUAL mode" })
