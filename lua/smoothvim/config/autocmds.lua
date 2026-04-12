@@ -98,18 +98,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
     if client then
       -- Built-in completion
       if client:supports_method("textDocument/completion") then
-        vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+        vim.lsp.completion.enable(true, client.id, args.buf)
       end
 
       -- Inlay hints
       if client:supports_method("textDocument/inlayHint") then
-        vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+        vim.lsp.inlay_hint.enable(true)
       end
 
       if client:supports_method("textDocument/documentColor") then
-        vim.lsp.document_color.enable(true, args.buf, {
-          style = "background", -- 'background', 'foreground', or 'virtual'
-        })
+        vim.lsp.document_color.enable(true)
       end
 
       for _, km in ipairs(default_keymaps) do
