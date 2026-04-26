@@ -5,10 +5,10 @@ vim.pack.add({
 })
 
 require("tokyonight").setup({
-  transparent = true,
+  transparent = false,
   styles = {
     -- Background styles. Can be "dark", "transparent" or "normal"
-    sidebars = "transparent",
+    sidebars = "dark",
     floats = "dark",
   },
   lualine_bold = true,
@@ -16,8 +16,8 @@ require("tokyonight").setup({
 
 require("rose-pine").setup({
   styles = {
-    transparency = true,
+    transparency = false,
   },
 })
 
-vim.cmd("colorscheme tokyonight-night")
+vim.cmd("colorscheme rose-pine-main")

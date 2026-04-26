@@ -21,6 +21,7 @@ require("mason-tool-installer").setup({
     "cssls",
     "lua-language-server",
     "editorconfig-checker",
-    { "eslint_d", version = "13.1.2" },
+    { "eslint_d" },
+    -- { "eslint_d", version = "13.1.2" },
   },
 })

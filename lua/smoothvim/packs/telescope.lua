@@ -1,20 +1,10 @@
 vim.pack.add({
-  { src = "https://github.com/nvim-telescope/telescope.nvim" }
+  { src = "https://github.com/nvim-telescope/telescope.nvim" },
+  { src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
 })
 
 local telescope = require("telescope")
 local actions = require("telescope.actions")
-local transform_mod = require("telescope.actions.mt").transform_mod
-
-local trouble = require("trouble")
-local trouble_telescope = require("trouble.sources.telescope")
-
--- or create your custom action
-local custom_actions = transform_mod({
-  open_trouble_qflist = function()
-    trouble.toggle("quickfix")
-  end,
-})
 
 telescope.setup({
   defaults = {
@@ -23,6 +13,7 @@ telescope.setup({
       "node_modules",
       ".next",
       "dist",
+      "build",
       "bundle",
       ".git",
       ".yarn",
@@ -31,8 +22,6 @@ telescope.setup({
       i = {
         ["<C-k>"] = actions.move_selection_previous, -- move to prev result
         ["<C-j>"] = actions.move_selection_next, -- move to next result
-        ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
-        ["<C-t>"] = trouble_telescope.smart_open_with_trouble,
       },
     },
   },
@@ -44,9 +33,27 @@ telescope.setup({
       theme = "ivy",
       hidden = true,
     },
+    live_grep = {
+      theme = "ivy",
+      hidden = true,
+    },
+    buffers = {
+      theme = "ivy",
+      hidden = true,
+    },
+    git_status = {
+      theme = "ivy",
+      hidden = true,
+    },
   },
-  extensions = {},
+  extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_ivy({}),
+    },
+  },
 })
+
+telescope.load_extension("ui-select")
 
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
@@ -54,3 +61,4 @@ local opts = { noremap = true, silent = true }
 keymap.set("n", "<leader>ff", "<cmd>Telescop find_files<CR>", opts) -- "Telescope Find file" })
 keymap.set("n", "<leader>fw", "<cmd>Telescop live_grep<CR>", opts) -- "Telescope Search by word" })
 keymap.set("n", "<leader>fb", "<cmd>Telescop buffers<CR>", opts) -- "Search in open buffers" })
+keymap.set("n", "<leader>fg", "<cmd>Telescop git_status<CR>", opts) -- "Search in git edited buffers" })

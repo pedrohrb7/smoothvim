@@ -41,6 +41,7 @@ conform.setup({
       },
       command = util.from_node_modules("eslint_d"),
       args = { "--fix-to-stdout", "--stdin", "--stdin-filename", "$FILENAME" },
+      require_cwd = true,
       cwd = util.root_file({
         "eslint.config.mjs",
         "eslint.config.js",
