@@ -16,7 +16,7 @@ require("tokyonight").setup({
 
 require("rose-pine").setup({
   styles = {
-    transparency = false,
+    transparency = true,
   },
 })
 
