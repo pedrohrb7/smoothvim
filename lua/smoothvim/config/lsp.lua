@@ -2,10 +2,9 @@
 -- LSP, Linting, Formatting & Completion
 -- ============================================================================
 vim.pack.add({
+  { src = "https://www.github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/creativenull/efmls-configs-nvim" },
-  { src =
-  "https://www.github.com/ibhagwan/fzf-lua",
-},
+  { src = "https://www.github.com/ibhagwan/fzf-lua" },
   {
     src = "https://github.com/saghen/blink.cmp",
     version = vim.version.range("1.*"),
@@ -19,14 +18,14 @@ vim.lsp.config["*"] = {
 vim.lsp.config("pyright", {})
 vim.lsp.config("bashls", {})
 vim.lsp.config("ts_ls", {
-   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
-    single_file_support = false,
-    settings = {
-      typescript = {
-        tsserver = {
-          useSyntaxServer = false,
-        },
-        inlayHints = {
+  filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
+  single_file_support = false,
+  settings = {
+    typescript = {
+      tsserver = {
+        useSyntaxServer = false,
+      },
+      inlayHints = {
         includeInlayParameterNameHints = "all",
         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
         includeInlayFunctionParameterTypeHints = false,
@@ -190,25 +189,26 @@ vim.lsp.enable({
 local augnouplsp = vim.api.nvim_create_augroup("UserConfig", { clear = true })
 
 local default_keymaps = {
-  { keys = "<leader>ca", func = vim.lsp.buf.code_action, desc = "Code Actions" },
-  { keys = "<leader>cr", func = vim.lsp.buf.rename, desc = "Code Rename" },
-  { keys = "<leader>k", func = vim.lsp.buf.hover, desc = "Hover Documentation", has = "hoverProvider" },
-  { keys = "K", func = vim.lsp.buf.hover, desc = "Hover (alt)", has = "hoverProvider" },
-  { keys = "gd", func = vim.lsp.buf.definition, desc = "Goto Definition", has = "definitionProvider" },
-  { keys = "<leader>d", func = vim.diagnostic.open_float, desc = "Show line diagnostics" },
-  { keys = "<leader>rn", func = vim.lsp.buf.rename, desc = "Smart rename" },
+  { keys = "<leader>ca", func = vim.lsp.buf.code_action,   desc = "Code Actions" },
+  { keys = "<leader>k",  func = vim.lsp.buf.hover,         desc = "Hover Documentation",  has = "hoverProvider" },
+  { keys = "gd",         func = vim.lsp.buf.definition,    desc = "Goto Definition",      has = "definitionProvider" },
+  { keys = "<leader>d",  func = vim.diagnostic.open_float, desc = "Show line diagnostics" },
+  { keys = "<leader>rn", func = vim.lsp.buf.rename,        desc = "Smart rename" },
+  { keys = "<leader>ft", func = vim.lsp.buf.format,        desc = "Format file" },
 }
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = augrouplsp,
+  group = augnouplsp,
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     if not client then
       return
     end
 
+    print("LSP Server: " ..
+      client.name .. " | Formatting: " .. tostring(client:supports_method("textDocument/formatting")))
+
     local bufnr = ev.buf
-    local opts = { noremap = true, silent = true, buffer = bufnr }
 
     if client then
       -- Built-in completion
@@ -225,18 +225,34 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.lsp.document_color.enable(true)
       end
 
-      if client:supports_method("textDocument/codeAction", bufnr) then
-        vim.keymap.set("n", "<leader>oi", function()
-          vim.lsp.buf.code_action({
-            context = { only = { "source.organizeImports" }, diagnostics = {} },
-            apply = true,
-            bufnr = bufnr,
-          })
-          vim.defer_fn(function()
-            vim.lsp.buf.format({ bufnr = bufnr })
-          end, 50)
-        end, opts)
-      end
+      -- Format on save (only for specific filetypes)
+      -- if client:supports_method("textDocument/formatting") then
+      --   local format_filetypes = { "typescriptreact", "lua", "typescript", "javascript" }
+      --   local current_ft = vim.bo[bufnr].filetype
+
+      --   if vim.tbl_contains(format_filetypes, current_ft) then
+      --     vim.api.nvim_create_autocmd("BufWritePre", {
+      --       group = augnouplsp,
+      --       buffer = bufnr,
+      --       callback = function()
+      --         vim.lsp.buf.format({ bufnr = bufnr })
+      --       end,
+      --     })
+      --   end
+      -- end
+
+      -- if client:supports_method("textDocument/codeAction", bufnr) then
+      --   vim.keymap.set("n", "<leader>ft", function()
+      --     vim.lsp.buf.code_action({
+      --       context = { only = { "source.organizeImports" }, diagnostics = {} },
+      --       apply = true,
+      --       bufnr = bufnr,
+      --     })
+      --     vim.defer_fn(function()
+      --       vim.lsp.buf.format({ bufnr = bufnr })
+      --     end, 50)
+      --   end, opts)
+      -- end
 
       for _, km in ipairs(default_keymaps) do
         -- Only bind if there's no `has` requirement, or the server supports it
@@ -252,4 +268,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
   end,
 })
-

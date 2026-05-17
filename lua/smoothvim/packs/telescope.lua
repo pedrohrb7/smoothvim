@@ -5,6 +5,7 @@ vim.pack.add({
 
 local telescope = require("telescope")
 local actions = require("telescope.actions")
+local builtin = require('telescope.builtin')
 
 telescope.setup({
   defaults = {
@@ -45,6 +46,10 @@ telescope.setup({
       theme = "ivy",
       hidden = true,
     },
+    diagnostics = {
+      theme = "ivy",
+      hidden = true,
+    },
   },
   extensions = {
     ["ui-select"] = {
@@ -58,7 +63,8 @@ telescope.load_extension("ui-select")
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
-keymap.set("n", "<leader>ff", "<cmd>Telescop find_files<CR>", opts) -- "Telescope Find file" })
-keymap.set("n", "<leader>fw", "<cmd>Telescop live_grep<CR>", opts) -- "Telescope Search by word" })
-keymap.set("n", "<leader>fb", "<cmd>Telescop buffers<CR>", opts) -- "Search in open buffers" })
-keymap.set("n", "<leader>fg", "<cmd>Telescop git_status<CR>", opts) -- "Search in git edited buffers" })
+keymap.set("n", "<leader>ff", builtin.find_files, opts) -- Telescope Find file" })
+keymap.set("n", "<leader>fw", builtin.live_grep, opts) -- Telescope Search by word" })
+keymap.set("n", "<leader>fb", builtin.buffers, opts) -- Search in open buffers" })
+keymap.set("n", "<leader>fg", builtin.git_status, opts) -- Search in git edited buffers
+keymap.set('n', '<leader>fd', builtin.diagnostics, opts) -- Telescope show diagnostics
