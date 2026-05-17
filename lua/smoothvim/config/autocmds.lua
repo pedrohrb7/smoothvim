@@ -79,48 +79,13 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
-local default_keymaps = {
-  { keys = "<leader>ca", func = vim.lsp.buf.code_action, desc = "Code Actions" },
-  { keys = "<leader>cr", func = vim.lsp.buf.rename, desc = "Code Rename" },
-  { keys = "<leader>k", func = vim.lsp.buf.hover, desc = "Hover Documentation", has = "hoverProvider" },
-  { keys = "K", func = vim.lsp.buf.hover, desc = "Hover (alt)", has = "hoverProvider" },
-  { keys = "gd", func = vim.lsp.buf.definition, desc = "Goto Definition", has = "definitionProvider" },
-  { keys = "<leader>d", func = vim.diagnostic.open_float, desc = "Show line diagnostics" },
-  { keys = "<leader>rn", func = vim.lsp.buf.rename, desc = "Smart rename" },
-}
-
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = augroup("lsp_attach"),
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    local buf = args.buf
-
-    if client then
-      -- Built-in completion
-      if client:supports_method("textDocument/completion") then
-        vim.lsp.completion.enable(true, client.id, args.buf)
-      end
-
-      -- Inlay hints
-      if client:supports_method("textDocument/inlayHint") then
-        vim.lsp.inlay_hint.enable(true)
-      end
-
-      if client:supports_method("textDocument/documentColor") then
-        vim.lsp.document_color.enable(true)
-      end
-
-      for _, km in ipairs(default_keymaps) do
-        -- Only bind if there's no `has` requirement, or the server supports it
-        if not km.has or client.server_capabilities[km.has] then
-          vim.keymap.set(
-            km.mode or "n",
-            km.keys,
-            km.func,
-            { buffer = buf, desc = "LSP: " .. km.desc, nowait = km.nowait }
-          )
-        end
-      end
-    end
+-- wrap, linebreak and spellcheck on markdown and text files
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("ft_wrap_spell"),
+  pattern = { "markdown", "text", "gitcommit" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+    vim.opt_local.spell = true
   end,
 })

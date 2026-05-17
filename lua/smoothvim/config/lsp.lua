@@ -1,119 +1,255 @@
+-- ============================================================================
+-- LSP, Linting, Formatting & Completion
+-- ============================================================================
 vim.pack.add({
-  { src = "https://github.com/ray-x/lsp_signature.nvim" },
-  { src = "https://github.com/antosha417/nvim-lsp-file-operations" },
-  { src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
+  { src = "https://github.com/creativenull/efmls-configs-nvim" },
+  { src =
+  "https://www.github.com/ibhagwan/fzf-lua",
+},
+  {
+    src = "https://github.com/saghen/blink.cmp",
+    version = vim.version.range("1.*"),
+  },
 })
 
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
--- used to enable autocompletion (assign to every lsp server config)
-local capabilities = cmp_nvim_lsp.default_capabilities()
-
--- Enable LSP servers for Neovim 0.11+
-local lsps = {
-  {
-    "ts_ls",
-    {
-      filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
-      capabilities = capabilities,
-      single_file_support = false,
-      settings = {
-        typescript = {
-          tsserver = {
-            useSyntaxServer = false,
-          },
-          inlayHints = {
-            includeInlayParameterNameHints = "all",
-            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-            includeInlayFunctionParameterTypeHints = false,
-            includeInlayVariableTypeHints = false,
-            includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-            includeInlayPropertyDeclarationTypeHints = true,
-            includeInlayFunctionLikeReturnTypeHints = false,
-            includeInlayEnumMemberValueHints = true,
-          },
-        },
-      },
-    },
-  },
-  {
-    "lua_ls",
-    {
-      capabilities = capabilities,
-      filetypes = { "lua" },
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim" },
-          },
-          completion = {
-            callSnippet = "Replace",
-          },
-          -- Using stylua for formatting.
-          format = { enable = false },
-          hint = {
-            enable = true,
-            arrayIndex = "Disable",
-          },
-          runtime = {
-            version = "LuaJIT",
-          },
-          telemetry = {
-            enable = false,
-          },
-          workspace = {
-            checkThirdParty = false,
-            library = {
-              vim.env.VIMRUNTIME,
-              "${3rd}/luv/library",
-            },
-          },
-        },
-      },
-    },
-  },
-  {
-    "dockerls",
-    {
-      capabilities = capabilities,
-    },
-  },
-  {
-    "jsonls",
-    {
-      capabilities = capabilities,
-      filetypes = { "json", "jsonc" },
-    },
-  },
-  {
-    "cssls",
-    {
-      capabilities = capabilities,
-    },
-  },
-  {
-    "emmet_ls",
-    {
-      capabilities = capabilities,
-      filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
-    },
-  },
+vim.lsp.config["*"] = {
+  capabilities = require("blink.cmp").get_lsp_capabilities(),
 }
-for idx, lsp in pairs(lsps) do
-  if type(lsp) == "table" then
-    local name, config = lsp[1], lsp[2] or {}
-    vim.lsp.enable(name)
-    vim.lsp.config(name, config)
-  elseif type(lsp) == "string" then
-    vim.lsp.enable(lsp)
-  else
-    print("Error with #" .. idx .. " LSP")
-  end
+
+vim.lsp.config("pyright", {})
+vim.lsp.config("bashls", {})
+vim.lsp.config("ts_ls", {
+   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
+    single_file_support = false,
+    settings = {
+      typescript = {
+        tsserver = {
+          useSyntaxServer = false,
+        },
+        inlayHints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = false,
+        includeInlayVariableTypeHints = false,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = false,
+        includeInlayEnumMemberValueHints = true,
+      },
+    },
+  },
+})
+vim.lsp.config("gopls", {})
+vim.lsp.config("clangd", {})
+vim.lsp.config("lua_ls", {
+  settings = {
+    Lua = {
+      diagnostics = { globals = { "vim" } },
+      telemetry = { enable = false },
+    },
+  },
+})
+
+vim.lsp.enable('bashls')
+vim.lsp.enable('gpls')
+vim.lsp.enable('ts_ls')
+vim.lsp.enable('clangd')
+vim.lsp.enable('lua_ls')
+
+local diagnostic_signs = {
+  Error = " ",
+  Warn = " ",
+  Hint = "",
+  Info = "",
+}
+
+vim.diagnostic.config({
+  virtual_text = { prefix = "●", spacing = 4 },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = diagnostic_signs.Error,
+      [vim.diagnostic.severity.WARN] = diagnostic_signs.Warn,
+      [vim.diagnostic.severity.INFO] = diagnostic_signs.Info,
+      [vim.diagnostic.severity.HINT] = diagnostic_signs.Hint,
+    },
+  },
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+  float = {
+    border = "rounded",
+    source = true,
+    header = "",
+    prefix = "",
+    focusable = false,
+    style = "minimal",
+  },
+})
+
+require("blink.cmp").setup({
+  keymap = {
+    preset = "none",
+    ["<C-Space>"] = { "show", "hide" },
+    ["<CR>"] = { "accept", "fallback" },
+    ["<C-j>"] = { "select_next", "fallback" },
+    ["<C-k>"] = { "select_prev", "fallback" },
+    ["<Tab>"] = { "snippet_forward", "fallback" },
+    ["<S-Tab>"] = { "snippet_backward", "fallback" },
+  },
+  appearance = { nerd_font_variant = "mono" },
+  completion = { menu = { auto_show = true } },
+  sources = { default = { "lsp", "path", "buffer", "snippets" } },
+  snippets = {
+    expand = function(snippet)
+      require("luasnip").lsp_expand(snippet)
+    end,
+  },
+
+  fuzzy = {
+    implementation = "prefer_rust",
+    prebuilt_binaries = { download = true },
+  },
+})
+
+do
+  local luacheck = require("efmls-configs.linters.luacheck")
+  local stylua = require("efmls-configs.formatters.stylua")
+
+  local flake8 = require("efmls-configs.linters.flake8")
+  local black = require("efmls-configs.formatters.black")
+
+  local prettier_d = require("efmls-configs.formatters.prettier_d")
+  local eslint_d = require("efmls-configs.linters.eslint_d")
+
+  local fixjson = require("efmls-configs.formatters.fixjson")
+
+  local shellcheck = require("efmls-configs.linters.shellcheck")
+  local shfmt = require("efmls-configs.formatters.shfmt")
+
+  local cpplint = require("efmls-configs.linters.cpplint")
+  local clangfmt = require("efmls-configs.formatters.clang_format")
+
+  local go_revive = require("efmls-configs.linters.go_revive")
+  local gofumpt = require("efmls-configs.formatters.gofumpt")
+
+  vim.lsp.config("efm", {
+    filetypes = {
+      "c",
+      "cpp",
+      "css",
+      "go",
+      "html",
+      "javascript",
+      "javascriptreact",
+      "json",
+      "jsonc",
+      "lua",
+      "markdown",
+      "python",
+      "sh",
+      "typescript",
+      "typescriptreact",
+      "vue",
+      "svelte",
+    },
+    init_options = { documentFormatting = true },
+    settings = {
+      languages = {
+        c = { clangfmt, cpplint },
+        go = { gofumpt, go_revive },
+        cpp = { clangfmt, cpplint },
+        css = { prettier_d },
+        html = { prettier_d },
+        javascript = { eslint_d, prettier_d },
+        javascriptreact = { eslint_d, prettier_d },
+        json = { eslint_d, fixjson },
+        jsonc = { eslint_d, fixjson },
+        lua = { luacheck, stylua },
+        markdown = { prettier_d },
+        python = { flake8, black },
+        sh = { shellcheck, shfmt },
+        typescript = { eslint_d, prettier_d },
+        typescriptreact = { eslint_d, prettier_d },
+        vue = { eslint_d, prettier_d },
+        svelte = { eslint_d, prettier_d },
+      },
+    },
+  })
 end
 
--- lsp signature config
-require("lsp_signature").setup({
-  bind = true,
-  handler_opts = {
-    border = "rounded",
-  },
+vim.lsp.enable({
+  "lua_ls",
+  "pyright",
+  "bashls",
+  "ts_ls",
+  "gopls",
+  "clangd",
+  "efm",
 })
+
+local augnouplsp = vim.api.nvim_create_augroup("UserConfig", { clear = true })
+
+local default_keymaps = {
+  { keys = "<leader>ca", func = vim.lsp.buf.code_action, desc = "Code Actions" },
+  { keys = "<leader>cr", func = vim.lsp.buf.rename, desc = "Code Rename" },
+  { keys = "<leader>k", func = vim.lsp.buf.hover, desc = "Hover Documentation", has = "hoverProvider" },
+  { keys = "K", func = vim.lsp.buf.hover, desc = "Hover (alt)", has = "hoverProvider" },
+  { keys = "gd", func = vim.lsp.buf.definition, desc = "Goto Definition", has = "definitionProvider" },
+  { keys = "<leader>d", func = vim.diagnostic.open_float, desc = "Show line diagnostics" },
+  { keys = "<leader>rn", func = vim.lsp.buf.rename, desc = "Smart rename" },
+}
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = augrouplsp,
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if not client then
+      return
+    end
+
+    local bufnr = ev.buf
+    local opts = { noremap = true, silent = true, buffer = bufnr }
+
+    if client then
+      -- Built-in completion
+      if client:supports_method("textDocument/completion") then
+        vim.lsp.completion.enable(true, client.id, ev.buf)
+      end
+
+      -- Inlay hints
+      if client:supports_method("textDocument/inlayHint") then
+        vim.lsp.inlay_hint.enable(true)
+      end
+
+      if client:supports_method("textDocument/documentColor") then
+        vim.lsp.document_color.enable(true)
+      end
+
+      if client:supports_method("textDocument/codeAction", bufnr) then
+        vim.keymap.set("n", "<leader>oi", function()
+          vim.lsp.buf.code_action({
+            context = { only = { "source.organizeImports" }, diagnostics = {} },
+            apply = true,
+            bufnr = bufnr,
+          })
+          vim.defer_fn(function()
+            vim.lsp.buf.format({ bufnr = bufnr })
+          end, 50)
+        end, opts)
+      end
+
+      for _, km in ipairs(default_keymaps) do
+        -- Only bind if there's no `has` requirement, or the server supports it
+        if not km.has or client.server_capabilities[km.has] then
+          vim.keymap.set(
+            km.mode or "n",
+            km.keys,
+            km.func,
+            { buffer = bufnr, desc = "LSP: " .. km.desc, nowait = km.nowait }
+          )
+        end
+      end
+    end
+  end,
+})
+
