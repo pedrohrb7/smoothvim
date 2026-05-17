@@ -5,6 +5,7 @@ vim.pack.add({
   { src = "https://www.github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/creativenull/efmls-configs-nvim" },
   { src = "https://www.github.com/ibhagwan/fzf-lua" },
+  { src = "https://github.com/mfussenegger/nvim-lint" },
   {
     src = "https://github.com/saghen/blink.cmp",
     version = vim.version.range("1.*"),
@@ -299,3 +300,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
   end,
 })
+
+-- local lint = require("lint")
+
+-- lint.linters_by_ft = {
+--   typescript = { "eslint_d", "eslint" },
+--   javascript = { "eslint_d", "eslint" },
+--   typescriptreact = { "eslint_d", "eslint" },
+--   javascriptreact = { "eslint_d", "eslint" },
+-- }
+-- local eslint = lint.linters.eslint_d
+
+-- eslint.args = {
+--   function()
+--     return vim.api.nvim_buf_get_name(0)
+--   end,
+-- }
