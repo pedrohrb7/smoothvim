@@ -15,7 +15,12 @@ vim.lsp.config["*"] = {
   capabilities = require("blink.cmp").get_lsp_capabilities(),
 }
 
+vim.lsp.config("cssls", {})
+vim.lsp.config("jsonls", {})
+vim.lsp.config("dockerls", {})
 vim.lsp.config("pyright", {})
+vim.lsp.config("gopls", {})
+vim.lsp.config("clangd", {})
 vim.lsp.config("bashls", {})
 vim.lsp.config("ts_ls", {
   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
@@ -38,19 +43,45 @@ vim.lsp.config("ts_ls", {
     },
   },
 })
-vim.lsp.config("gopls", {})
-vim.lsp.config("clangd", {})
+vim.lsp.config("emmet_ls", {})
 vim.lsp.config("lua_ls", {
   settings = {
     Lua = {
-      diagnostics = { globals = { "vim" } },
-      telemetry = { enable = false },
+      diagnostics = {
+        globals = { "vim" },
+      },
+      completion = {
+        callSnippet = "Replace",
+      },
+      -- Using stylua for formatting.
+      format = { enable = true },
+      hint = {
+        enable = true,
+        arrayIndex = "Disable",
+      },
+      runtime = {
+        version = "LuaJIT",
+      },
+      telemetry = {
+        enable = false,
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
+          "${3rd}/luv/library",
+        },
+      },
     },
   },
 })
 
+vim.lsp.enable('emmet_ls')
+vim.lsp.enable("cssls")
+vim.lsp.enable("jsonls")
+vim.lsp.enable("dockerls")
+vim.lsp.enable("pyright")
 vim.lsp.enable('bashls')
-vim.lsp.enable('gpls')
 vim.lsp.enable('ts_ls')
 vim.lsp.enable('clangd')
 vim.lsp.enable('lua_ls')

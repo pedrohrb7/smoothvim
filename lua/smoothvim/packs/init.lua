@@ -1,5 +1,5 @@
 require("smoothvim.packs.dependencies")
-require("smoothvim.packs.fidget")
+require("smoothvim.packs.notify")
 require("smoothvim.packs.mason")
 require("smoothvim.packs.neotree")
 require("smoothvim.packs.trouble")
