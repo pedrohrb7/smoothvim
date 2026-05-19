@@ -8,7 +8,7 @@
 $ git clone https://github.com/pedrohrb7/smoothvim.git ~/.config/smoothvim
 $ NVIM_APPNAME=smoothvim nvim
 
-# or if you don't want to override your config
+# or 
 
 $ git clone https://github.com/pedrohrb7/smoothvim.git ~/.config/nvim
 $ nvim
@@ -46,3 +46,5 @@ $ nvim
 - [LunarVim](https://github.com/LunarVim/LunarVim)
 - [SpaceVim](https://github.com/wsdjeg/SpaceVim)
 - [TerminalRoot](https://www.youtube.com/TerminalRootTV)
+
+- Last config based on -> ["https://www.youtube.com/watch?v=lljs_7xB7Ps"]
