@@ -85,9 +85,7 @@ local function lsp_on_attach(ev)
   local bufnr = ev.buf
   local opts = { noremap = true, silent = true, buffer = bufnr }
 
-  vim.keymap.set("n", "<leader>gd", function()
-    require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
-  end, opts)
+  vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
 
   vim.keymap.set("n", "<leader>gD", vim.lsp.buf.definition, opts)
 
@@ -105,34 +103,34 @@ local function lsp_on_attach(ev)
   vim.keymap.set("n", "<leader>d", function()
     vim.diagnostic.open_float({ scope = "cursor" })
   end, opts)
-  vim.keymap.set("n", "<leader>nd", function()
-    vim.diagnostic.jump({ count = 1 })
-  end, opts)
-
-  vim.keymap.set("n", "<leader>pd", function()
-    vim.diagnostic.jump({ count = -1 })
-  end, opts)
 
   vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
-  vim.keymap.set("n", "<leader>fd", function()
-    require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
-  end, opts)
-  vim.keymap.set("n", "<leader>fr", function()
-    require("fzf-lua").lsp_references()
-  end, opts)
-  vim.keymap.set("n", "<leader>ft", function()
-    require("fzf-lua").lsp_typedefs()
-  end, opts)
-  vim.keymap.set("n", "<leader>fs", function()
-    require("fzf-lua").lsp_document_symbols()
-  end, opts)
-  vim.keymap.set("n", "<leader>fw", function()
-    require("fzf-lua").lsp_workspace_symbols()
-  end, opts)
-  vim.keymap.set("n", "<leader>fi", function()
-    require("fzf-lua").lsp_implementations()
-  end, opts)
+  -- vim.keymap.set("n", "<leader>nd", function()
+  --   vim.diagnostic.jump({ count = 1 })
+  -- end, opts)
+  -- vim.keymap.set("n", "<leader>pd", function()
+  --   vim.diagnostic.jump({ count = -1 })
+  -- end, opts)
+
+  -- vim.keymap.set("n", "<leader>fd", function()
+  --   require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
+  -- end, opts)
+  -- vim.keymap.set("n", "<leader>fr", function()
+  --   require("fzf-lua").lsp_references()
+  -- end, opts)
+  -- vim.keymap.set("n", "<leader>ft", function()
+  --   require("fzf-lua").lsp_typedefs()
+  -- end, opts)
+  -- vim.keymap.set("n", "<leader>fs", function()
+  --   require("fzf-lua").lsp_document_symbols()
+  -- end, opts)
+  -- vim.keymap.set("n", "<leader>fw", function()
+  --   require("fzf-lua").lsp_workspace_symbols()
+  -- end, opts)
+  -- vim.keymap.set("n", "<leader>fi", function()
+  --   require("fzf-lua").lsp_implementations()
+  -- end, opts)
 
   if client:supports_method("textDocument/codeAction", bufnr) then
     vim.keymap.set("n", "<leader>oi", function()
@@ -187,14 +185,59 @@ vim.lsp.config["*"] = {
 vim.lsp.config("lua_ls", {
   settings = {
     Lua = {
-      diagnostics = { globals = { "vim" } },
-      telemetry = { enable = false },
+      diagnostics = {
+        globals = { "vim" },
+      },
+      completion = {
+        callSnippet = "Replace",
+      },
+      -- Using stylua for formatting.
+      format = { enable = false },
+      hint = {
+        enable = true,
+        arrayIndex = "Disable",
+      },
+      runtime = {
+        version = "LuaJIT",
+      },
+      telemetry = {
+        enable = false,
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
+          "${3rd}/luv/library",
+        },
+      },
     },
   },
 })
+vim.lsp.config("dockerls", {})
+vim.lsp.config("jsonls", {})
+vim.lsp.config("cssls", {})
+vim.lsp.config("emmet_ls", {})
 vim.lsp.config("pyright", {})
 vim.lsp.config("bashls", {})
-vim.lsp.config("ts_ls", {})
+vim.lsp.config("ts_ls", {
+  settings = {
+    typescript = {
+      tsserver = {
+        useSyntaxServer = false,
+      },
+      inlayHints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = false,
+        includeInlayVariableTypeHints = false,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = false,
+        includeInlayEnumMemberValueHints = true,
+      },
+    },
+  },
+})
 vim.lsp.config("gopls", {})
 vim.lsp.config("clangd", {})
 
