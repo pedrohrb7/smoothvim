@@ -4,7 +4,7 @@ vim.g.maplocalleader = "\\"
 require("smoothvim.config")
 require("smoothvim.packs")
 
-vim.cmd.colorscheme("habamax")
+-- vim.cmd.colorscheme("")
 
 vim.pack.add({
   "https://www.github.com/lewis6991/gitsigns.nvim",
