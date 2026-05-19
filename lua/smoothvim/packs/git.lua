@@ -8,10 +8,14 @@ require("gitsigns").setup({
   signs = {
     add = { text = "+" },
     change = { text = "§" },
-    delete = { text = "_" },
-    topdelete = { text = "‾" },
-    changedelete = { text = "~" },
+    -- delete = { text = "_" },
+    -- topdelete = { text = "‾" },
+    -- changedelete = { text = "~" },
+    delete = { text = "\u{2590}" }, -- ◦
+    topdelete = { text = "\u{25e6}" }, -- ◦
+    changedelete = { text = "\u{25cf}" }, -- ●
     untracked = { text = "┆" },
+    -- untracked = { text = "\u{25cb}" }, -- ○
   },
   watch_gitdir = {
     follow_files = true,
@@ -40,3 +44,4 @@ keymap.set("n", "<leader>hu", "<cmd>Gitsigns undo_stage_hunk<CR>", opts) -- "Git
 keymap.set("n", "<leader>hb", '<cmd>lua require"gitsigns".blame_line{full=true}<CR>', opts) -- "GitSigns Blame Full" })
 keymap.set("n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>", opts) -- "GitSigns Show Hunk Preview" })
 keymap.set("n", "<leader>td", "<cmd>Gitsigns toggle_deleted<CR>", opts) -- "GitSigns Toggle Deleted" })
+keymap.set("n", "<leader>hB", "<cmd>Gitsigns toggle_current_line_blame<CR>", opts)
