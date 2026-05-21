@@ -2,13 +2,26 @@ vim.pack.add({
   { src = "https://github.com/williamboman/mason.nvim" },
   { src = "https://github.com/williamboman/mason-lspconfig.nvim" },
   { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
-  { src = "https://github.com/neovim/nvim-lspconfig" },
+
   { src = "https://github.com/creativenull/efmls-configs-nvim" },
-  {
-    src = "https://github.com/saghen/blink.cmp",
-    version = vim.version.range("1.*"),
-  },
-  "https://github.com/L3MON4D3/LuaSnip",
+
+  { src = "https://github.com/neovim/nvim-lspconfig" },
+  { src = "https://github.com/ray-x/lsp_signature.nvim" },
+  { src = "https://github.com/antosha417/nvim-lsp-file-operations" },
+
+  { src = "https://github.com/hrsh7th/nvim-cmp" },
+  { src = "https://github.com/hrsh7th/cmp-path" },
+  { src = "https://github.com/hrsh7th/cmp-buffer" },
+  { src = "https://github.com/hrsh7th/cmp-cmdLine" },
+  { src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
+  { src = "https://github.com/stevearc/conform.nvim" },
+  { src = "https://github.com/SergioRibera/cmp-dotenv" },
+  { src = "https://github.com/saadparwaiz1/cmp_luasnip" },
+  { src = "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help" },
+
+  { src = "https://github.com/L3MON4D3/LuaSnip" },
+  { src = "https://github.com/mfussenegger/nvim-lint" },
+  { src = "https://github.com/rafamadriz/friendly-snippets" },
 })
 
 require("mason").setup({})
@@ -31,6 +44,10 @@ require("mason-tool-installer").setup({
     -- { "eslint_d", version = "13.1.2" },
   },
 })
+local conform = require("conform")
+local util = require("conform.util")
+local lint = require("lint")
+local cmp = require("cmp")
 
 local augroup = vim.api.nvim_create_augroup("UserLspConfig", { clear = true })
 
@@ -69,6 +86,7 @@ vim.diagnostic.config({
 
 do
   local orig = vim.lsp.util.open_floating_preview
+  ---@diagnostic disable-next-line: duplicate-set-field
   function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
     opts = opts or {}
     opts.border = opts.border or "rounded"
@@ -108,6 +126,14 @@ local function lsp_on_attach(ev)
 
   vim.keymap.set("n", "<leader>xx", ":Telescope diagnostics<CR>", opts)
 
+  vim.keymap.set("n", "<leader>ft", function()
+    conform.format({
+      lsp_fallback = true,
+      async = false,
+      timeout_ms = 500,
+    })
+  end, opts)
+
   -- vim.keymap.set("n", "<leader>nd", function()
   --   vim.diagnostic.jump({ count = 1 })
   -- end, opts)
@@ -119,84 +145,37 @@ local function lsp_on_attach(ev)
   -- vim.keymap.set("n", "<leader>fd", function()
   --   require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
   -- end, opts)
+
   -- vim.keymap.set("n", "<leader>fr", function()
   --   require("fzf-lua").lsp_references()
   -- end, opts)
+
   -- vim.keymap.set("n", "<leader>ft", function()
   --   require("fzf-lua").lsp_typedefs()
   -- end, opts)
+
   -- vim.keymap.set("n", "<leader>fs", function()
   --   require("fzf-lua").lsp_document_symbols()
   -- end, opts)
+
   -- vim.keymap.set("n", "<leader>fw", function()
   --   require("fzf-lua").lsp_workspace_symbols()
   -- end, opts)
+
   -- vim.keymap.set("n", "<leader>fi", function()
   --   require("fzf-lua").lsp_implementations()
   -- end, opts)
-
-  if client:supports_method("textDocument/codeAction", bufnr) then
-    vim.keymap.set("n", "<leader>ft", function()
-      vim.lsp.buf.code_action({
-        context = { only = { "quickfix", "source.fixAll" }, diagnostics = {} },
-        apply = true,
-        bufnr = bufnr,
-      })
-      vim.defer_fn(function()
-        vim.lsp.buf.format({ bufnr = bufnr })
-      end, 50)
-    end, opts)
-  end
 end
 
 vim.api.nvim_create_autocmd("LspAttach", { group = augroup, callback = lsp_on_attach })
 
--- vim.keymap.set("n", "<leader>q", function()
---   vim.diagnostic.setloclist({ open = true })
--- end, { desc = "Open diagnostic list" })
-
 vim.keymap.set("n", "<leader>dl", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
 
-require("blink.cmp").setup({
-  keymap = {
-    preset = "none",
-    ["<C-Space>"] = { "show", "hide" },
-    ["<CR>"] = { "accept", "fallback" },
-    ["<C-j>"] = { "select_next", "fallback" },
-    ["<C-k>"] = { "select_prev", "fallback" },
-    ["<Tab>"] = { "snippet_forward", "fallback" },
-    ["<S-Tab>"] = { "snippet_backward", "fallback" },
-  },
-  appearance = { nerd_font_variant = "mono" },
-  completion = { menu = { auto_show = true } },
-  sources = { default = { "lsp", "path", "buffer", "snippets" } },
-  snippets = {
-    expand = function(snippet)
-      require("luasnip").lsp_expand(snippet)
-    end,
-  },
-
-  fuzzy = {
-    implementation = "prefer_rust",
-    prebuilt_binaries = { download = true },
-  },
-})
-
-local blink_capabilities = require("blink.cmp").get_lsp_capabilities()
-
--- vim.lsp.config("eslint", {
---   capabilities = blink_capabilities,
---   on_attach = function(client, bufnr)
---     -- Optional: Auto-fix on save
---     vim.api.nvim_create_autocmd("BufWritePre", {
---       buffer = bufnr,
---       command = "EslintFixAll",
---     })
---   end,
--- })
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local capabilities = cmp_nvim_lsp.default_capabilities()
 
 vim.lsp.config["*"] = {
-  capabilities = blink_capabilities,
+  capabilities = capabilities,
 }
 
 vim.lsp.config("lua_ls", {
@@ -332,4 +311,171 @@ vim.lsp.enable({
   "gopls",
   "clangd",
   "efm",
+})
+
+-- ===========================================================
+-- Conform plugin config
+
+conform.setup({
+  formatters_by_ft = {
+    javascript = { "prettier", stop_after_first = true },
+    typescript = { "prettier", stop_after_first = true },
+    javascriptreact = { "prettier", stop_after_first = true },
+    typescriptreact = { "prettier", stop_after_first = true },
+    css = { "prettier" },
+    scss = { "prettier" },
+    json = { "prettier" },
+    yaml = { "yamlfmt" },
+    markdown = { "prettier" },
+    lua = { "stylua" },
+    kotlin = { "ktlint" },
+    cpp = { "clang-format" },
+    c = { "clang-format" },
+    java = { "clang-format" },
+    xml = { "xmlformatter" },
+  },
+  format_on_save = {
+    lsp_format = "fallback",
+    async = false,
+    timeout_ms = 500,
+  },
+  formatters = {
+    clang_format = {
+      command = "clang-format",
+      args = { "--assume-filename", "$FILENAME" },
+      stdin = true,
+    },
+    eslint_d = {
+      meta = {
+        url = "https://github.com/mantoni/eslint_d.js/",
+        description = "Like ESLint, but faster.",
+      },
+      command = util.from_node_modules("eslint_d"),
+      args = { "--fix-to-stdout", "--stdin", "--stdin-filename", "$FILENAME" },
+      require_cwd = true,
+      cwd = util.root_file({
+        "eslint.config.mjs",
+        "eslint.config.js",
+        "package.json",
+        "eslintrc.json",
+        "eslintrc.js",
+        ".eslintrc.js",
+        "eslintrc",
+      }),
+    },
+    prettier = {
+      -- cwd means "config working directory"
+      require_cwd = true,
+
+      cwd = util.root_file({
+        ".prettierrc",
+        ".prettierrc.json",
+        ".prettierrc.yml",
+        ".prettierrc.yaml",
+        ".prettierrc.json5",
+        ".prettierrc.js",
+        ".prettierrc.cjs",
+        ".prettierrc.mjs",
+        ".prettierrc.toml",
+        "prettier.config.js",
+        "prettier.config.cjs",
+        "prettier.config.mjs",
+      }),
+    },
+  },
+})
+
+-- ===========================================================
+-- Lint config to use eslint from the project
+lint.linters_by_ft = {
+  typescript = { "eslint_d", "eslint" },
+  javascript = { "eslint_d", "eslint" },
+  typescriptreact = { "eslint_d", "eslint" },
+  javascriptreact = { "eslint_d", "eslint" },
+  -- kotlin = { 'ktlint' },
+}
+local eslint = lint.linters.eslint_d
+-- local eslint = util.from_node_modules("eslint_d")
+eslint.args = {
+  -- "--no-warn-ignored", -- <-- this is the key argument
+  "--ignore", -- <-- this is the key argument
+  "--format",
+  "json",
+  "--stdin",
+  "--stdin-filename",
+  function()
+    return vim.api.nvim_buf_get_name(0)
+  end,
+}
+
+local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+  group = lint_augroup,
+  callback = function()
+    lint.try_lint()
+  end,
+})
+
+-- ==========================================================
+-- Conform config
+
+require("luasnip.loaders.from_vscode").lazy_load()
+
+cmp.setup({
+  completion = {
+    completeopt = "menu,menuone,preview,noselect",
+  },
+
+  snippet = {
+    expand = function(args)
+      require("luasnip").lsp_expand(args.body)
+      cmp.resubscribe({ "TextChangedI", "TextChangedP" })
+      require("cmp.config").set_onetime({ sources = {} })
+    end,
+  },
+
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+
+  mapping = cmp.mapping.preset.insert({
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-j>"] = cmp.mapping.scroll_docs(1),
+    ["<C-k>"] = cmp.mapping.scroll_docs(-1),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<C-b>"] = cmp.mapping.select_prev_item(),
+    ["<C-e>"] = cmp.mapping.abort(),
+    ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+
+  sources = cmp.config.sources({
+    { name = "nvim_lsp" },
+    { name = "nvim_lsp_signature_help" },
+    { name = "luasnip" },
+    { name = "buffer" },
+    { name = "path" },
+  }),
+})
+
+cmp.setup.cmdline("/", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = "buffer" },
+  },
+})
+
+cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = "path" },
+  }, {
+    {
+      name = "cmdline",
+      option = {
+        ignore_cmds = { "Man", "!" },
+      },
+    },
+  }),
 })

@@ -3,18 +3,6 @@ vim.pack.add({
 })
 
 local luaLine = require("lualine")
--- To enable code symbols uncomment this and add to c section in sections
--- local symbols = require("trouble").statusline({
---   mode = "lsp_document_symbols",
---   groups = {},
---   title = false,
---   filter = { range = true },
---   format = "{kind_icon}{symbol.name:Normal}",
---   -- The following line is needed to fix the background color
---   -- Set it to the lualine section you want to use
---   hl_group = "lualine_c_normal",
--- })
-
 -- Config
 local config = {
   options = {
