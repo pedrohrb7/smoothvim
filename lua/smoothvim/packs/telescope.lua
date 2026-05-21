@@ -5,7 +5,7 @@ vim.pack.add({
 
 local telescope = require("telescope")
 local actions = require("telescope.actions")
-local builtin = require('telescope.builtin')
+local builtin = require("telescope.builtin")
 
 telescope.setup({
   defaults = {
@@ -67,7 +67,7 @@ keymap.set("n", "<leader>ff", builtin.find_files, opts) -- Telescope Find file" 
 keymap.set("n", "<leader>fw", builtin.live_grep, opts) -- Telescope Search by word" })
 keymap.set("n", "<leader>fb", builtin.buffers, opts) -- Search in open buffers" })
 keymap.set("n", "<leader>fg", builtin.git_status, opts) -- Search in git edited buffers
-keymap.set('n', '<leader>fd', builtin.diagnostics, opts) -- Telescope show diagnostics
+keymap.set("n", "<leader>fd", builtin.diagnostics, opts) -- Telescope show diagnostics
 
 -- Alternative config with fzf-lua
 -- require("fzf-lua").setup({})

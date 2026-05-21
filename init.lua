@@ -4,8 +4,6 @@ vim.g.maplocalleader = "\\"
 require("smoothvim.config")
 require("smoothvim.packs")
 
--- vim.cmd.colorscheme("")
-
 vim.pack.add({
   "https://www.github.com/lewis6991/gitsigns.nvim",
   "https://www.github.com/echasnovski/mini.nvim",
@@ -21,7 +19,15 @@ vim.pack.add({
   },
 })
 
-require("mini.notify").setup({})
+require("mini.notify").setup({
+  window = {
+    config = {
+      anchor = "SE",
+      col = vim.o.columns,
+      row = vim.o.lines - 2,
+    },
+  },
+})
 require("mini.icons").setup({})
 require("mini.pairs").setup({})
 require("mini.comment").setup({})
