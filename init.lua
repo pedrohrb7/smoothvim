@@ -11,6 +11,9 @@ vim.pack.add({
   "https://www.github.com/echasnovski/mini.nvim",
   "https://www.github.com/nvim-tree/nvim-tree.lua",
   "https://www.github.com/echasnovski/mini.nvim",
+  -- theme packages
+  { src = "https://github.com/rose-pine/neovim" },
+  { src = "https://github.com/folke/tokyonight.nvim" },
   {
     src = "https://github.com/nvim-treesitter/nvim-treesitter",
     branch = "main",
@@ -27,6 +30,23 @@ require("mini.surround").setup({})
 -- ============================================================================
 -- PLUGIN ( CONFIGS )
 -- ============================================================================
+require("tokyonight").setup({
+  transparent = true,
+  styles = {
+    -- Background styles. Can be "dark", "transparent" or "normal"
+    sidebars = "transparent",
+    floats = "dark",
+  },
+  lualine_bold = true,
+})
+
+require("rose-pine").setup({
+  styles = {
+    transparency = false,
+  },
+})
+
+vim.cmd.colorscheme("tokyonight")
 
 local setup_treesitter = function()
   local treesitter = require("nvim-treesitter")

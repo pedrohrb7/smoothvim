@@ -106,9 +106,12 @@ local function lsp_on_attach(ev)
 
   vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
+  vim.keymap.set("n", "<leader>xx", ":Telescope diagnostics<CR>", opts)
+
   -- vim.keymap.set("n", "<leader>nd", function()
   --   vim.diagnostic.jump({ count = 1 })
   -- end, opts)
+
   -- vim.keymap.set("n", "<leader>pd", function()
   --   vim.diagnostic.jump({ count = -1 })
   -- end, opts)
@@ -133,9 +136,9 @@ local function lsp_on_attach(ev)
   -- end, opts)
 
   if client:supports_method("textDocument/codeAction", bufnr) then
-    vim.keymap.set("n", "<leader>oi", function()
+    vim.keymap.set("n", "<leader>ft", function()
       vim.lsp.buf.code_action({
-        context = { only = { "source.organizeImports" }, diagnostics = {} },
+        context = { only = { "quickfix", "source.fixAll" }, diagnostics = {} },
         apply = true,
         bufnr = bufnr,
       })
@@ -148,9 +151,10 @@ end
 
 vim.api.nvim_create_autocmd("LspAttach", { group = augroup, callback = lsp_on_attach })
 
-vim.keymap.set("n", "<leader>q", function()
-  vim.diagnostic.setloclist({ open = true })
-end, { desc = "Open diagnostic list" })
+-- vim.keymap.set("n", "<leader>q", function()
+--   vim.diagnostic.setloclist({ open = true })
+-- end, { desc = "Open diagnostic list" })
+
 vim.keymap.set("n", "<leader>dl", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
 
 require("blink.cmp").setup({
@@ -178,8 +182,21 @@ require("blink.cmp").setup({
   },
 })
 
+local blink_capabilities = require("blink.cmp").get_lsp_capabilities()
+
+-- vim.lsp.config("eslint", {
+--   capabilities = blink_capabilities,
+--   on_attach = function(client, bufnr)
+--     -- Optional: Auto-fix on save
+--     vim.api.nvim_create_autocmd("BufWritePre", {
+--       buffer = bufnr,
+--       command = "EslintFixAll",
+--     })
+--   end,
+-- })
+
 vim.lsp.config["*"] = {
-  capabilities = require("blink.cmp").get_lsp_capabilities(),
+  capabilities = blink_capabilities,
 }
 
 vim.lsp.config("lua_ls", {

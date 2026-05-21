@@ -8,13 +8,13 @@ require("gitsigns").setup({
   signs = {
     add = { text = "+" },
     change = { text = "§" },
+    delete = { text = "\u{2590}" }, -- ◦
+    changedelete = { text = "\u{25cf}" }, -- ●
+    topdelete = { text = "\u{25e6}" }, -- ◦
+    untracked = { text = "┆" },
     -- delete = { text = "_" },
     -- topdelete = { text = "‾" },
     -- changedelete = { text = "~" },
-    delete = { text = "\u{2590}" }, -- ◦
-    topdelete = { text = "\u{25e6}" }, -- ◦
-    changedelete = { text = "\u{25cf}" }, -- ●
-    untracked = { text = "┆" },
     -- untracked = { text = "\u{25cb}" }, -- ○
   },
   watch_gitdir = {
