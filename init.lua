@@ -17,6 +17,13 @@ vim.pack.add({
   { src = "https://github.com/folke/tokyonight.nvim" },
   { src = "https://github.com/brenoprata10/nvim-highlight-colors" },
   -- ============================================================================
+  {
+    src = "https://github.com/JavaHello/spring-boot.nvim",
+    version = "218c0c26c14d99feca778e4d13f5ec3e8b1b60f0",
+  },
+  { src = "https://github.com/mfussenegger/nvim-dap" },
+  { src = "https://github.com/nvim-java/nvim-java" },
+  -- { src = "https://github.com/MunifTanjim/nui.nvim" },
 
   -- ============================================================================
   -- Dependencies for some plugins
@@ -42,6 +49,7 @@ require("mini.pairs").setup({})
 require("mini.comment").setup({})
 require("mini.surround").setup({})
 require("nvim-highlight-colors").setup({})
+require("java").setup()
 
 -- ============================================================================
 -- PLUGIN CONFIGS
@@ -85,6 +93,7 @@ local setup_treesitter = function()
     "vue",
     "svelte",
     "bash",
+    "java",
   }
 
   local config = require("nvim-treesitter.config")

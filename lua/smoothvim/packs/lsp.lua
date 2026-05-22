@@ -209,6 +209,7 @@ vim.lsp.config("lua_ls", {
     },
   },
 })
+vim.lsp.enable("jdtls")
 vim.lsp.config("dockerls", {})
 vim.lsp.config("jsonls", {})
 vim.lsp.config("cssls", {})
@@ -311,6 +312,7 @@ vim.lsp.enable({
   "gopls",
   "clangd",
   "efm",
+  "jdtls",
 })
 
 -- ===========================================================
@@ -331,7 +333,7 @@ conform.setup({
     kotlin = { "ktlint" },
     cpp = { "clang-format" },
     c = { "clang-format" },
-    java = { "clang-format" },
+    java = { "palantir-java-format" },
     xml = { "xmlformatter" },
   },
   format_on_save = {
