@@ -1,23 +1,32 @@
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = "\\"
 
-require("smoothvim.config")
-require("smoothvim.packs")
-
 vim.pack.add({
   "https://www.github.com/lewis6991/gitsigns.nvim",
   "https://www.github.com/echasnovski/mini.nvim",
   "https://www.github.com/nvim-tree/nvim-tree.lua",
   "https://www.github.com/echasnovski/mini.nvim",
-  -- theme packages
-  { src = "https://github.com/rose-pine/neovim" },
-  { src = "https://github.com/folke/tokyonight.nvim" },
   {
     src = "https://github.com/nvim-treesitter/nvim-treesitter",
     branch = "main",
     build = ":TSUpdate",
   },
+  -- ============================================================================
+  -- theme packages
+  { src = "https://github.com/rose-pine/neovim" },
+  { src = "https://github.com/folke/tokyonight.nvim" },
+  { src = "https://github.com/brenoprata10/nvim-highlight-colors" },
+  -- ============================================================================
+
+  -- ============================================================================
+  -- Dependencies for some plugins
+  -- ============================================================================
+  { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+  { src = "https://github.com/nvim-lua/plenary.nvim" },
 })
+
+require("smoothvim.config")
+require("smoothvim.packs")
 
 require("mini.notify").setup({
   window = {
@@ -32,9 +41,10 @@ require("mini.icons").setup({})
 require("mini.pairs").setup({})
 require("mini.comment").setup({})
 require("mini.surround").setup({})
+require("nvim-highlight-colors").setup({})
 
 -- ============================================================================
--- PLUGIN ( CONFIGS )
+-- PLUGIN CONFIGS
 -- ============================================================================
 require("tokyonight").setup({
   transparent = true,
