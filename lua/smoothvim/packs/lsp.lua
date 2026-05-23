@@ -104,27 +104,21 @@ local function lsp_on_attach(ev)
   local opts = { noremap = true, silent = true, buffer = bufnr }
 
   vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
-
   vim.keymap.set("n", "<leader>gD", vim.lsp.buf.definition, opts)
+  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+  vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+  vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+  vim.keymap.set("n", "<leader>xx", ":Telescope diagnostics<CR>", opts)
 
   vim.keymap.set("n", "<leader>gS", function()
     vim.cmd("vsplit")
     vim.lsp.buf.definition()
   end, opts)
 
-  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-  vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-
   vim.keymap.set("n", "<leader>D", function()
     vim.diagnostic.open_float({ scope = "line" })
   end, opts)
-  vim.keymap.set("n", "<leader>d", function()
-    vim.diagnostic.open_float({ scope = "cursor" })
-  end, opts)
-
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-
-  vim.keymap.set("n", "<leader>xx", ":Telescope diagnostics<CR>", opts)
 
   vim.keymap.set("n", "<leader>ft", function()
     conform.format({
@@ -168,8 +162,6 @@ local function lsp_on_attach(ev)
 end
 
 vim.api.nvim_create_autocmd("LspAttach", { group = augroup, callback = lsp_on_attach })
-
-vim.keymap.set("n", "<leader>dl", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
 
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local capabilities = cmp_nvim_lsp.default_capabilities()
