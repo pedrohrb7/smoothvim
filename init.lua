@@ -4,8 +4,6 @@ vim.g.maplocalleader = "\\"
 vim.pack.add({
   "https://www.github.com/lewis6991/gitsigns.nvim",
   "https://www.github.com/echasnovski/mini.nvim",
-  "https://www.github.com/nvim-tree/nvim-tree.lua",
-  "https://www.github.com/echasnovski/mini.nvim",
   -- ============================================================================
   -- theme packages
   { src = "https://github.com/rose-pine/neovim" },
@@ -18,7 +16,6 @@ vim.pack.add({
   },
   { src = "https://github.com/mfussenegger/nvim-dap" },
   { src = "https://github.com/nvim-java/nvim-java" },
-  -- { src = "https://github.com/MunifTanjim/nui.nvim" },
 
   -- ============================================================================
   -- Dependencies for some plugins
