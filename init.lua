@@ -2,7 +2,6 @@ vim.g.mapleader = "\\"
 vim.g.maplocalleader = "\\"
 
 vim.pack.add({
-  "https://www.github.com/lewis6991/gitsigns.nvim",
   "https://www.github.com/echasnovski/mini.nvim",
   -- ============================================================================
   -- theme packages
