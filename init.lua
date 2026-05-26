@@ -15,6 +15,7 @@ vim.pack.add({
   },
   { src = "https://github.com/mfussenegger/nvim-dap" },
   { src = "https://github.com/nvim-java/nvim-java" },
+  { src = "https://github.com/sphamba/smear-cursor.nvim" },
 
   -- ============================================================================
   -- Dependencies for some plugins
@@ -45,6 +46,13 @@ require("java").setup()
 -- ============================================================================
 -- PLUGIN CONFIGS
 -- ============================================================================
+
+require("smear_cursor").setup({
+  never_draw_over_target = true,
+  smear_insert_mode = false,
+  cursor_color = "#FF48B0",
+})
+
 require("tokyonight").setup({
   transparent = true,
   styles = {
