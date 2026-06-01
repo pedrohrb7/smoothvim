@@ -103,8 +103,7 @@ local function lsp_on_attach(ev)
   local bufnr = ev.buf
   local opts = { noremap = true, silent = true, buffer = bufnr }
 
-  vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
-  vim.keymap.set("n", "<leader>gD", vim.lsp.buf.definition, opts)
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
   vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
   vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
