@@ -27,6 +27,9 @@ opt.wrap = false
 opt.ignorecase = true -- ignore case when searching
 opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
 opt.smartindent = true
+opt.inccommand = "split"
+opt.laststatus = 3
+vim.opt.scrolloff = 8
 
 opt.cursorline = true
 opt.cursorcolumn = true

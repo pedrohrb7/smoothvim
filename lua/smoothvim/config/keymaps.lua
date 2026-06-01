@@ -50,3 +50,11 @@ keymap.set("v", "p", '"_dP', { noremap = true, silent = true })
 -- insert new line
 keymap.set("n", "<leader>o", "o<ESC>", { desc = "insert new line below" })
 keymap.set("n", "<leader>O", "O<ESC>", { desc = "insert new line above" })
+
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "move down in buffer with cursor centered" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "move up in buffer with cursor centered" })
+
+vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result cursor centered" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result cursor centered" })
+
+vim.keymap.set("n", "<leader>re", "<cmd>restart<cr>", { desc = "Restart config :restart)" })
