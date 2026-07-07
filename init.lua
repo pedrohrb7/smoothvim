@@ -16,6 +16,9 @@ vim.pack.add({
   { src = "https://github.com/mfussenegger/nvim-dap" },
   { src = "https://github.com/nvim-java/nvim-java" },
   { src = "https://github.com/sphamba/smear-cursor.nvim" },
+  {
+    src = "https://github.com/greggh/claude-code.nvim",
+  },
 
   -- ============================================================================
   -- Dependencies for some plugins
@@ -46,6 +49,19 @@ require("java").setup()
 -- ============================================================================
 -- PLUGIN CONFIGS
 -- ============================================================================
+require("claude-code").setup({
+  window = {
+    position = "float",
+    float = {
+      width = "90%", -- Take up 90% of the editor width
+      height = "90%", -- Take up 90% of the editor height
+      row = "center", -- Center vertically
+      col = "center", -- Center horizontally
+      relative = "editor",
+      border = "double", -- Use double border style
+    },
+  },
+})
 
 require("smear_cursor").setup({
   never_draw_over_target = true,
