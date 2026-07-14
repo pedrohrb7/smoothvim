@@ -1,8 +1,11 @@
+-- Leader used for all custom <leader>-prefixed keymaps (see smoothvim.config.keymaps)
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = "\\"
 
+-- Declares every plugin to fetch/load via Neovim's built-in plugin manager (vim.pack).
+-- Setup/config for these happens below and in smoothvim.packs; this block only declares sources.
 vim.pack.add({
-  "https://www.github.com/echasnovski/mini.nvim",
+  { src = "https://www.github.com/echasnovski/mini.nvim" },
   -- ============================================================================
   -- theme packages
   { src = "https://github.com/rose-pine/neovim" },
@@ -11,25 +14,30 @@ vim.pack.add({
   -- ============================================================================
   {
     src = "https://github.com/JavaHello/spring-boot.nvim",
+    -- pinned commit: avoids breakage from upstream changes until bumped intentionally
     version = "218c0c26c14d99feca778e4d13f5ec3e8b1b60f0",
   },
   { src = "https://github.com/mfussenegger/nvim-dap" },
   { src = "https://github.com/nvim-java/nvim-java" },
   { src = "https://github.com/sphamba/smear-cursor.nvim" },
-  {
-    src = "https://github.com/greggh/claude-code.nvim",
-  },
+  { src = "https://github.com/coder/claudecode.nvim" },
 
   -- ============================================================================
   -- Dependencies for some plugins
   -- ============================================================================
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
   { src = "https://github.com/nvim-lua/plenary.nvim" },
+  -- Dependency to claude code plugin
+  { src = "https://github.com/folke/snacks.nvim" },
 })
 
+-- smoothvim.config: core options, keymaps, autocmds
+-- smoothvim.packs: per-plugin setup for lualine, telescope, lsp, neo-tree, git
 require("smoothvim.config")
 require("smoothvim.packs")
 
+-- mini.nvim modules: each submodule is set up independently, only what's needed
+-- notify: popup notifications, anchored bottom-right (SE) above the last two lines
 require("mini.notify").setup({
   window = {
     config = {
@@ -39,33 +47,22 @@ require("mini.notify").setup({
     },
   },
 })
-require("mini.icons").setup({})
-require("mini.pairs").setup({})
-require("mini.comment").setup({})
-require("mini.surround").setup({})
+require("mini.icons").setup({}) -- icon provider used by neo-tree/lualine/etc.
+require("mini.pairs").setup({}) -- auto-close brackets/quotes
+require("mini.comment").setup({}) -- gc/gcc comment toggling
+require("mini.surround").setup({}) -- add/change/delete surrounding pairs (quotes, tags, ...)
 require("nvim-highlight-colors").setup({})
-require("java").setup()
+require("java").setup() -- nvim-java: JDTLS/Java LSP wiring, must run before LSP attaches to Java files
 
 -- ============================================================================
 -- PLUGIN CONFIGS
 -- ============================================================================
-require("claude-code").setup({
-  window = {
-    position = "float",
-    float = {
-      width = "90%", -- Take up 90% of the editor width
-      height = "90%", -- Take up 90% of the editor height
-      row = "center", -- Center vertically
-      col = "center", -- Center horizontally
-      relative = "editor",
-      border = "double", -- Use double border style
-    },
-  },
-})
+require("claudecode").setup()
+vim.keymap.set("n", "<leader>cl", "<cmd>ClaudeCode<CR>", { desc = "Toggle Claude Code" })
 
 require("smear_cursor").setup({
-  never_draw_over_target = true,
-  smear_insert_mode = false,
+  never_draw_over_target = true, -- don't smear across the actual cursor target (e.g. cmdline)
+  smear_insert_mode = false, -- disable the trailing effect while typing in insert mode
   cursor_color = "#FF48B0",
 })
 
@@ -85,4 +82,5 @@ require("rose-pine").setup({
   },
 })
 
+-- Active colorscheme; rose-pine above is configured but not applied
 vim.cmd.colorscheme("tokyonight")

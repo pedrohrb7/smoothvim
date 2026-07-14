@@ -20,16 +20,6 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   end,
 })
 
--- resize splits if window got resized
-vim.api.nvim_create_autocmd({ "VimResized" }, {
-  group = augroup("resize_splits"),
-  callback = function()
-    local current_tab = vim.fn.tabpagenr()
-    vim.cmd("tabdo wincmd =")
-    vim.cmd("tabnext " .. current_tab)
-  end,
-})
-
 -- wrap and check for spell in text filetypes
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("wrap_spell"),
@@ -37,6 +27,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
+    vim.opt_local.linebreak = true
   end,
 })
 
@@ -76,17 +67,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.ejs", "*.ejs.t" },
   callback = function()
     vim.opt_local.filetype = "embedded_template"
-  end,
-})
-
--- wrap, linebreak and spellcheck on markdown and text files
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("ft_wrap_spell"),
-  pattern = { "markdown", "text", "gitcommit" },
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.linebreak = true
-    vim.opt_local.spell = true
   end,
 })
 
