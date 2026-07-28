@@ -10,6 +10,7 @@ vim.pack.add({
   -- theme packages
   { src = "https://github.com/rose-pine/neovim" },
   { src = "https://github.com/folke/tokyonight.nvim" },
+  { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
   { src = "https://github.com/brenoprata10/nvim-highlight-colors" },
   -- ============================================================================
   {
@@ -84,5 +85,6 @@ require("rose-pine").setup({
   },
 })
 
--- Active colorscheme; rose-pine above is configured but not applied
-vim.cmd.colorscheme("tokyonight")
+require("catppuccin").setup({})
+
+vim.cmd.colorscheme("catppuccin-mocha")
