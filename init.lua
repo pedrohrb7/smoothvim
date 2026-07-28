@@ -21,6 +21,7 @@ vim.pack.add({
   { src = "https://github.com/nvim-java/nvim-java" },
   { src = "https://github.com/sphamba/smear-cursor.nvim" },
   { src = "https://github.com/coder/claudecode.nvim" },
+  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 
   -- ============================================================================
   -- Dependencies for some plugins
@@ -52,6 +53,7 @@ require("mini.pairs").setup({}) -- auto-close brackets/quotes
 require("mini.comment").setup({}) -- gc/gcc comment toggling
 require("mini.surround").setup({}) -- add/change/delete surrounding pairs (quotes, tags, ...)
 require("nvim-highlight-colors").setup({})
+require("render-markdown").setup({})
 require("java").setup() -- nvim-java: JDTLS/Java LSP wiring, must run before LSP attaches to Java files
 
 -- ============================================================================
