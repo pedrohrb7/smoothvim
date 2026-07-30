@@ -45,3 +45,15 @@ keymap.set("n", "<leader>hb", '<cmd>lua require"gitsigns".blame_line{full=true}<
 keymap.set("n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>", opts) -- "GitSigns Show Hunk Preview" })
 keymap.set("n", "<leader>td", "<cmd>Gitsigns toggle_deleted<CR>", opts) -- "GitSigns Toggle Deleted" })
 keymap.set("n", "<leader>hB", "<cmd>Gitsigns toggle_current_line_blame<CR>", opts)
+
+-- "O que eu editei" — status do repo do ARQUIVO atual (fugitive é buffer-aware)
+keymap.set("n", "<leader>gs", "<cmd>Git<CR>", { desc = "Git status (repo do arquivo atual)" })
+
+keymap.set("n", "<leader>gD", function()
+  local root = vim.fs.root(0, ".git")
+  if root then
+    vim.cmd("DiffviewOpen -C" .. vim.fn.fnameescape(root))
+  else
+    vim.notify("Sem repositório git para este arquivo", vim.log.levels.WARN)
+  end
+end, { desc = "Diffview do repo do arquivo atual" })

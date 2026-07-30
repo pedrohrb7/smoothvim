@@ -60,8 +60,31 @@ require("java").setup() -- nvim-java: JDTLS/Java LSP wiring, must run before LSP
 -- ============================================================================
 -- PLUGIN CONFIGS
 -- ============================================================================
-require("claudecode").setup()
-vim.keymap.set("n", "<leader>cl", "<cmd>ClaudeCode<CR>", { desc = "Toggle Claude Code" })
+require("claudecode").setup({
+  terminal = {
+    provider = "snacks", -- você já tem o snacks; tira o Claude da briga de splits
+    snacks_win_opts = {
+      position = "right", -- painel à direita, porém FLUTUANTE (não entra na grade de splits)
+      width = 0.35, -- 35% da largura
+      height = 1.0, -- altura cheia
+      border = "rounded",
+      keys = {
+        -- Esconde o Claude (sem matar o processo) direto do modo terminal.
+        -- <leader> não funciona bem em modo terminal, por isso um Ctrl.
+        claude_hide = {
+          "<C-,>",
+          function(self)
+            self:hide()
+          end,
+          mode = "t",
+          desc = "Esconder Claude",
+        },
+      },
+    },
+  },
+})
+-- vim.keymap.set("n", "<leader>cl", "<cmd>ClaudeCode<CR>", { desc = "Toggle Claude Code" })
+vim.keymap.set({ "n", "x" }, "<leader>cl", "<cmd>ClaudeCodeFocus<cr>", { desc = "Claude Code (toggle/focus)" })
 
 require("smear_cursor").setup({
   never_draw_over_target = true, -- don't smear across the actual cursor target (e.g. cmdline)
