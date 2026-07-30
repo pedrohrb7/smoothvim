@@ -237,7 +237,13 @@ do
   local black = require("efmls-configs.formatters.black")
 
   local prettier_d = require("efmls-configs.formatters.prettier_d")
-  local eslint_d = require("efmls-configs.linters.eslint_d")
+  -- Plain eslint, not eslint_d: eslint_d is a shared long-lived daemon, and
+  -- efmls-configs resolves its local-binary path once at startup (relative to
+  -- Neovim's cwd), so in a multi-folder workspace with projects on different
+  -- ESLint majors (e.g. v8 vs v9) the daemon gets reused across incompatible
+  -- versions and throws (e.g. "scopeManager.addGlobals is not a function").
+  -- Plain eslint spawns a fresh process per lint, so it can't cross-poison.
+  local eslint = require("efmls-configs.linters.eslint")
 
   local fixjson = require("efmls-configs.formatters.fixjson")
 
@@ -251,6 +257,25 @@ do
   local gofumpt = require("efmls-configs.formatters.gofumpt")
 
   vim.lsp.config("efm", {
+    -- Prefer the nearest subproject marker over the parent folder's .git so efm
+    -- (and the eslint_d/prettier_d tools it drives) anchors per-subproject in a
+    -- multi-folder workspace. '.git' stays as a fallback for non-JS/TS projects.
+    root_markers = {
+      {
+        "eslint.config.js",
+        "eslint.config.mjs",
+        "eslint.config.cjs",
+        ".eslintrc",
+        ".eslintrc.js",
+        ".eslintrc.cjs",
+        ".eslintrc.json",
+        "package.json",
+        "pyproject.toml",
+        "go.mod",
+        "Cargo.toml",
+      },
+      { ".git" },
+    },
     filetypes = {
       "c",
       "cpp",
@@ -278,18 +303,18 @@ do
         cpp = { clangfmt, cpplint },
         css = { prettier_d },
         html = { prettier_d },
-        javascript = { eslint_d, prettier_d },
-        javascriptreact = { eslint_d, prettier_d },
-        json = { eslint_d, fixjson },
-        jsonc = { eslint_d, fixjson },
+        javascript = { eslint, prettier_d },
+        javascriptreact = { eslint, prettier_d },
+        json = { eslint, fixjson },
+        jsonc = { eslint, fixjson },
         lua = { luacheck, stylua },
         markdown = { prettier_d },
         python = { flake8, black },
         sh = { shellcheck, shfmt },
-        typescript = { eslint_d, prettier_d },
-        typescriptreact = { eslint_d, prettier_d },
-        vue = { eslint_d, prettier_d },
-        svelte = { eslint_d, prettier_d },
+        typescript = { eslint, prettier_d },
+        typescriptreact = { eslint, prettier_d },
+        vue = { eslint, prettier_d },
+        svelte = { eslint, prettier_d },
       },
     },
   })
@@ -439,33 +464,47 @@ cmp.setup.cmdline(":", {
 })
 
 -- ===========================================================
--- Lint config to use eslint from the project
+-- Lint config to use eslint from the project.
+-- Plain eslint only, not eslint_d: eslint_d is a shared long-lived daemon and
+-- in a multi-folder workspace with projects on different ESLint majors (e.g.
+-- v8 vs v9), it gets reused across incompatible versions and throws (e.g.
+-- "scopeManager.addGlobals is not a function"). Plain eslint spawns a fresh
+-- process per lint, so it can't cross-poison between subprojects.
 lint.linters_by_ft = {
-  typescript = { "eslint_d", "eslint" },
-  javascript = { "eslint_d", "eslint" },
-  typescriptreact = { "eslint_d", "eslint" },
-  javascriptreact = { "eslint_d", "eslint" },
+  typescript = { "eslint" },
+  javascript = { "eslint" },
+  typescriptreact = { "eslint" },
+  javascriptreact = { "eslint" },
   -- kotlin = { 'ktlint' },
 }
-local eslint = lint.linters.eslint_d
--- local eslint = util.from_node_modules("eslint_d")
-eslint.args = {
-  -- "--no-warn-ignored", -- <-- this is the key argument
-  "--ignore", -- <-- this is the key argument
-  "--format",
-  "json",
-  "--stdin",
-  "--stdin-filename",
-  function()
-    return vim.api.nvim_buf_get_name(0)
-  end,
-}
+-- Resolve the eslint binary from the nearest node_modules/.bin walking up from
+-- the buffer being linted, not from getcwd(). In a multi-folder workspace
+-- getcwd() is the parent folder that opened Neovim, so the default
+-- './node_modules/.bin/eslint' lookup used by nvim-lint's bundled linter
+-- misses each subproject's local install.
+lint.linters.eslint.cmd = function()
+  local bufname = vim.api.nvim_buf_get_name(0)
+  local root = vim.fs.root(bufname, "node_modules")
+  if root then
+    local local_bin = root .. "/node_modules/.bin/eslint"
+    if vim.fn.executable(local_bin) == 1 then
+      return local_bin
+    end
+  end
+  return "eslint"
+end
 
 local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
   group = lint_augroup,
   callback = function()
-    lint.try_lint()
+    -- ESLint's own config discovery (flat config in particular) walks up from
+    -- the process cwd, not from --stdin-filename. In a multi-folder workspace
+    -- Neovim's cwd is the parent folder that was opened, so without this the
+    -- linter process silently finds no config and reports zero diagnostics.
+    local bufname = vim.api.nvim_buf_get_name(0)
+    local cwd = vim.fs.root(bufname, "node_modules") or vim.fn.getcwd()
+    lint.try_lint(nil, { cwd = cwd })
   end,
 })
