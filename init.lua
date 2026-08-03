@@ -64,7 +64,7 @@ require("claudecode").setup({
   terminal = {
     provider = "snacks", -- você já tem o snacks; tira o Claude da briga de splits
     snacks_win_opts = {
-      position = "right", -- painel à direita, porém FLUTUANTE (não entra na grade de splits)
+      position = "left", -- painel à esquerda, porém FLUTUANTE (não entra na grade de splits)
       width = 0.35, -- 35% da largura
       height = 1.0, -- altura cheia
       border = "rounded",
