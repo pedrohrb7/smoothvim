@@ -84,7 +84,7 @@ require("claudecode").setup({
   },
 })
 -- vim.keymap.set("n", "<leader>cl", "<cmd>ClaudeCode<CR>", { desc = "Toggle Claude Code" })
-vim.keymap.set({ "n", "x" }, "<leader>cl", "<cmd>ClaudeCodeFocus<cr>", { desc = "Claude Code (toggle/focus)" })
+vim.keymap.set({ "n", "x", "t" }, "<leader>cl", "<cmd>ClaudeCodeFocus<cr>", { desc = "Claude Code (toggle/focus)" })
 
 require("smear_cursor").setup({
   never_draw_over_target = true, -- don't smear across the actual cursor target (e.g. cmdline)
