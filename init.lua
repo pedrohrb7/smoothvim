@@ -1,8 +1,6 @@
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = "\\"
 
-require("smoothvim.config")
-
 vim.pack.add({
   { src = "https://www.github.com/echasnovski/mini.nvim" },
   { src = "https://github.com/brenoprata10/nvim-highlight-colors" },
@@ -26,7 +24,7 @@ vim.pack.add({
   { src = "https://github.com/folke/snacks.nvim" },
 })
 
-require("java").setup() -- nvim-java: JDTLS/Java LSP wiring, must run before LSP attaches to Java files
+require("smoothvim.config")
 require("smoothvim.packs")
 
 require("mini.notify").setup({
@@ -43,6 +41,7 @@ require("mini.pairs").setup({}) -- auto-close brackets/quotes
 require("mini.comment").setup({}) -- gc/gcc comment toggling
 require("mini.surround").setup({}) -- add/change/delete surrounding pairs (quotes, tags, ...)
 
+require("java").setup()
 require("nvim-highlight-colors").setup({})
 require("render-markdown").setup({})
 
@@ -79,4 +78,3 @@ require("smear_cursor").setup({
   smear_insert_mode = false, -- disable the trailing effect while typing in insert mode
   cursor_color = "#FF48B0",
 })
-
