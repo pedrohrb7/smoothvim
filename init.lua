@@ -84,7 +84,7 @@ require("claudecode").setup({
   },
 })
 -- vim.keymap.set("n", "<leader>cl", "<cmd>ClaudeCode<CR>", { desc = "Toggle Claude Code" })
-vim.keymap.set({ "n", "x" }, "<leader>cl", "<cmd>ClaudeCodeFocus<cr>", { desc = "Claude Code (toggle/focus)" })
+vim.keymap.set({ "n", "x", "t" }, "<leader>cl", "<cmd>ClaudeCodeFocus<cr>", { desc = "Claude Code (toggle/focus)" })
 
 require("smear_cursor").setup({
   never_draw_over_target = true, -- don't smear across the actual cursor target (e.g. cmdline)
@@ -108,6 +108,15 @@ require("rose-pine").setup({
   },
 })
 
-require("catppuccin").setup({})
+require("catppuccin").setup({
+  transparent_background = true,
+  no_italic = true, -- Force no italic
+  no_bold = true, -- Force no bold
+  no_underline = false, -- Force no underline
+  styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+    comments = { "italic" }, -- Change the style of comments
+    conditionals = { "italic" },
+  },
+})
 
 vim.cmd.colorscheme("catppuccin-mocha")
