@@ -1,5 +1,7 @@
-require("smoothvim.packs.lualine")
+-- require("smoothvim.packs.lualine")
+require("smoothvim.packs.statusline")
 require("smoothvim.packs.telescope")
 require("smoothvim.packs.lsp")
 require("smoothvim.packs.neotree")
 require("smoothvim.packs.git")
+require("smoothvim.packs.theme")
