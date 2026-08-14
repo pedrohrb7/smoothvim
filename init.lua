@@ -1,21 +1,14 @@
--- Leader used for all custom <leader>-prefixed keymaps (see smoothvim.config.keymaps)
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = "\\"
 
--- Declares every plugin to fetch/load via Neovim's built-in plugin manager (vim.pack).
--- Setup/config for these happens below and in smoothvim.packs; this block only declares sources.
+require("smoothvim.config")
+
 vim.pack.add({
   { src = "https://www.github.com/echasnovski/mini.nvim" },
-  -- ============================================================================
-  -- theme packages
-  { src = "https://github.com/rose-pine/neovim" },
-  { src = "https://github.com/folke/tokyonight.nvim" },
-  { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
   { src = "https://github.com/brenoprata10/nvim-highlight-colors" },
   -- ============================================================================
   {
     src = "https://github.com/JavaHello/spring-boot.nvim",
-    -- pinned commit: avoids breakage from upstream changes until bumped intentionally
     version = "218c0c26c14d99feca778e4d13f5ec3e8b1b60f0",
   },
   { src = "https://github.com/mfussenegger/nvim-dap" },
@@ -33,13 +26,9 @@ vim.pack.add({
   { src = "https://github.com/folke/snacks.nvim" },
 })
 
--- smoothvim.config: core options, keymaps, autocmds
--- smoothvim.packs: per-plugin setup for lualine, telescope, lsp, neo-tree, git
-require("smoothvim.config")
+require("java").setup() -- nvim-java: JDTLS/Java LSP wiring, must run before LSP attaches to Java files
 require("smoothvim.packs")
 
--- mini.nvim modules: each submodule is set up independently, only what's needed
--- notify: popup notifications, anchored bottom-right (SE) above the last two lines
 require("mini.notify").setup({
   window = {
     config = {
@@ -53,9 +42,9 @@ require("mini.icons").setup({}) -- icon provider used by neo-tree/lualine/etc.
 require("mini.pairs").setup({}) -- auto-close brackets/quotes
 require("mini.comment").setup({}) -- gc/gcc comment toggling
 require("mini.surround").setup({}) -- add/change/delete surrounding pairs (quotes, tags, ...)
+
 require("nvim-highlight-colors").setup({})
 require("render-markdown").setup({})
-require("java").setup() -- nvim-java: JDTLS/Java LSP wiring, must run before LSP attaches to Java files
 
 -- ============================================================================
 -- PLUGIN CONFIGS
@@ -83,7 +72,6 @@ require("claudecode").setup({
     },
   },
 })
--- vim.keymap.set("n", "<leader>cl", "<cmd>ClaudeCode<CR>", { desc = "Toggle Claude Code" })
 vim.keymap.set({ "n", "x", "t" }, "<leader>cl", "<cmd>ClaudeCodeFocus<cr>", { desc = "Claude Code (toggle/focus)" })
 
 require("smear_cursor").setup({
@@ -91,23 +79,3 @@ require("smear_cursor").setup({
   smear_insert_mode = false, -- disable the trailing effect while typing in insert mode
   cursor_color = "#FF48B0",
 })
-
-require("tokyonight").setup({
-  transparent = true,
-  styles = {
-    -- Background styles. Can be "dark", "transparent" or "normal"
-    sidebars = "transparent",
-    floats = "dark",
-  },
-  lualine_bold = true,
-})
-
-require("rose-pine").setup({
-  styles = {
-    transparency = false,
-  },
-})
-
-require("catppuccin").setup({})
-
-vim.cmd.colorscheme("catppuccin-mocha")
