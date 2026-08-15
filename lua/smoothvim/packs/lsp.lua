@@ -5,7 +5,6 @@ vim.pack.add({
   { src = "https://github.com/creativenull/efmls-configs-nvim" },
 
   { src = "https://github.com/neovim/nvim-lspconfig" },
-  { src = "https://github.com/ray-x/lsp_signature.nvim" },
   { src = "https://github.com/antosha417/nvim-lsp-file-operations" },
 
   { src = "https://github.com/hrsh7th/nvim-cmp" },
@@ -25,7 +24,11 @@ vim.pack.add({
 })
 
 require("mason").setup({})
-require("mason-lspconfig").setup()
+-- automatic_enable = false: server enabling is done explicitly via the
+-- vim.lsp.enable({...}) call below, so an install via Mason alone doesn't
+-- silently start a server we never configured.
+require("mason-lspconfig").setup({ automatic_enable = false })
+require("lsp-file-operations").setup()
 
 local conform = require("conform")
 local util = require("conform.util")
@@ -86,10 +89,19 @@ local function lsp_on_attach(ev)
   local bufnr = ev.buf
   local opts = { noremap = true, silent = true, buffer = bufnr }
 
+  if client:supports_method("textDocument/inlayHint") then
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  end
+
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
   vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-  vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
+  vim.keymap.set(
+    "n",
+    "<leader>d",
+    vim.diagnostic.open_float,
+    vim.tbl_extend("force", opts, { desc = "Show line diagnostics" })
+  )
   vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
   vim.keymap.set("n", "<leader>xx", ":Telescope diagnostics<CR>", opts)
 
@@ -151,7 +163,6 @@ vim.lsp.config("lua_ls", {
     },
   },
 })
-vim.lsp.enable("jdtls")
 vim.lsp.config("dockerls", {})
 vim.lsp.config("jsonls", {})
 vim.lsp.config("cssls", {})
@@ -182,7 +193,6 @@ vim.lsp.config("clangd", {})
 
 do
   local luacheck = require("efmls-configs.linters.luacheck")
-  local stylua = require("efmls-configs.formatters.stylua")
 
   local flake8 = require("efmls-configs.linters.flake8")
   local black = require("efmls-configs.formatters.black")
@@ -202,7 +212,6 @@ do
   local shfmt = require("efmls-configs.formatters.shfmt")
 
   local cpplint = require("efmls-configs.linters.cpplint")
-  local clangfmt = require("efmls-configs.formatters.clang_format")
 
   local go_revive = require("efmls-configs.linters.go_revive")
   local gofumpt = require("efmls-configs.formatters.gofumpt")
@@ -227,43 +236,41 @@ do
       },
       { ".git" },
     },
+    -- css, javascript(react), typescript(react) and markdown are deliberately
+    -- absent: conform already formats them directly (see conform.setup below)
+    -- and, once their formatter is dropped here, efm would have nothing left
+    -- to do for them - attaching would just be a useless client.
     filetypes = {
       "c",
       "cpp",
-      "css",
       "go",
       "html",
-      "javascript",
-      "javascriptreact",
       "json",
       "jsonc",
       "lua",
-      "markdown",
       "python",
       "sh",
-      "typescript",
-      "typescriptreact",
       "vue",
       "svelte",
     },
     init_options = { documentFormatting = true },
     settings = {
       languages = {
-        c = { clangfmt, cpplint },
+        -- clangfmt/stylua/etc. dropped below wherever conform.setup already
+        -- owns formatting for that filetype, to avoid two tools formatting
+        -- the same file (potentially with diverging output).
+        c = { cpplint },
         go = { gofumpt, go_revive },
-        cpp = { clangfmt, cpplint },
-        css = { prettier_d },
+        cpp = { cpplint },
         html = { prettier_d },
-        javascript = { eslint, prettier_d },
-        javascriptreact = { eslint, prettier_d },
-        json = { eslint, fixjson },
+        -- eslint omitted for js/jsx/ts/tsx: nvim-lint already lints them with
+        -- per-buffer local-binary + cwd resolution (see below); keeping it
+        -- in efm too would double every ESLint diagnostic.
+        json = { eslint },
         jsonc = { eslint, fixjson },
-        lua = { luacheck, stylua },
-        markdown = { prettier_d },
+        lua = { luacheck },
         python = { flake8, black },
         sh = { shellcheck, shfmt },
-        typescript = { eslint, prettier_d },
-        typescriptreact = { eslint, prettier_d },
         vue = { eslint, prettier_d },
         svelte = { eslint, prettier_d },
       },
@@ -280,6 +287,10 @@ vim.lsp.enable({
   "clangd",
   "efm",
   "jdtls",
+  "dockerls",
+  "jsonls",
+  "cssls",
+  "emmet_ls",
 })
 
 -- ===========================================================
@@ -390,6 +401,7 @@ cmp.setup({
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
+    { name = "dotenv" },
   }),
 })
 
