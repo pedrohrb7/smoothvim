@@ -1,14 +1,57 @@
 vim.pack.add({
   { src = "https://github.com/nvim-telescope/telescope.nvim" },
   { src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
+
+  { src = "https://github.com/3rd/image.nvim" },
 })
 
 local telescope = require("telescope")
 local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
+local previewers = require("telescope.previewers")
+local image_api = require("image").setup({
+  backend = "kitty",
+  processor = "magick_cli",
+  max_width_window_percentage = 80,
+  max_height_window_percentage = 80,
+})
+
+local image_extensions = { "png", "jpg", "jpeg", "gif", "webp", "avif", "bmp" }
+
+local current_image = nil
+local current_image_path = nil
+
+local function is_image(filepath)
+  local ext = filepath:match("^.+%.(%a+)$")
+  return ext ~= nil and vim.tbl_contains(image_extensions, ext:lower())
+end
+
+local function image_buffer_previewer_maker(filepath, bufnr, opts)
+  if current_image and current_image_path ~= filepath then
+    current_image:clear()
+    current_image = nil
+  end
+  current_image_path = filepath
+
+  if is_image(filepath) then
+    local ok, img = pcall(image_api.from_file, filepath, {
+      window = opts.winid,
+      buffer = bufnr,
+    })
+    if ok and img then
+      current_image = img
+      current_image:render()
+    else
+      previewers.buffer_previewer_maker(filepath, bufnr, opts)
+    end
+  else
+    previewers.buffer_previewer_maker(filepath, bufnr, opts)
+  end
+end
 
 telescope.setup({
   defaults = {
+    buffer_previewer_maker = image_buffer_previewer_maker,
     path_display = { "smart" },
     file_ignore_patterns = {
       "node_modules",

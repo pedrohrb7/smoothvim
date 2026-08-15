@@ -22,23 +22,29 @@ $ nvim
 - xclip
 - ripgrep
 - Nerd Font
+- ImageMagick (for Telescope image preview via image.nvim)
 
 ### Structure
 
 ```
-├── init.lua
-├── lua
-│   └── smoothvim
-│       ├── config
-│       │   ├── autocmds.lua
-│       │   ├── cmp.lua
-│       │   ├── core.lua
-│       │   ├── formatter.lua
-│       │   ├── keymaps.lua
-│       │   ├── lint.lua
-│       │   ├── lsp.lua
-│       │   └── theme.lua
-│       └── plugins/packs
+|-- init.lua
+|-- lua
+|   `-- smoothvim
+|       |-- config
+|       |   |-- autocmds.lua
+|       |   |-- core.lua
+|       |   |-- init.lua
+|       |   `-- keymaps.lua
+|       `-- packs
+|           |-- git.lua
+|           |-- image.lua
+|           |-- init.lua
+|           |-- lsp.lua
+|           |-- neotree.lua
+|           |-- statusline.lua
+|           |-- telescope.lua
+|           `-- theme.lua
+|-- nvim-pack-lock.json
 ```
 
 ### Related projects and inspirations
@@ -47,4 +53,4 @@ $ nvim
 - [SpaceVim](https://github.com/wsdjeg/SpaceVim)
 - [TerminalRoot](https://www.youtube.com/TerminalRootTV)
 
-- Last config based on -> ["https://www.youtube.com/watch?v=lljs_7xB7Ps"]
+- Last config inspired by -> ["https://www.youtube.com/watch?v=lljs_7xB7Ps"]
