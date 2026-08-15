@@ -13,7 +13,6 @@ vim.pack.add({
   { src = "https://github.com/nvim-java/nvim-java" },
   { src = "https://github.com/sphamba/smear-cursor.nvim" },
   { src = "https://github.com/coder/claudecode.nvim" },
-  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 
   -- ============================================================================
   -- Dependencies for some plugins
@@ -43,7 +42,6 @@ require("mini.surround").setup({}) -- add/change/delete surrounding pairs (quote
 
 require("java").setup()
 require("nvim-highlight-colors").setup({})
-require("render-markdown").setup({})
 
 -- ============================================================================
 -- PLUGIN CONFIGS
@@ -72,6 +70,11 @@ require("claudecode").setup({
   },
 })
 vim.keymap.set({ "n", "x", "t" }, "<leader>cl", "<cmd>ClaudeCodeFocus<cr>", { desc = "Claude Code (toggle/focus)" })
+
+local Snacks = require("snacks")
+vim.keymap.set({ "n", "t" }, "<leader>tt", function()
+  Snacks.terminal.toggle(nil, { win = { position = "float", border = "rounded" } })
+end, { desc = "Toggle terminal (snacks, float)" })
 
 require("smear_cursor").setup({
   never_draw_over_target = true, -- don't smear across the actual cursor target (e.g. cmdline)

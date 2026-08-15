@@ -1,7 +1,6 @@
 vim.pack.add({
   { src = "https://github.com/williamboman/mason.nvim" },
   { src = "https://github.com/williamboman/mason-lspconfig.nvim" },
-  { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
 
   { src = "https://github.com/creativenull/efmls-configs-nvim" },
 
@@ -14,6 +13,7 @@ vim.pack.add({
   { src = "https://github.com/hrsh7th/cmp-buffer" },
   { src = "https://github.com/hrsh7th/cmp-cmdLine" },
   { src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
+
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/SergioRibera/cmp-dotenv" },
   { src = "https://github.com/saadparwaiz1/cmp_luasnip" },
@@ -27,23 +27,6 @@ vim.pack.add({
 require("mason").setup({})
 require("mason-lspconfig").setup()
 
-require("mason-tool-installer").setup({
-  ensure_installed = {
-    "lua_ls",
-    "ts_ls",
-    "eslint_d",
-    "tailwindcss-language-server",
-    "editorconfig-checker",
-    "vim-language-server",
-    "prettier", -- prettier formatter
-    "stylua", -- lua formatter
-    "cssls",
-    "lua-language-server",
-    "editorconfig-checker",
-    { "eslint_d" },
-    -- { "eslint_d", version = "13.1.2" },
-  },
-})
 local conform = require("conform")
 local util = require("conform.util")
 local lint = require("lint")
@@ -126,38 +109,6 @@ local function lsp_on_attach(ev)
       timeout_ms = 500,
     })
   end, opts)
-
-  -- vim.keymap.set("n", "<leader>nd", function()
-  --   vim.diagnostic.jump({ count = 1 })
-  -- end, opts)
-
-  -- vim.keymap.set("n", "<leader>pd", function()
-  --   vim.diagnostic.jump({ count = -1 })
-  -- end, opts)
-
-  -- vim.keymap.set("n", "<leader>fd", function()
-  --   require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
-  -- end, opts)
-
-  -- vim.keymap.set("n", "<leader>fr", function()
-  --   require("fzf-lua").lsp_references()
-  -- end, opts)
-
-  -- vim.keymap.set("n", "<leader>ft", function()
-  --   require("fzf-lua").lsp_typedefs()
-  -- end, opts)
-
-  -- vim.keymap.set("n", "<leader>fs", function()
-  --   require("fzf-lua").lsp_document_symbols()
-  -- end, opts)
-
-  -- vim.keymap.set("n", "<leader>fw", function()
-  --   require("fzf-lua").lsp_workspace_symbols()
-  -- end, opts)
-
-  -- vim.keymap.set("n", "<leader>fi", function()
-  --   require("fzf-lua").lsp_implementations()
-  -- end, opts)
 end
 
 vim.api.nvim_create_autocmd("LspAttach", { group = augroup, callback = lsp_on_attach })
