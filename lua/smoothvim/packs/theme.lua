@@ -23,6 +23,16 @@ local function patch_quiet()
 
   vim.api.nvim_set_hl(0, "StatusLine", { fg = "#dadada", bg = "NONE" })
   vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#707070", bg = "NONE" })
+
+  -- Neo-tree git status colors
+  local light_orange = "#FFB86C" -- new / added / untracked
+  local aquamarine = "#7FFFD4" -- modified
+  local light_gray = "#BFBFBF" -- ignored (not tracked)
+
+  vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = light_orange })
+  vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { fg = light_orange })
+  vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = aquamarine })
+  vim.api.nvim_set_hl(0, "NeoTreeGitIgnored", { fg = light_gray })
 end
 
 vim.api.nvim_create_autocmd("ColorScheme", {

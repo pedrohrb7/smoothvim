@@ -74,3 +74,11 @@ local Snacks = require("snacks")
 vim.keymap.set({ "n", "t" }, "<leader>tt", function()
   Snacks.terminal.toggle(nil, { win = { position = "float", border = "rounded" } })
 end, { desc = "Toggle terminal (snacks, float)" })
+
+vim.keymap.set({ "n", "t" }, "<leader>ld", function()
+  Snacks.terminal.toggle("lazydocker", { win = { position = "float", border = "rounded" } })
+end, { desc = "Toggle lazydocker (snacks, float)" })
+
+vim.keymap.set({ "n", "t" }, "<leader>lg", function()
+  Snacks.terminal.toggle("lazygit", { win = { position = "float", border = "rounded" } })
+end, { desc = "Toggle lazygit (snacks, float)" })

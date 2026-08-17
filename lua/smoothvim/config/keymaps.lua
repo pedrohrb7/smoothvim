@@ -58,3 +58,6 @@ keymap.set("n", "n", "nzzzv", { desc = "Next search result cursor centered" })
 keymap.set("n", "N", "Nzzzv", { desc = "Previous search result cursor centered" })
 
 keymap.set("n", "<leader>re", "<cmd>restart<cr>", { desc = "Restart config :restart)" })
+
+-- Spell checking
+keymap.set("n", "<leader>cs", "z=", { desc = "Show spelling suggestions" })
