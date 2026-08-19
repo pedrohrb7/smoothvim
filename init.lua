@@ -70,6 +70,41 @@ require("claudecode").setup({
 })
 vim.keymap.set({ "n", "x", "t" }, "<leader>cl", "<cmd>ClaudeCodeFocus<cr>", { desc = "Claude Code (toggle/focus)" })
 
+-- Snacks marca a janela do Claude com 'winfixwidth', que trava a largura ATUAL
+-- da janela (não os 35% configurados). Se todas as outras janelas forem
+-- fechadas, o Claude vira a única janela (100% de largura) e essa passa a ser
+-- sua largura "fixa"; ao abrir um novo arquivo depois, o Vim só divide esse
+-- espaço ~50/50 em vez de voltar para 35/65. Reforça os 35% sempre que o
+-- layout de janelas muda.
+local function claudecode_enforce_width()
+  local ok, term = pcall(require, "claudecode.terminal")
+  if not ok then
+    return
+  end
+  local bufnr = term.get_active_terminal_bufnr()
+  if not bufnr then
+    return
+  end
+  if #vim.api.nvim_tabpage_list_wins(0) < 2 then
+    return
+  end
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_buf(win) == bufnr then
+      local target = math.floor(vim.o.columns * 0.35)
+      if math.abs(vim.api.nvim_win_get_width(win) - target) > 1 then
+        vim.api.nvim_win_set_width(win, target)
+      end
+      return
+    end
+  end
+end
+
+vim.api.nvim_create_autocmd({ "WinNew", "WinClosed", "BufWinEnter", "VimResized" }, {
+  callback = function()
+    vim.schedule(claudecode_enforce_width)
+  end,
+})
+
 local Snacks = require("snacks")
 vim.keymap.set({ "n", "t" }, "<leader>tt", function()
   Snacks.terminal.toggle(nil, { win = { position = "float", border = "rounded" } })
