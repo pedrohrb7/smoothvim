@@ -4,10 +4,6 @@
       "rev": "0abc8f390b278c3b4aabc4c004ac8a088b65cf24",
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
-    "catppuccin": {
-      "rev": "05e8787020dcfdb937bf2ff23855ea2415b4e072",
-      "src": "https://github.com/catppuccin/nvim"
-    },
     "claudecode.nvim": {
       "rev": "2390c6e45c4789072c293ac69de051d169668b29",
       "src": "https://github.com/coder/claudecode.nvim"
@@ -88,10 +84,6 @@
       "rev": "44657837c7338e52727facc85c1d95bec1f6bd7c",
       "src": "https://www.github.com/echasnovski/mini.nvim"
     },
-    "neo-tree.nvim": {
-      "rev": "4d748ef6953ba0c3a6623dc0a775a5f5989aba70",
-      "src": "https://github.com/nvim-neo-tree/neo-tree.nvim"
-    },
     "neovim": {
       "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
       "src": "https://github.com/rose-pine/neovim"
@@ -132,10 +124,6 @@
       "rev": "0d7d35fa946837b8738b17c18d1faa1ac351e7f9",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
-    "oxocarbon.nvim": {
-      "rev": "cf49e389c22dab56224e43ae16422ddcd5b61b28",
-      "src": "https://github.com/nyoom-engineering/oxocarbon.nvim"
-    },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
@@ -164,10 +152,6 @@
     "telescope.nvim": {
       "rev": "7d324792b7943e4aa16ad007212e6acc6f9fe335",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
-    },
-    "tokyonight.nvim": {
-      "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
-      "src": "https://github.com/folke/tokyonight.nvim"
     },
     "vim-fugitive": {
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",

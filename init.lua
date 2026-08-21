@@ -20,6 +20,8 @@ vim.pack.add({
   { src = "https://github.com/nvim-lua/plenary.nvim" },
   -- Dependency to claude code plugin
   { src = "https://github.com/folke/snacks.nvim" },
+  -- Dependency to nvim-java
+  { src = "https://github.com/MunifTanjim/nui.nvim" },
 })
 
 require("smoothvim.config")
@@ -34,7 +36,7 @@ require("mini.notify").setup({
     },
   },
 })
-require("mini.icons").setup({}) -- icon provider used by neo-tree/lualine/etc.
+require("mini.icons").setup({}) -- icon provider used by lualine/etc.
 require("mini.pairs").setup({}) -- auto-close brackets/quotes
 require("mini.comment").setup({}) -- gc/gcc comment toggling
 require("mini.surround").setup({}) -- add/change/delete surrounding pairs (quotes, tags, ...)
@@ -70,12 +72,6 @@ require("claudecode").setup({
 })
 vim.keymap.set({ "n", "x", "t" }, "<leader>cl", "<cmd>ClaudeCodeFocus<cr>", { desc = "Claude Code (toggle/focus)" })
 
--- Snacks marca a janela do Claude com 'winfixwidth', que trava a largura ATUAL
--- da janela (não os 35% configurados). Se todas as outras janelas forem
--- fechadas, o Claude vira a única janela (100% de largura) e essa passa a ser
--- sua largura "fixa"; ao abrir um novo arquivo depois, o Vim só divide esse
--- espaço ~50/50 em vez de voltar para 35/65. Reforça os 35% sempre que o
--- layout de janelas muda.
 local function claudecode_enforce_width()
   local ok, term = pcall(require, "claudecode.terminal")
   if not ok then

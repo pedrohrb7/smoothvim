@@ -266,7 +266,7 @@ do
         -- eslint omitted for js/jsx/ts/tsx: nvim-lint already lints them with
         -- per-buffer local-binary + cwd resolution (see below); keeping it
         -- in efm too would double every ESLint diagnostic.
-        json = { eslint },
+        json = { eslint, fixjson },
         jsonc = { eslint, fixjson },
         lua = { luacheck },
         python = { flake8, black },

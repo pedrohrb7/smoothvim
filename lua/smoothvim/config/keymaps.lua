@@ -59,5 +59,9 @@ keymap.set("n", "N", "Nzzzv", { desc = "Previous search result cursor centered" 
 
 keymap.set("n", "<leader>re", "<cmd>restart<cr>", { desc = "Restart config :restart)" })
 
+-- Native file explorer (netrw)
+keymap.set("n", "<C-t>", ":Lexplore!<CR>", { desc = "Toggle file explorer" })
+keymap.set("n", "--", ":Lexplore! %:p:h<CR>", { desc = "Reveal file's directory in explorer" })
+
 -- Spell checking
 keymap.set("n", "<leader>cs", "z=", { desc = "Show spelling suggestions" })
