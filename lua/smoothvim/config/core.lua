@@ -1,8 +1,9 @@
 -- Here is the core config, nvim/vim config
 -- This config does not relates to any plugin config
 vim.cmd("let g:netrw_liststyle = 3")
-vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 25
+vim.g.netrw_keepdir = 0
+-- vim.g.netrw_banner = 0
+-- vim.g.netrw_winsize = 25
 vim.cmd("set completeopt+=noselect")
 
 vim.g.markdown_recommended_style = 0
