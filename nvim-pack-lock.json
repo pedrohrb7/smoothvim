@@ -84,6 +84,10 @@
       "rev": "44657837c7338e52727facc85c1d95bec1f6bd7c",
       "src": "https://www.github.com/echasnovski/mini.nvim"
     },
+    "neo-tree.nvim": {
+      "rev": "5e076e5419b95b13c29383e1de29270a50df2d40",
+      "src": "https://github.com/nvim-neo-tree/neo-tree.nvim"
+    },
     "neovim": {
       "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
       "src": "https://github.com/rose-pine/neovim"
