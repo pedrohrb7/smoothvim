@@ -306,7 +306,7 @@ conform.setup({
     scss = { "prettier" },
     json = { "prettier" },
     yaml = { "yamlfmt" },
-    markdown = { "prettier" },
+    markdown = { "prettier_md" },
     lua = { "stylua" },
     kotlin = { "ktlint" },
     cpp = { "clang-format" },
@@ -362,6 +362,14 @@ conform.setup({
         "prettier.config.mjs",
       }),
     },
+    -- Separate from `prettier` above: markdown files (notes, docs, this very
+    -- config repo) usually live outside any JS/TS project and have no
+    -- .prettierrc, so require_cwd=true would silently skip them entirely.
+    -- Prettier formats markdown fine with its own defaults, so don't require
+    -- a project config for it.
+    prettier_md = vim.tbl_deep_extend("force", require("conform.formatters.prettier"), {
+      require_cwd = false,
+    }),
   },
 })
 
