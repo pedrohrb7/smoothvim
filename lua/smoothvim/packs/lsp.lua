@@ -192,6 +192,58 @@ vim.lsp.config("gopls", {})
 vim.lsp.config("clangd", {})
 
 do
+  -- nvim-java runs jdtls itself on its own auto-installed JDK (unrelated to
+  -- this). This block only tells jdtls which JDKs it may hand to *projects*
+  -- for compiling/running, so jdtls can auto-pick the runtime matching each
+  -- project's source/target level instead of erroring when it differs from
+  -- whatever JDK happens to be on PATH. New sdkman JDK installs are picked
+  -- up automatically on next Neovim start; no manual entry needed here.
+  local function sdkman_java_runtimes()
+    local sdkman_java_dir = vim.fn.expand("~/.sdkman/candidates/java")
+    if vim.fn.isdirectory(sdkman_java_dir) == 0 then
+      return {}
+    end
+
+    local current = vim.fn.resolve(sdkman_java_dir .. "/current")
+    local runtimes = {}
+
+    for _, dir in ipairs(vim.fn.glob(sdkman_java_dir .. "/*", true, true)) do
+      if vim.fn.fnamemodify(dir, ":t") ~= "current" then
+        local release_file = dir .. "/release"
+        if vim.fn.filereadable(release_file) == 1 then
+          for _, line in ipairs(vim.fn.readfile(release_file)) do
+            local version = line:match('^JAVA_VERSION="?([%d.]+)')
+            if version then
+              -- "1.8.0" -> major "8"; "17.0.20" -> major "17".
+              local a, b = version:match("^(%d+)%.(%d+)")
+              local major = (a == "1") and b or a
+              table.insert(runtimes, {
+                name = "JavaSE-" .. major,
+                path = dir,
+                default = (dir == current) or nil,
+              })
+              break
+            end
+          end
+        end
+      end
+    end
+
+    return runtimes
+  end
+
+  vim.lsp.config("jdtls", {
+    settings = {
+      java = {
+        configuration = {
+          runtimes = sdkman_java_runtimes(),
+        },
+      },
+    },
+  })
+end
+
+do
   local luacheck = require("efmls-configs.linters.luacheck")
 
   local flake8 = require("efmls-configs.linters.flake8")
