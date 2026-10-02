@@ -44,15 +44,6 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   end,
 })
 
--- Set filetype for .env and .env.* files
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = augroup("env_filetype"),
-  pattern = { "*.env", ".env.*" },
-  callback = function()
-    vim.opt_local.filetype = "sh"
-  end,
-})
-
 -- Set filetype for .toml files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   group = augroup("toml_filetype"),

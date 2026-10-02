@@ -58,6 +58,8 @@ vim.opt.foldmethod = "expr" -- use expression for folding
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- use treesitter for folding
 vim.opt.foldlevel = 99 -- start with all folds open
 
+-- .env files must not be "sh": that attaches bashls/shellcheck, which flags
+-- every variable as unused (SC2034).
 vim.filetype.add({
   extension = {
     env = "dotenv",
