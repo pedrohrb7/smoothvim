@@ -190,6 +190,16 @@ vim.lsp.config("ts_ls", {
 })
 vim.lsp.config("gopls", {})
 vim.lsp.config("clangd", {})
+-- Installed via `rustup component add rust-analyzer` (not Mason) so it always
+-- matches the active toolchain. Formatting goes through conform (rustfmt).
+vim.lsp.config("rust_analyzer", {
+  settings = {
+    ["rust-analyzer"] = {
+      -- Run clippy on save instead of plain `cargo check`.
+      check = { command = "clippy" },
+    },
+  },
+})
 
 do
   -- nvim-java runs jdtls itself on its own auto-installed JDK (unrelated to
@@ -337,6 +347,7 @@ vim.lsp.enable({
   "ts_ls",
   "gopls",
   "clangd",
+  "rust_analyzer",
   "efm",
   "jdtls",
   "dockerls",
@@ -363,6 +374,7 @@ conform.setup({
     kotlin = { "ktlint" },
     cpp = { "clang-format" },
     c = { "clang-format" },
+    rust = { "rustfmt" },
     java = { "palantir-java-format" },
     xml = { "xmlformatter" },
   },
