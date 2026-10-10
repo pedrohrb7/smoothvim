@@ -369,7 +369,10 @@ conform.setup({
     scss = { "prettier" },
     json = { "prettier" },
     yaml = { "yamlfmt" },
-    markdown = { "prettier_md" },
+    -- prettierd first (installed via Mason, falls back to Prettier defaults when
+    -- there is no project config); prettier_md only if a `prettier` binary exists.
+    markdown = { "prettierd", "prettier_md", stop_after_first = true },
+    ["markdown.mdx"] = { "prettierd", "prettier_md", stop_after_first = true },
     lua = { "stylua" },
     kotlin = { "ktlint" },
     cpp = { "clang-format" },
