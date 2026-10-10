@@ -224,8 +224,8 @@ do
           for _, line in ipairs(vim.fn.readfile(release_file)) do
             local version = line:match('^JAVA_VERSION="?([%d.]+)')
             if version then
-              -- "1.8.0" -> major "8"; "17.0.20" -> major "17".
-              local a, b = version:match("^(%d+)%.(%d+)")
+              -- "1.8.0" -> major "8"; "17.0.20" -> major "17"; "21" -> major "21".
+              local a, b = version:match("^(%d+)%.?(%d*)")
               local major = (a == "1") and b or a
               table.insert(runtimes, {
                 name = "JavaSE-" .. major,
