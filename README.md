@@ -89,6 +89,22 @@ wezterm). A Nerd Font must be set as the terminal font.
 :checkhealth vim.pack mason vim.lsp conform telescope image
 ```
 
+### Themes
+
+Installed via `vim.pack` in `lua/smoothvim/packs/theme.lua`. Pick one with
+Telescope's colorscheme picker; the choice is persisted in
+`stdpath("state")/colorscheme`.
+
+Only the hand-written theme (`default` plus the overrides in `theme.lua`) has a
+transparent background; every other colorscheme keeps its own backgrounds. To
+make another theme transparent, use that theme's own option (e.g. tokyonight's
+`transparent = true`).
+
+- [tokyonight.nvim](https://github.com/folke/tokyonight.nvim) - `tokyonight`, `tokyonight-{night,storm,moon,day}`
+- [aura-theme](https://github.com/daltonmenezes/aura-theme) - `aura-dark`, `aura-soft-dark`, `aura-dark-soft-text`, `aura-soft-dark-soft-text`
+- [xero](https://github.com/xero/dotfiles) - `evangelion`, `miasma`, `sourcerer`
+- [gruvbox](https://github.com/morhetz/gruvbox) - `gruvbox`
+
 ### Structure
 
 ```
