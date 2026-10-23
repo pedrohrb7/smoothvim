@@ -24,10 +24,7 @@ vim.pack.add({
 })
 
 require("mason").setup({})
--- automatic_enable = false: server enabling is done explicitly via the
--- vim.lsp.enable({...}) call below, so an install via Mason alone doesn't
--- silently start a server we never configured.
-require("mason-lspconfig").setup({ automatic_enable = false })
+require("mason-lspconfig").setup({ automatic_enable = true })
 require("lsp-file-operations").setup()
 
 local conform = require("conform")
