@@ -58,8 +58,8 @@ $ rustup component add rust-analyzer rustfmt clippy
 
 ### 3. LSPs, linters and formatters (Mason)
 
-`mason-lspconfig` runs with `automatic_enable = false`, so nothing is
-installed for you. Inside Neovim:
+`mason-lspconfig` runs with `automatic_enable = true` (it enables installed
+servers) but does not install anything for you. Inside Neovim:
 
 ```
 :MasonInstall lua-language-server pyright bash-language-server typescript-language-server gopls clangd efm dockerfile-language-server json-lsp css-lsp emmet-ls
@@ -67,8 +67,20 @@ installed for you. Inside Neovim:
 :MasonInstall prettier yamlfmt stylua ktlint clang-format palantir-java-format xmlformatter
 ```
 
-ESLint is taken from each project's `node_modules`, so it doesn't need a
-global install.
+### JS/TS linting: ESLint or Oxlint
+
+Both are taken from each project's `node_modules`, so neither needs a global
+install. The linter is picked per project:
+
+- **ESLint** (via nvim-lint) runs only when an ESLint config is found walking
+  up from the file (`eslint.config.{js,mjs,cjs,ts,mts,cts}`, `.eslintrc*`, or
+  an `eslintConfig` field in `package.json`).
+- **Oxlint** (e.g. Vite's React template) runs as an LSP (`oxlint --lsp`) and
+  attaches only when an Oxlint config is found (`.oxlintrc.json`,
+  `.oxlintrc.jsonc`, `oxlint.config.ts`, or `oxlint` in `package.json`). It
+  provides diagnostics, code actions (`<leader>ca`) and `:LspOxlintFixAll`.
+
+A project with both configs gets both linters.
 
 ### 4. Java
 

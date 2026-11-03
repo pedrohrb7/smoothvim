@@ -185,6 +185,13 @@ vim.lsp.config("ts_ls", {
     },
   },
 })
+-- Oxlint (e.g. Vite's React template) via its built-in language server
+-- (`oxlint --lsp`), taken from the project's node_modules/.bin. The
+-- nvim-lspconfig definition is workspace_required and only attaches when an
+-- oxlint config (.oxlintrc.json, .oxlintrc.jsonc, oxlint.config.ts, or an
+-- oxlint/vite-plus package.json) is found, so ESLint-only projects are
+-- untouched. Provides diagnostics, code actions and :LspOxlintFixAll.
+vim.lsp.config("oxlint", {})
 vim.lsp.config("gopls", {})
 vim.lsp.config("clangd", {})
 -- Installed via `rustup component add rust-analyzer` (not Mason) so it always
@@ -342,6 +349,7 @@ vim.lsp.enable({
   "pyright",
   "bashls",
   "ts_ls",
+  "oxlint",
   "gopls",
   "clangd",
   "rust_analyzer",
@@ -529,17 +537,57 @@ lint.linters.eslint.cmd = function()
   return "eslint"
 end
 
+-- Only run ESLint when the buffer belongs to a project with an ESLint config.
+-- Projects that lint with oxlint instead (handled by the oxlint LSP above)
+-- usually have no eslint installed, and spawning it anyway would just error.
+local eslint_config_files = {
+  "eslint.config.js",
+  "eslint.config.mjs",
+  "eslint.config.cjs",
+  "eslint.config.ts",
+  "eslint.config.mts",
+  "eslint.config.cts",
+  ".eslintrc",
+  ".eslintrc.js",
+  ".eslintrc.cjs",
+  ".eslintrc.json",
+  ".eslintrc.yaml",
+  ".eslintrc.yml",
+}
+
+local function has_eslint_config(bufname)
+  if vim.fs.root(bufname, eslint_config_files) then
+    return true
+  end
+  -- Legacy `eslintConfig` field in package.json.
+  local pkg = vim.fs.find("package.json", { path = vim.fs.dirname(bufname), upward = true })[1]
+  if pkg then
+    local ok, data = pcall(vim.json.decode, table.concat(vim.fn.readfile(pkg), "\n"))
+    return ok and type(data) == "table" and data.eslintConfig ~= nil
+  end
+  return false
+end
+
 local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
   group = lint_augroup,
-  callback = function()
+  callback = function(ev)
+    local bufname = vim.api.nvim_buf_get_name(ev.buf)
+    local names = lint.linters_by_ft[vim.bo[ev.buf].filetype] or {}
+    if vim.tbl_contains(names, "eslint") and not has_eslint_config(bufname) then
+      names = vim.tbl_filter(function(n)
+        return n ~= "eslint"
+      end, names)
+    end
+    if #names == 0 then
+      return
+    end
     -- ESLint's own config discovery (flat config in particular) walks up from
     -- the process cwd, not from --stdin-filename. In a multi-folder workspace
     -- Neovim's cwd is the parent folder that was opened, so without this the
     -- linter process silently finds no config and reports zero diagnostics.
-    local bufname = vim.api.nvim_buf_get_name(0)
     local cwd = vim.fs.root(bufname, "node_modules") or vim.fn.getcwd()
-    lint.try_lint(nil, { cwd = cwd })
+    lint.try_lint(names, { cwd = cwd })
   end,
 })
