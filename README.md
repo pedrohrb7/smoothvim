@@ -83,7 +83,32 @@ image.nvim uses the `kitty` backend, so image previews only work in a
 terminal that supports the kitty graphics protocol (kitty, ghostty,
 wezterm). A Nerd Font must be set as the terminal font.
 
-### 6. Check
+### 6. Clipboard over SSH
+
+Locally, the clipboard goes through `xclip` / `wl-clipboard`. When Neovim runs
+inside an SSH session (`$SSH_TTY` is set), `core.lua` switches to the built-in
+OSC 52 provider instead, so no clipboard tool or X forwarding is needed on the
+remote machine:
+
+- `y` (any yank) - sent as an OSC 52 escape to the local terminal, which writes
+  it to the host clipboard.
+- `p` - pastes what was yanked inside this Neovim (local unnamed register). OSC
+  52 reads are not used: they are slow and kitty asks for confirmation on each.
+- Text copied on the host - paste it with the terminal (`Ctrl+Shift+V` in
+  kitty), in insert mode. Bracketed paste keeps the indentation intact.
+
+Requirements:
+
+- A terminal that supports OSC 52 writes (kitty, wezterm, ghostty, foot,
+  alacritty). kitty allows it by default (`clipboard_control`).
+- If tmux sits in between (locally or on the remote), it must forward OSC 52:
+
+  ```tmux
+  set-option -g set-clipboard on
+  set-option -as terminal-features ',xterm-kitty:clipboard'
+  ```
+
+### 7. Check
 
 ```
 :checkhealth vim.pack mason vim.lsp conform telescope image

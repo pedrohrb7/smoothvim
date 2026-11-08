@@ -46,6 +46,22 @@ opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or 
 -- clipboard
 opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
+-- Over SSH, xclip/wl-copy would hit the remote machine's clipboard (or none).
+-- Copy through OSC 52 instead, so yanks reach the local terminal's clipboard.
+-- Paste reads the local unnamed register: OSC 52 reads are slow and kitty asks
+-- for confirmation on each one. Paste host content with the terminal (Ctrl+Shift+V).
+if vim.env.SSH_TTY then
+  local osc52 = require("vim.ui.clipboard.osc52")
+  local function paste()
+    return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
+  end
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = { ["+"] = osc52.copy("+"), ["*"] = osc52.copy("*") },
+    paste = { ["+"] = paste, ["*"] = paste },
+  }
+end
+
 -- split windows
 opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
