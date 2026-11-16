@@ -13,10 +13,6 @@ keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decremen
 keymap.set("n", "<C-s>", "<cmd>:w<CR>", { desc = "Update file changes" })
 keymap.set("n", "<C-q>", "<cmd>:q<CR>", { desc = "Quit nvim" })
 
---  buffer navigation
-keymap.set("n", "<S-l>", ":bnext<CR>", { desc = "better way to navigate to next buffer" })
-keymap.set("n", "<S-h>", ":bprev<CR>", { desc = "better way to navigate to previous buffer" })
-
 -- Easily split windows
 vim.keymap.set("n", "<leader>wv", ":vsplit<cr>", { desc = "[W]indow Split [V]ertical" })
 vim.keymap.set("n", "<leader>wh", ":split<cr>", { desc = "[W]indow Split [H]orizontal" })

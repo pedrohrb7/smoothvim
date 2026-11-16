@@ -8,6 +8,10 @@
       "rev": "20924aa0a43975420edd0e0b2f919e07a3eff9c9",
       "src": "https://github.com/daltonmenezes/aura-theme"
     },
+    "barbar.nvim": {
+      "rev": "337ecfadb8bf005050990bf2f624dc4fc828dabd",
+      "src": "https://github.com/romgrk/barbar.nvim"
+    },
     "claudecode.nvim": {
       "rev": "2390c6e45c4789072c293ac69de051d169668b29",
       "src": "https://github.com/coder/claudecode.nvim"
