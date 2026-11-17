@@ -15,7 +15,7 @@ require("claudinho").setup({
   port_range = { min = 10000, max = 65535 },
   terminal_cmd = nil, -- comando do Claude; nil usa "claude"
   env = {}, -- variáveis de ambiente extras do terminal (strings)
-  log_level = "info", -- troque para "debug" ao investigar
+  log_level = "info", -- "trace" | "debug" | "info" | "warn" | "error"; use "debug" ao investigar
   track_selection = true,
   focus_after_send = false, -- foca o terminal depois de um envio aceito
   visual_demotion_delay_ms = 50,
@@ -23,7 +23,7 @@ require("claudinho").setup({
   connection_timeout = 10000, -- ms para o Claude conectar antes de a fila falhar com erro
   diff_opts = {
     layout = "vertical", -- "vertical" | "horizontal" | "unified"
-    open_in_new_tab = false,
+    open_in_new_tab = true,
     keep_terminal_focus = true, -- devolve o foco ao terminal quando o diff abre
     hide_terminal_in_new_tab = false, -- com open_in_new_tab, não mostra o terminal na nova aba
     on_new_file_reject = "keep_empty", -- "keep_empty" | "close_window"
@@ -38,7 +38,7 @@ require("claudinho").setup({
     { name = "Default (account recommended)", value = "default" },
   },
   window = {
-    layout = "right", -- "right" | "bottom" | "float" | "tab"
+    layout = "right", -- "left" | "right" | "bottom" | "float" | "tab"
     right = {
       width = 0.30, -- fração da largura do editor, em (0, 1)
       diff_width = nil, -- nil ou fração em (0, 1): largura com um diff aberto
@@ -67,7 +67,8 @@ keymap.set("v", "<leader>as", "<cmd>ClaudinhoSend<cr>", { desc = "Claude: send s
 keymap.set("n", "<leader>aa", "<cmd>ClaudinhoDiffAccept<cr>", { desc = "Claude: accept diff" })
 keymap.set("n", "<leader>ad", "<cmd>ClaudinhoDiffDeny<cr>", { desc = "Claude: deny diff" })
 
--- No neo-tree/netrw/oil: <leader>as adiciona o arquivo sob o cursor
+-- Nos exploradores de arquivos (neo-tree, netrw, oil, nvim-tree, mini.files):
+-- <leader>as adiciona o arquivo sob o cursor ao contexto do Claude
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("ClaudinhoTreeAdd", { clear = true }),
   pattern = { "neo-tree", "netrw", "oil", "NvimTree", "minifiles" },
