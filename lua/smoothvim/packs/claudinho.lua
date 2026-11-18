@@ -38,7 +38,7 @@ require("claudinho").setup({
     { name = "Default (account recommended)", value = "default" },
   },
   window = {
-    layout = "right", -- "left" | "right" | "bottom" | "float" | "tab"
+    layout = "left", -- "left" | "right" | "bottom" | "float" | "tab"
     right = {
       width = 0.30, -- fração da largura do editor, em (0, 1)
       diff_width = nil, -- nil ou fração em (0, 1): largura com um diff aberto
@@ -57,13 +57,10 @@ require("claudinho").setup({
 
 local keymap = vim.keymap
 
-keymap.set("n", "<leader>ac", "<cmd>Claudinho<cr>", { desc = "Claude: toggle" })
-keymap.set("n", "<leader>af", "<cmd>ClaudinhoFocus<cr>", { desc = "Claude: focus" })
-keymap.set("n", "<leader>ar", "<cmd>Claudinho --resume<cr>", { desc = "Claude: resume" })
-keymap.set("n", "<leader>aC", "<cmd>Claudinho --continue<cr>", { desc = "Claude: continue" })
-keymap.set("n", "<leader>am", "<cmd>ClaudinhoSelectModel<cr>", { desc = "Claude: select model" })
+keymap.set({ "n", "t", "i"}, "<leader>cl", "<cmd>Claudinho<cr>", { desc = "Claude: toggle" })
+keymap.set("n", "<leader>cf", "<cmd>ClaudinhoFocus<cr>", { desc = "Claude: focus" })
+keymap.set("n", "<leader>cr", "<cmd>Claudinho --resume<cr>", { desc = "Claude: resume" })
 keymap.set("n", "<leader>ab", "<cmd>ClaudinhoAdd %<cr>", { desc = "Claude: add current buffer" })
-keymap.set("v", "<leader>as", "<cmd>ClaudinhoSend<cr>", { desc = "Claude: send selection" })
 keymap.set("n", "<leader>aa", "<cmd>ClaudinhoDiffAccept<cr>", { desc = "Claude: accept diff" })
 keymap.set("n", "<leader>ad", "<cmd>ClaudinhoDiffDeny<cr>", { desc = "Claude: deny diff" })
 
