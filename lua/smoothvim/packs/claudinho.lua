@@ -1,14 +1,6 @@
--- claudinho.nvim (fork local do claudecode.nvim), carregado direto do repo de
--- desenvolvimento em vez de vim.pack: qualquer edição no repo vale ao reabrir o
--- Neovim, sem commit nem update. O módulo Lua ainda se chama "claudecode".
-local claudinho_dir = vim.fn.expand("~/workspaces/claudinho.nvim")
-
-if vim.fn.isdirectory(claudinho_dir) == 0 then
-  vim.notify("claudinho.nvim não encontrado em " .. claudinho_dir, vim.log.levels.WARN)
-  return
-end
-
-vim.opt.runtimepath:prepend(claudinho_dir)
+vim.pack.add({
+  { src = "https://github.com/pedrohrb7/claudinho.nvim", version = "develop" },
+})
 
 -- Payload default do Claudinho (lua/claudinho/config.lua), explícito para facilitar ajustes.
 require("claudinho").setup({
