@@ -16,6 +16,11 @@
       "rev": "2390c6e45c4789072c293ac69de051d169668b29",
       "src": "https://github.com/coder/claudecode.nvim"
     },
+    "claudinho.nvim": {
+      "rev": "8bf79de1daf289061e87b4eeee06eca76fe5b3db",
+      "src": "https://github.com/pedrohrb7/claudinho.nvim",
+      "version": "'develop'"
+    },
     "cmp-buffer": {
       "rev": "b74fab3656eea9de20a9b8116afa3cfc4ec09657",
       "src": "https://github.com/hrsh7th/cmp-buffer"

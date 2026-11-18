@@ -6,7 +6,8 @@ vim.pack.add({
 require("claudinho").setup({
   port_range = { min = 10000, max = 65535 },
   terminal_cmd = nil, -- comando do Claude; nil usa "claude"
-  env = {}, -- variáveis de ambiente extras do terminal (strings)
+  -- CLAUDE_CODE_NO_FLICKER = "1" faz o plugin ser fullscreen [classic | fullscreen]
+  env = { CLAUDE_CODE_NO_FLICKER = "1" }, -- variáveis de ambiente extras do terminal (strings)
   log_level = "info", -- "trace" | "debug" | "info" | "warn" | "error"; use "debug" ao investigar
   track_selection = true,
   focus_after_send = false, -- foca o terminal depois de um envio aceito
@@ -49,7 +50,7 @@ require("claudinho").setup({
 
 local keymap = vim.keymap
 
-keymap.set({ "n", "t", "i"}, "<leader>cl", "<cmd>Claudinho<cr>", { desc = "Claude: toggle" })
+keymap.set({ "n", "t", "i" }, "<leader>cl", "<cmd>Claudinho<cr>", { desc = "Claude: toggle" })
 keymap.set("n", "<leader>cf", "<cmd>ClaudinhoFocus<cr>", { desc = "Claude: focus" })
 keymap.set("n", "<leader>cr", "<cmd>Claudinho --resume<cr>", { desc = "Claude: resume" })
 keymap.set("n", "<leader>ab", "<cmd>ClaudinhoAdd %<cr>", { desc = "Claude: add current buffer" })
