@@ -5,6 +5,7 @@ vim.pack.add({
   { src = "https://github.com/xero/miasma.nvim" },
   { src = "https://github.com/xero/sourcerer.vim" },
   { src = "https://github.com/morhetz/gruvbox" },
+  { src = "https://github.com/maxmx03/solarized.nvim" },
 })
 
 -- aura-theme is a monorepo; the Neovim port lives in a subdirectory.
