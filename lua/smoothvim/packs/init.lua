@@ -1,4 +1,5 @@
 require("smoothvim.packs.statusline")
+require("smoothvim.packs.barbar")
 require("smoothvim.packs.telescope")
 require("smoothvim.packs.lsp")
 require("smoothvim.packs.git")
