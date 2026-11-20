@@ -48,21 +48,4 @@ require("claudinho").setup({
   },
 })
 
-local keymap = vim.keymap
-
-keymap.set({ "n", "t", "i" }, "<leader>cl", "<cmd>Claudinho<cr>", { desc = "Claude: toggle" })
-keymap.set("n", "<leader>cf", "<cmd>ClaudinhoFocus<cr>", { desc = "Claude: focus" })
-keymap.set("n", "<leader>cr", "<cmd>Claudinho --resume<cr>", { desc = "Claude: resume" })
-keymap.set("n", "<leader>ab", "<cmd>ClaudinhoAdd %<cr>", { desc = "Claude: add current buffer" })
-keymap.set("n", "<leader>aa", "<cmd>ClaudinhoDiffAccept<cr>", { desc = "Claude: accept diff" })
-keymap.set("n", "<leader>ad", "<cmd>ClaudinhoDiffDeny<cr>", { desc = "Claude: deny diff" })
-
--- Nos exploradores de arquivos (neo-tree, netrw, oil, nvim-tree, mini.files):
--- <leader>as adiciona o arquivo sob o cursor ao contexto do Claude
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("ClaudinhoTreeAdd", { clear = true }),
-  pattern = { "neo-tree", "netrw", "oil", "NvimTree", "minifiles" },
-  callback = function(ev)
-    keymap.set("n", "<leader>as", "<cmd>ClaudinhoTreeAdd<cr>", { buffer = ev.buf, desc = "Claude: add file" })
-  end,
-})
+vim.keymap.set({ "n", "t", "i" }, "<leader>cl", "<cmd>Claudinho<cr>", { desc = "Claude: toggle" })
