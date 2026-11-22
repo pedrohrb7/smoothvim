@@ -10,7 +10,7 @@ require("claudinho").setup({
   env = { CLAUDE_CODE_NO_FLICKER = "1" }, -- variáveis de ambiente extras do terminal (strings)
   log_level = "info", -- "trace" | "debug" | "info" | "warn" | "error"; use "debug" ao investigar
   track_selection = true,
-  focus_after_send = false, -- foca o terminal depois de um envio aceito
+  focus_after_send = true, -- foca o terminal depois de um envio aceito
   visual_demotion_delay_ms = 50,
   connection_wait_delay = 600, -- ms de espera após a conexão antes de enviar @-mentions na fila
   connection_timeout = 10000, -- ms para o Claude conectar antes de a fila falhar com erro
@@ -32,9 +32,14 @@ require("claudinho").setup({
   },
   window = {
     layout = "left", -- "left" | "right" | "bottom" | "float" | "tab"
+    keep_outermost = true, -- mantém o Claude como coluna mais externa (right/left) quando outra janela abre do lado
     right = {
       width = 0.30, -- fração da largura do editor, em (0, 1)
       diff_width = nil, -- nil ou fração em (0, 1): largura com um diff aberto
+    },
+    left = {
+      width = 0.40, -- como `right.width`, usado no layout "left"
+      diff_width = nil, -- como `right.diff_width`, usado no layout "left"
     },
     bottom = { height = 0.30 },
     float = { width = 0.80, height = 0.80 },
@@ -45,6 +50,7 @@ require("claudinho").setup({
   terminal = {
     auto_insert = true,
     fix_streamed_paste = "auto", -- true | false | "auto"
+    prompt_suggestions = false, -- false inicia as abas sem as sugestões de prompt do Claude
   },
 })
 

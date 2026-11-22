@@ -17,7 +17,7 @@
       "src": "https://github.com/coder/claudecode.nvim"
     },
     "claudinho.nvim": {
-      "rev": "8bf79de1daf289061e87b4eeee06eca76fe5b3db",
+      "rev": "1529795f2bd97cea3c9e0bf80048017a2fd7498c",
       "src": "https://github.com/pedrohrb7/claudinho.nvim",
       "version": "'develop'"
     },
